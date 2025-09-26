@@ -10,46 +10,92 @@
     audio.play();
   };
 </script>
+============================
+
 <button id="start">開始辨識</button>
-<div id="color-area" style="width:400px; height:200px; border:1px solid #000;">
-  請說顏色名稱（例如：紅色、藍色）
-</div>
+<div id="status" style="font-size:20px; margin-top:10px;">請點擊開始，說出顏色名稱</div>
 
 <script>
   const startBtn = document.getElementById('start');
-  const colorArea = document.getElementById('color-area');
+  const status = document.getElementById('status');
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
+  // 支援所有 CSS 顏色名稱 (取自 CSS 顏色列表)
+  const cssColors = [
+    "AliceBlue","AntiqueWhite","Aqua","Aquamarine","Azure","Beige","Bisque","Black","BlanchedAlmond",
+    "Blue","BlueViolet","Brown","BurlyWood","CadetBlue","Chartreuse","Chocolate","Coral","CornflowerBlue",
+    "Cornsilk","Crimson","Cyan","DarkBlue","DarkCyan","DarkGoldenRod","DarkGray","DarkGreen","DarkKhaki",
+    "DarkMagenta","DarkOliveGreen","DarkOrange","DarkOrchid","DarkRed","DarkSalmon","DarkSeaGreen",
+    "DarkSlateBlue","DarkSlateGray","DarkTurquoise","DarkViolet","DeepPink","DeepSkyBlue","DimGray",
+    "DodgerBlue","FireBrick","FloralWhite","ForestGreen","Fuchsia","Gainsboro","GhostWhite","Gold",
+    "GoldenRod","Gray","Green","GreenYellow","HoneyDew","HotPink","IndianRed","Indigo","Ivory",
+    "Khaki","Lavender","LavenderBlush","LawnGreen","LemonChiffon","LightBlue","LightCoral","LightCyan",
+    "LightGoldenRodYellow","LightGray","LightGreen","LightPink","LightSalmon","LightSeaGreen",
+    "LightSkyBlue","LightSlateGray","LightSteelBlue","LightYellow","Lime","LimeGreen","Linen","Magenta",
+    "Maroon","MediumAquaMarine","MediumBlue","MediumOrchid","MediumPurple","MediumSeaGreen",
+    "MediumSlateBlue","MediumSpringGreen","MediumTurquoise","MediumVioletRed","MidnightBlue","MintCream",
+    "MistyRose","Moccasin","NavajoWhite","Navy","OldLace","Olive","OliveDrab","Orange","OrangeRed",
+    "Orchid","PaleGoldenRod","PaleGreen","PaleTurquoise","PaleVioletRed","PapayaWhip","PeachPuff",
+    "Peru","Pink","Plum","PowderBlue","Purple","RebeccaPurple","Red","RosyBrown","RoyalBlue","SaddleBrown",
+    "Salmon","SandyBrown","SeaGreen","SeaShell","Sienna","Silver","SkyBlue","SlateBlue","SlateGray",
+    "Snow","SpringGreen","SteelBlue","Tan","Teal","Thistle","Tomato","Turquoise","Violet","Wheat",
+    "White","WhiteSmoke","Yellow","YellowGreen"
+  ];
+
   if (!SpeechRecognition) {
-    alert('瀏覽器不支援語音辨識');
+    alert('此瀏覽器不支援語音辨識');
   } else {
     const recognition = new SpeechRecognition();
-    recognition.lang = 'zh-TW'; // 設定中文語言
+    recognition.lang = 'zh-TW';
     recognition.interimResults = false;
     recognition.continuous = false;
 
     recognition.onresult = (event) => {
-      const colorSpoken = event.results[0][0].transcript.trim();
-      // 判斷顏色名稱，改變div背景色
-      if (['紅色', '紅'].includes(colorSpoken)) {
-        colorArea.style.backgroundColor = 'red';
-      } else if (['藍色', '藍'].includes(colorSpoken)) {
-        colorArea.style.backgroundColor = 'blue';
-      } else if (['綠色', '綠'].includes(colorSpoken)) {
-        colorArea.style.backgroundColor = 'green';
-      } else {
-        colorArea.textContent = '不認識這個顏色：' + colorSpoken;
-        return;
+      let spoken = event.results[0][0].transcript.trim();
+
+      // 中文顏色名稱及對應英文CSS色彩，舉例常用轉換
+      const colorMap = {
+        "紅色": "Red",
+        "藍色": "Blue",
+        "綠色": "Green",
+        "黃色": "Yellow",
+        "紫色": "Purple",
+        "黑色": "Black",
+        "白色": "White",
+        "灰色": "Gray",
+        "橙色": "Orange",
+        "粉紅色": "Pink",
+        "棕色": "Brown",
+        "青色": "Cyan",
+        "青綠色": "Aquamarine",
+        "金色": "Gold",
+        "銀色": "Silver"
+      };
+
+      // 中文轉英文（若有）
+      if (spoken in colorMap) {
+        spoken = colorMap[spoken];
       }
-      colorArea.textContent = '背景已變成：' + colorSpoken;
+
+      // 驗證是不是有效 CSS 顏色名稱（不區分大小寫）
+      const validColor = cssColors.find(c => c.toLowerCase() === spoken.toLowerCase());
+
+      if (validColor) {
+        document.body.style.backgroundColor = validColor;
+        status.textContent = '已變更背景色為：' + validColor;
+      } else {
+        status.textContent = '不認識的顏色：' + spoken;
+      }
     };
 
     recognition.onerror = (event) => {
+      status.textContent = '錯誤：' + event.error;
       console.error(event.error);
     };
 
     startBtn.onclick = () => {
       recognition.start();
+      status.textContent = '辨識中，請說出顏色名稱';
     };
   }
 </script>
