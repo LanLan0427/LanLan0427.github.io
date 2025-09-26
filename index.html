@@ -13,10 +13,12 @@
 
 <button id="start">開始辨識</button>
 <div id="status" style="font-size:20px; margin-top:10px;">請點擊開始，說出顏色名稱</div>
+<button id="button1">按鈕1</button>
 
 <script>
   const startBtn = document.getElementById('start');
   const status = document.getElementById('status');
+  const button1 = document.getElementById('button1');
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
   // 支援所有 CSS 顏色名稱 (取自 CSS 顏色列表)
@@ -98,5 +100,11 @@
       status.textContent = '辨識中，請說出顏色名稱';
     };
   }
+
+  button1.onclick = function() {
+    alert('有人按下按鈕1！');
+    // 或顯示在 status 區塊
+    // status.textContent = '有人按下按鈕1！';
+  };
 </script>
 
