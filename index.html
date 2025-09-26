@@ -1,40 +1,28 @@
-const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-
-  // 設定語言為中文
-  recognition.lang = 'zh-TW';
-
-// 設定為連續模式
-recognition.continuous = true;
-
-// 設定為顯示中間結果
-recognition.interimResults = true;
-
-// 開始語音識別
-recognition.start();
-
-// 當結果返回時觸發
-recognition.onresult = function(event) {
-    let finalTranscript = '';
-    let interimTranscript = '';
-
-    // 解析結果
-    for (let i = event.resultIndex; i < event.results.length; i++) {
-        const result = event.results[i];
-        if (result.isFinal) {
-            finalTranscript += result[0].transcript;
-        } else {
-            interimTranscript += result[0].transcript;
-        }
-    }
-
-    console.log('即時結果:', interimTranscript);
-    console.log('最終結果:', finalTranscript);
-};
-
-// 當語音識別結束後處理
-recognition.onend = function() {
-  // 重新啟動識別以保持持續監聽
-  recognition.start();
-};
 <audio controls autoplay src="laughing-dog-meme.mp3"></audio>
+<button id="start-btn">開始語音辨識</button>
+<p id="result"></p>
+
+<script>
+  var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (SpeechRecognition) {
+    var recognition = new SpeechRecognition();
+    recognition.lang = 'zh-TW'; // 設定語言為繁體中文
+    recognition.interimResults = false; // 是否顯示中間結果
+
+    recognition.onresult = function(event) {
+      var transcript = event.results[0][0].transcript; // 取得辨識結果
+      document.getElementById('result').textContent = transcript;
+    };
+
+    recognition.onerror = function(event) {
+      console.error(event.error);
+    };
+
+    document.getElementById('start-btn').onclick = function() {
+      recognition.start(); // 按鈕點擊開始辨識
+    };
+  } else {
+    alert('此瀏覽器不支援語音辨識功能');
+  }
+</script>
 
