@@ -10,3 +10,33 @@
     audio.play();
   };
 </script>
+<button id="start-btn">開始語音辨識</button>
+<p id="result"></p>
+<p id="error"></p>
+
+<script>
+  var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (SpeechRecognition) {
+    var recognition = new SpeechRecognition();
+    recognition.lang = 'zh-TW';
+    recognition.interimResults = false;
+
+    recognition.onresult = function(event) {
+      var transcript = event.results[0][0].transcript;
+      document.getElementById('result').textContent = transcript;
+    };
+
+    recognition.onerror = function(event) {
+      document.getElementById('error').textContent = '語音辨識錯誤：' + event.error;
+      console.error(event.error);
+    };
+
+    document.getElementById('start-btn').onclick = function() {
+      recognition.start();
+      document.getElementById('result').textContent = '偵測中...';
+      document.getElementById('error').textContent = '';
+    };
+  } else {
+    alert('此瀏覽器不支援語音辨識功能');
+  }
+</script>
