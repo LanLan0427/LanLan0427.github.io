@@ -102,9 +102,10 @@
   }
 
   button1.onclick = function() {
-    alert('有人按下按鈕1！');
-    // 或顯示在 status 區塊
-    // status.textContent = '有人按下按鈕1！';
+    fetch('https://twlanlan.me/notify', { method: 'POST' })
+      .then(() => {
+        alert('已通知！');
+      });
   };
 </script>
 
