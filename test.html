@@ -89,7 +89,11 @@
   });
 
   document.querySelector('button').onclick = function() {
-    fetch('https://so101-f8079-default-rtdb.firebaseio.com/notify', { method: 'POST' });
+    fetch('https://so101-f8079-default-rtdb.firebaseio.com/notify.json', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ time: Date.now() })
+    });
   }
 </script>
 
