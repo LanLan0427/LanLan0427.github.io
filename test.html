@@ -87,6 +87,10 @@
       body: payload.notification.body,
     });
   });
+
+  document.querySelector('button').onclick = function() {
+    fetch('https://so101-f8079-default-rtdb.asia-southeast1.firebasedatabase.app/notify', { method: 'POST' });
+  }
 </script>
 
     </div>
