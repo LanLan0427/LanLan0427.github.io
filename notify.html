@@ -6,6 +6,16 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <h1>通知頁面</h1>
+    <button id="notifyBtn">發送通知</button>
+
+    <script>
+        document.getElementById('notifyBtn').onclick = function() {
+            fetch('/notify', { method: 'POST' })
+                .then(() => {
+                    alert('已通知！');
+                });
+        };
+    </script>
 </body>
 </html>
