@@ -1,102 +1,83 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <title>隨意製作的網頁</title>
-    <style>
-        body {
-            font-family: "Microsoft JhengHei", Arial, sans-serif;
-            background: #f0f4f8;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 600px;
-            margin: 60px auto;
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-            padding: 40px;
-            text-align: center;
-        }
-        h1 {
-            color: #3498db;
-        }
-        p {
-            color: #555;
-            font-size: 1.2em;
-        }
-        button {
-            background: #3498db;
-            color: #fff;
-            border: none;
-            padding: 12px 28px;
-            border-radius: 6px;
-            font-size: 1em;
-            cursor: pointer;
-            margin-top: 24px;
-            transition: background 0.2s;
-        }
-        button:hover {
-            background: #217dbb;
-        }
-    </style>
+    <meta charset="UTF-8" />
+    <title>Firebase Push Demo</title>
 </head>
 <body>
-    <div class="container">
-        <h1>歡迎來到我的網頁！</h1>
-        <p>這是一個隨意製作的簡單 HTML 範例。</p>
-        
-        <!-- Firebase App (核心檔案) -->
-<script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app.js"></script>
-<!-- Firebase Cloud Messaging -->
-<script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-messaging.js"></script>
+    <h1>Firebase Web Push 範例</h1>
+    <button id="btnNotify">點我發通知</button>
 
-<script>
-  // 初始化Firebase設定（替換成自己的設定）
-  const firebaseConfig = {
-    apiKey: "AIzaSyCppoyrgeZsWad4Zss93GdjjTdlCybn5Zk",
-    authDomain: "so101-f8079.firebaseapp.com",
-    projectId: "so101-f8079",
-    storageBucket: "so101-f8079.firebasestorage.app",
-    messagingSenderId: "1035056506659",
-    appId: "1:1035056506659:web:93a76861ae259218bb8e96",
-    measurementId: "G-T9EQSHWP55"
-  };
-  const app = firebase.initializeApp(firebaseConfig);
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-messaging.js"></script>
 
-  // 初始化Firebase Messaging
-  const messaging = firebase.messaging();
+    <script>
+        // Firebase 專案設定
+        const firebaseConfig = {
+            apiKey: "AIzaSyCppoyrgeZsWad4Zss93GdjjTdlCybn5Zk",
+            authDomain: "so101-f8079.firebaseapp.com",
+            projectId: "so101-f8079",
+            storageBucket: "so101-f8079.appspot.com",
+            messagingSenderId: "1035056506659",
+            appId: "1:1035056506659:web:93a76861ae259218bb8e96",
+        };
 
-  // 請求使用者允許推播通知
-  Notification.requestPermission().then((permission) => {
-    if (permission === 'granted') {
-      console.log("推播權限允許");
-      messaging.getToken({ vapidKey: 'BGfelfswFUZMdLRyivB1nLI4QNKQIR7ZGP1_9AcDWq1GkTJHLwcUNPPcQAgXk1xH2mSrW5UH-RX-5fX1Z8XejBw' }).then((token) => {
-        console.log("Device token:", token);
-        // 這個token用來識別裝置，稍後需在伺服器儲存與使用
-      });
-    }
-  });
+        // 初始化 Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const messaging = firebase.messaging();
 
-  // 處理接收訊息
-  messaging.onMessage((payload) => {
-    console.log('Message received.', payload);
-    // 可用Notification API顯示通知
-    new Notification(payload.notification.title, {
-      body: payload.notification.body,
-    });
-  });
+        // 存放取得的 Token
+        let currentToken = null;
 
-  document.querySelector('button').onclick = function() {
-    fetch('https://so101-f8079-default-rtdb.firebaseio.com/notify.json', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ time: Date.now() })
-    });
-  }
-</script>
-<button onclick="alert('你好，世界！')">點我一下</button>
-    </div>
+        // 請求推播權限並取得 token
+        async function initFCM() {
+            try {
+                const permission = await Notification.requestPermission();
+                if (permission === "granted") {
+                    currentToken = await messaging.getToken({ vapidKey: 'BGfelfswFUZMdLRyivB1nLI4QNKQIR7ZGP1_9AcDWq1GkTJHLwcUNPPcQAgXk1xH2mSrW5UH-RX-5fX1Z8XejBw' });
+                    console.log("取得Token:", currentToken);
+
+                    // 將Token寫入Firebase Realtime Database
+                    await fetch('https://so101-f8079-default-rtdb.firebaseio.com/tokens/' + currentToken + '.json', {
+                        method: 'PUT',
+                        body: JSON.stringify(true)
+                    });
+                } else {
+                    console.log("推播權限被拒絕");
+                }
+            } catch (e) {
+                console.error("初始化推播失敗", e);
+            }
+        }
+
+        // 監聽按鈕點擊並寫入 notify node 通知後端
+        function setupButton() {
+            document.getElementById('btnNotify').onclick = async () => {
+                try {
+                    await fetch('https://so101-f8079-default-rtdb.firebaseio.com/notify.json', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ time: Date.now() })
+                    });
+                    console.log("通知寫入成功");
+                } catch (e) {
+                    console.error("通知寫入失敗", e);
+                }
+            };
+        }
+
+        // 初始化
+        initFCM();
+        setupButton();
+
+        // 接收前台訊息
+        messaging.onMessage((payload) => {
+            console.log("收到訊息:", payload);
+            new Notification(payload.notification.title, {
+                body: payload.notification.body
+            });
+        });
+    </script>
 </body>
 </html>
