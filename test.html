@@ -47,6 +47,48 @@
         <h1>歡迎來到我的網頁！</h1>
         <p>這是一個隨意製作的簡單 HTML 範例。</p>
         <button onclick="alert('你好，世界！')">點我一下</button>
+        <!-- Firebase App (核心檔案) -->
+<script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app.js"></script>
+<!-- Firebase Cloud Messaging -->
+<script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-messaging.js"></script>
+
+<script>
+  // 初始化Firebase設定（替換成自己的設定）
+  const firebaseConfig = {
+    apiKey: "AIzaSyCppoyrgeZsWad4Zss93GdjjTdlCybn5Zk",
+    authDomain: "so101-f8079.firebaseapp.com",
+    projectId: "so101-f8079",
+    storageBucket: "so101-f8079.firebasestorage.app",
+    messagingSenderId: "1035056506659",
+    appId: "1:1035056506659:web:93a76861ae259218bb8e96",
+    measurementId: "G-T9EQSHWP55"
+  };
+  const app = firebase.initializeApp(firebaseConfig);
+
+  // 初始化Firebase Messaging
+  const messaging = firebase.messaging();
+
+  // 請求使用者允許推播通知
+  Notification.requestPermission().then((permission) => {
+    if (permission === 'granted') {
+      console.log("推播權限允許");
+      messaging.getToken({ vapidKey: 'BGfelfswFUZMdLRyivB1nLI4QNKQIR7ZGP1_9AcDWq1GkTJHLwcUNPPcQAgXk1xH2mSrW5UH-RX-5fX1Z8XejBw' }).then((token) => {
+        console.log("Device token:", token);
+        // 這個token用來識別裝置，稍後需在伺服器儲存與使用
+      });
+    }
+  });
+
+  // 處理接收訊息
+  messaging.onMessage((payload) => {
+    console.log('Message received.', payload);
+    // 可用Notification API顯示通知
+    new Notification(payload.notification.title, {
+      body: payload.notification.body,
+    });
+  });
+</script>
+
     </div>
 </body>
 </html>
