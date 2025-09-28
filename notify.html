@@ -33,6 +33,11 @@
             const li = document.createElement('li');
             li.textContent = `時間: ${new Date(data.time).toLocaleString()}，按鈕ID: ${data.buttonId}`;
             notifyList.prepend(li); // 新的顯示在最上面
+
+            // 超過20筆時清理多餘的
+            while (notifyList.children.length > 20) {
+                notifyList.removeChild(notifyList.lastChild);
+            }
         });
     </script>
 </body>
