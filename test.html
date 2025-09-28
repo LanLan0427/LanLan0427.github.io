@@ -6,12 +6,14 @@
 </head>
 <body>
     <h1>Firebase Web Push 範例</h1>
-    <button id="btnNotify">點我發通知</button>
+    <button id="btn1">按鈕1</button>
+    <button id="btn2">按鈕2</button>
+    <button id="btn3">按鈕3</button>
+    <button id="btn4">按鈕4</button>
 
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-messaging.js"></script>
-
 
     <script>
         // Firebase 專案設定
@@ -52,28 +54,31 @@
             }
         }
 
-        // 監聽按鈕點擊並寫入 notify node 通知後端
-        function setupButton() {
-            document.getElementById('btnNotify').onclick = async (e) => {
-                try {
-                    await fetch('https://so101-f8079-default-rtdb.firebaseio.com/notify.json', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            time: Date.now(),
-                            buttonId: e.target.id // 傳送按鈕的ID
-                        })
-                    });
-                    console.log("通知寫入成功");
-                } catch (e) {
-                    console.error("通知寫入失敗", e);
-                }
-            };
+        // 監聽所有按鈕點擊並寫入 notify node 通知後端
+        function setupButtons() {
+            for (let i = 1; i <= 4; i++) {
+                const btn = document.getElementById('btn' + i);
+                btn.onclick = async (e) => {
+                    try {
+                        await fetch('https://so101-f8079-default-rtdb.firebaseio.com/notify.json', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                time: Date.now(),
+                                buttonId: e.target.id // 傳送按鈕的ID
+                            })
+                        });
+                        console.log("通知寫入成功：" + e.target.id);
+                    } catch (e) {
+                        console.error("通知寫入失敗", e);
+                    }
+                };
+            }
         }
 
         // 初始化
         initFCM();
-        setupButton();
+        setupButtons();
 
         // 接收前台訊息
         messaging.onMessage((payload) => {
