@@ -10,7 +10,17 @@
     <button id="btn2">按鈕2</button>
     <button id="btn3">按鈕3</button>
     <button id="btn4">按鈕4</button>
+    <img src="girl.png" alt="點擊播放音效" id="soundImg" style="cursor:pointer; width:200px;">
+    <audio id="audioPlayer" src="bird
+    .mp3"></audio>
+    <script>
+    const img = document.getElementById('soundImg');
+    const audio = document.getElementById('audioPlayer');
 
+    img.onclick = function() {
+        audio.play();
+    };
+    </script>
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-messaging.js"></script>
