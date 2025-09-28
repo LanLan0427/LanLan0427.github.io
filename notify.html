@@ -1,21 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="UTF-8" />
+    <title>Notify 監聽頁面</title>
 </head>
 <body>
-    <h1>通知頁面</h1>
-    <button id="notifyBtn">發送通知</button>
+    <h1>即時通知監聽</h1>
+    <ul id="notifyList"></ul>
 
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <script>
-        document.getElementById('notifyBtn').onclick = function() {
-            fetch('/notify', { method: 'POST' })
-                .then(() => {
-                    alert('已通知！');
-                });
+        // Firebase 設定
+        const firebaseConfig = {
+            apiKey: "AIzaSyCppoyrgeZsWad4Zss93GdjjTdlCybn5Zk",
+            authDomain: "so101-f8079.firebaseapp.com",
+            projectId: "so101-f8079",
+            storageBucket: "so101-f8079.appspot.com",
+            messagingSenderId: "1035056506659",
+            appId: "1:1035056506659:web:93a76861ae259218bb8e96",
+            databaseURL: "https://so101-f8079-default-rtdb.firebaseio.com"
         };
+        firebase.initializeApp(firebaseConfig);
+
+        const db = firebase.database();
+        const notifyList = document.getElementById('notifyList');
+
+        // 監聽 /notify 路徑有新資料時
+        db.ref('notify').on('child_added', function(snapshot) {
+            const data = snapshot.val();
+            const li = document.createElement('li');
+            li.textContent = `時間: ${new Date(data.time).toLocaleString()}，按鈕ID: ${data.buttonId}`;
+            notifyList.prepend(li); // 新的顯示在最上面
+        });
     </script>
 </body>
 </html>
