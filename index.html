@@ -1,126 +1,97 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <img src="img&music/girl.png" alt="點擊播放音效" id="soundImg" style="cursor:pointer; width:200px;">
-  <audio id="audioPlayer" src="img&music/laughing-dog-meme.mp3"></audio>
-  <script>
-  const img = document.getElementById('soundImg');
-  const audio = document.getElementById('audioPlayer');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LanLan0427 | Portfolio</title>
 
-  img.onclick = function() {
-    audio.play();
-  };
-</script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-<button id="start">開始辨識</button>
-<div id="status" style="font-size:20px; margin-top:10px;">請點擊開始，說出顏色名稱</div>
-<button id="button1">按鈕1</button>
-
-<script>
-  const startBtn = document.getElementById('start');
-  const status = document.getElementById('status');
-  const button1 = document.getElementById('button1');
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
-  // 支援所有 CSS 顏色名稱 (取自 CSS 顏色列表)
-  const cssColors = [
-    "AliceBlue","AntiqueWhite","Aqua","Aquamarine","Azure","Beige","Bisque","Black","BlanchedAlmond",
-    "Blue","BlueViolet","Brown","BurlyWood","CadetBlue","Chartreuse","Chocolate","Coral","CornflowerBlue",
-    "Cornsilk","Crimson","Cyan","DarkBlue","DarkCyan","DarkGoldenRod","DarkGray","DarkGreen","DarkKhaki",
-    "DarkMagenta","DarkOliveGreen","DarkOrange","DarkOrchid","DarkRed","DarkSalmon","DarkSeaGreen",
-    "DarkSlateBlue","DarkSlateGray","DarkTurquoise","DarkViolet","DeepPink","DeepSkyBlue","DimGray",
-    "DodgerBlue","FireBrick","FloralWhite","ForestGreen","Fuchsia","Gainsboro","GhostWhite","Gold",
-    "GoldenRod","Gray","Green","GreenYellow","HoneyDew","HotPink","IndianRed","Indigo","Ivory",
-    "Khaki","Lavender","LavenderBlush","LawnGreen","LemonChiffon","LightBlue","LightCoral","LightCyan",
-    "LightGoldenRodYellow","LightGray","LightGreen","LightPink","LightSalmon","LightSeaGreen",
-    "LightSkyBlue","LightSlateGray","LightSteelBlue","LightYellow","Lime","LimeGreen","Linen","Magenta",
-    "Maroon","MediumAquaMarine","MediumBlue","MediumOrchid","MediumPurple","MediumSeaGreen",
-    "MediumSlateBlue","MediumSpringGreen","MediumTurquoise","MediumVioletRed","MidnightBlue","MintCream",
-    "MistyRose","Moccasin","NavajoWhite","Navy","OldLace","Olive","OliveDrab","Orange","OrangeRed",
-    "Orchid","PaleGoldenRod","PaleGreen","PaleTurquoise","PaleVioletRed","PapayaWhip","PeachPuff",
-    "Peru","Pink","Plum","PowderBlue","Purple","RebeccaPurple","Red","RosyBrown","RoyalBlue","SaddleBrown",
-    "Salmon","SandyBrown","SeaGreen","SeaShell","Sienna","Silver","SkyBlue","SlateBlue","SlateGray",
-    "Snow","SpringGreen","SteelBlue","Tan","Teal","Thistle","Tomato","Turquoise","Violet","Wheat",
-    "White","WhiteSmoke","Yellow","YellowGreen"
-  ];
-
-  if (!SpeechRecognition) {
-    alert('此瀏覽器不支援語音辨識');
-  } else {
-    const recognition = new SpeechRecognition();
-    recognition.lang = 'zh-TW';
-    recognition.interimResults = false;
-    recognition.continuous = false;
-
-    recognition.onresult = (event) => {
-      let spoken = event.results[0][0].transcript.trim();
-
-      // 中文顏色名稱及對應英文CSS色彩，舉例常用轉換
-      const colorMap = {
-        "紅色": "Red",
-        "藍色": "Blue",
-        "綠色": "Green",
-        "黃色": "Yellow",
-        "紫色": "Purple",
-        "黑色": "Black",
-        "白色": "White",
-        "灰色": "Gray",
-        "橙色": "Orange",
-        "粉紅色": "Pink",
-        "棕色": "Brown",
-        "青色": "Cyan",
-        "青綠色": "Aquamarine",
-        "金色": "Gold",
-        "銀色": "Silver",
-        "屁眼": "GoldenRod"
-      };
-
-      // 中文轉英文（若有）
-      if (spoken in colorMap) {
-        spoken = colorMap[spoken];
-      }
-
-      // 驗證是不是有效 CSS 顏色名稱（不區分大小寫）
-      const validColor = cssColors.find(c => c.toLowerCase() === spoken.toLowerCase());
-
-      if (validColor) {
-        document.body.style.backgroundColor = validColor;
-        status.textContent = '已變更背景色為：' + validColor;
-      } else {
-        status.textContent = '不認識的顏色：' + spoken;
-      }
-    };
-
-    recognition.onerror = (event) => {
-      status.textContent = '錯誤：' + event.error;
-      console.error(event.error);
-    };
-
-    startBtn.onclick = () => {
-      recognition.start();
-      status.textContent = '辨識中，請說出顏色名稱';
-    };
-  }
-
-  button1.onclick = function() {
-    fetch('https://twlanlan.me/notify', { method: 'POST' })
-      .then(() => {
-        alert('已通知！');
-      });
-  };
-</script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
-  
+    <!-- Background Animation -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo">LanLan0427</a>
+        <div class="nav-links">
+            <a href="#about">關於我</a>
+            <a href="#projects">專案作品</a>
+            <a href="#contact">聯絡方式</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home">
+        <div class="container">
+            <h1>Hi, I'm <span class="neon-text">LanLan0427</span></h1>
+            <p style="font-size: 1.5rem; margin-bottom: 2rem; color: #aaa;">Welcome to my digital space.</p>
+            <a href="#projects" class="btn">View My Work</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2 class="neon-text" style="font-size: 2.5rem; margin-bottom: 2rem;">About Me</h2>
+            <div class="glass-card">
+                <p style="font-size: 1.1rem; line-height: 1.6;">
+                    你好！我是 LanLan0427。<br><br>
+                    這裡是我重新打造的個人網頁。我喜歡透過程式碼創造有趣且「酷酷」的東西。<br>
+                    目前這個網頁正在重構中，敬請期待更多內容！
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <h2 class="neon-text" style="font-size: 2.5rem; margin-bottom: 2rem;">Projects</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <!-- Project Card 1 -->
+                <div class="glass-card">
+                    <h3 style="margin-bottom: 1rem; color: var(--primary-color);">Project Alpha</h3>
+                    <p style="margin-bottom: 1.5rem; color: #ccc;">一個很酷的專案說明。</p>
+                    <a href="#" style="color: #fff; text-decoration: underline;">Learn More -></a>
+                </div>
+
+                <!-- Project Card 2 -->
+                <div class="glass-card">
+                    <h3 style="margin-bottom: 1rem; color: var(--secondary-color);">Project Beta</h3>
+                    <p style="margin-bottom: 1.5rem; color: #ccc;">另一個厲害的作品。</p>
+                    <a href="#" style="color: #fff; text-decoration: underline;">Learn More -></a>
+                </div>
+
+                <!-- Project Card 3 -->
+                <div class="glass-card">
+                    <h3 style="margin-bottom: 1rem; color: #fff;">Project Gamma</h3>
+                    <p style="margin-bottom: 1.5rem; color: #ccc;">正在開發中的秘密專案。</p>
+                    <a href="#" style="color: #fff; text-decoration: underline;">Learn More -></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container" style="text-align: center;">
+            <h2 class="neon-text" style="font-size: 2.5rem; margin-bottom: 2rem;">Get In Touch</h2>
+            <p style="margin-bottom: 2rem; color: #ccc;">有什麼有趣的想法嗎？隨時聯繫我！</p>
+            <a href="https://github.com/LanLan0427" target="_blank" class="btn">GitHub</a>
+        </div>
+    </section>
+
+    <!-- Custom JS -->
+    <script src="assets/js/main.js"></script>
 </body>
+
 </html>
-
-
-
-
-
-
-
