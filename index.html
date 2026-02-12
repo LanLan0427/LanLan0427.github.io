@@ -9,10 +9,14 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Courier+New&display=swap"
+        rel="stylesheet">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
@@ -24,6 +28,7 @@
         <a href="#" class="logo">LanLan0427</a>
         <div class="nav-links">
             <a href="#about">關於我</a>
+            <a href="#stats">統計數據</a>
             <a href="#projects">專案作品</a>
             <a href="#contact">聯絡方式</a>
         </div>
@@ -32,11 +37,55 @@
     <!-- Hero Section -->
     <section id="home">
         <div class="container">
-            <h1>Hi, I'm <span class="neon-text">LanLan0427</span></h1>
-            <p style="font-size: 1.5rem; margin-bottom: 2rem; color: #aaa;">Welcome to my digital space.</p>
-            <a href="#projects" class="btn">View My Work</a>
+            <div style="text-align: center;">
+                <h1>Hi, I'm <span class="neon-text">LanLan0427</span></h1>
+                <p style="font-size: 1.5rem; margin-bottom: 2rem; color: #aaa;">Welcome to my digital space.</p>
+                <a href="#projects" class="btn">View My Work</a>
+            </div>
+
+            <!-- Hacker Terminal -->
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-btn red"></div>
+                    <div class="terminal-btn yellow"></div>
+                    <div class="terminal-btn green"></div>
+                </div>
+                <div class="terminal-content">
+                    <div id="terminal-output"></div>
+                    <div class="command-line">
+                        <span class="prompt">guest@lanlan:~$</span>
+                        <input type="text" id="terminal-input" class="input-line" autofocus autocomplete="off">
+                        <span class="cursor"></span>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
+
+    <!-- Tech Stack Marquee -->
+    <div class="marquee-container">
+        <div class="marquee-content">
+            <span class="tech-item">Python</span>
+            <span class="tech-item">JavaScript</span>
+            <span class="tech-item">Google Apps Script</span>
+            <span class="tech-item">Gemini AI</span>
+            <span class="tech-item">Discord.js</span>
+            <span class="tech-item">Git</span>
+            <span class="tech-item">Docker</span>
+            <span class="tech-item">HTML5</span>
+            <span class="tech-item">CSS3</span>
+            <!-- Duplicate for infinite scroll effect -->
+            <span class="tech-item">Python</span>
+            <span class="tech-item">JavaScript</span>
+            <span class="tech-item">Google Apps Script</span>
+            <span class="tech-item">Gemini AI</span>
+            <span class="tech-item">Discord.js</span>
+            <span class="tech-item">Git</span>
+            <span class="tech-item">Docker</span>
+            <span class="tech-item">HTML5</span>
+            <span class="tech-item">CSS3</span>
+        </div>
+    </div>
 
     <!-- About Section -->
     <section id="about">
@@ -46,8 +95,25 @@
                 <p style="font-size: 1.1rem; line-height: 1.6;">
                     你好！我是 LanLan0427。<br><br>
                     這裡是我重新打造的個人網頁。我喜歡透過程式碼創造有趣且「酷酷」的東西。<br>
-                    目前這個網頁正在重構中，敬請期待更多內容！
+                    我目前專注於開發自動化機器人與 AI 應用，致力於將複雜的技術轉化為直觀的工具。
                 </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section id="stats">
+        <div class="container">
+            <h2 class="neon-text" style="font-size: 2.5rem; margin-bottom: 2rem;">GitHub Stats</h2>
+            <div class="stats-grid">
+                <div class="glass-card" style="padding: 1rem; display: flex; justify-content: center;">
+                    <img src="https://github-readme-stats.vercel.app/api?username=LanLan0427&show_icons=true&theme=transparent&title_color=00f3ff&text_color=ffffff&icon_color=00f3ff&bg_color=00000000&hide_border=true"
+                        alt="LanLan0427 Stats">
+                </div>
+                <div class="glass-card" style="padding: 1rem; display: flex; justify-content: center;">
+                    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=LanLan0427&layout=compact&theme=transparent&title_color=bc00dd&text_color=ffffff&bg_color=00000000&hide_border=true"
+                        alt="Top Languages">
+                </div>
             </div>
         </div>
     </section>
@@ -72,7 +138,6 @@
                         style="color: #fff; text-decoration: underline;">View on GitHub -></a>
                 </div>
 
-                <!-- MyWeatherBot -->
                 <!-- TaiwanWeatherBot -->
                 <div class="glass-card">
                     <h3 style="margin-bottom: 1rem; color: #ffd700;">TaiwanWeatherBot</h3>
@@ -111,6 +176,21 @@
                     <a href="https://github.com/LanLan0427" target="_blank" class="btn"
                         style="font-size: 0.9rem; padding: 0.8rem 2rem;">Visit Profile</a>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Notes -->
+    <section id="notes">
+        <div class="container">
+            <h2 class="neon-text" style="font-size: 2.5rem; margin-bottom: 2rem;">Learning Notes</h2>
+            <div class="glass-card">
+                <h3 style="margin-bottom: 1rem; color: #0f0;">Recent Focus</h3>
+                <ul style="list-style-type: none;">
+                    <li style="margin-bottom: 0.5rem;">[2026/02] 探索 Agentic AI 與 GitHub Copilot 的協作模式</li>
+                    <li style="margin-bottom: 0.5rem;">[2026/01] 實作 Google Gemini 2.5 Flash 的長文本摘要功能</li>
+                    <li style="margin-bottom: 0.5rem;">[2025/12] 深入 React + Vite 前端效能優化</li>
+                </ul>
             </div>
         </div>
     </section>

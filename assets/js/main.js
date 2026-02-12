@@ -1,19 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Canvas Background Animation
+    // Canvas Background Animation (Existing)
     const canvas = document.getElementById('bg-canvas');
     const ctx = canvas.getContext('2d');
-    
+
     let width, height;
     let particles = [];
-    
+
     function resize() {
         width = canvas.width = window.innerWidth;
         height = canvas.height = window.innerHeight;
     }
-    
+
     window.addEventListener('resize', resize);
     resize();
-    
+
     class Particle {
         constructor() {
             this.x = Math.random() * width;
@@ -23,36 +23,36 @@ document.addEventListener('DOMContentLoaded', () => {
             this.size = Math.random() * 150 + 50;
             this.color = Math.random() > 0.5 ? '#00f3ff' : '#bc00dd';
         }
-        
+
         update() {
             this.x += this.vx;
             this.y += this.vy;
-            
+
             if (this.x < -this.size) this.x = width + this.size;
             if (this.x > width + this.size) this.x = -this.size;
             if (this.y < -this.size) this.y = height + this.size;
             if (this.y > height + this.size) this.y = -this.size;
         }
-        
+
         draw() {
             ctx.beginPath();
             const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
             gradient.addColorStop(0, this.color);
             gradient.addColorStop(1, 'transparent');
-            
+
             ctx.fillStyle = gradient;
-            ctx.globalAlpha = 0.1; 
+            ctx.globalAlpha = 0.1;
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             ctx.fill();
         }
     }
-    
+
     function init() {
         for (let i = 0; i < 15; i++) {
             particles.push(new Particle());
         }
     }
-    
+
     function animate() {
         ctx.clearRect(0, 0, width, height);
         particles.forEach(p => {
@@ -61,10 +61,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         requestAnimationFrame(animate);
     }
-    
+
     init();
     animate();
-    
+
     // Smooth Scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -74,17 +74,48 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
-    
-    // Intersection Observer for fade-in animations
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
+
+    // Hacker Terminal Logic
+    const output = document.getElementById('terminal-output');
+    const input = document.getElementById('terminal-input');
+
+    if (input && output) {
+        const commands = {
+            'help': 'Available commands: about, skills, projects, contact, clear',
+            'about': 'I am LanLan0427, a developer who loves building cool things.',
+            'skills': 'Python, JavaScript, Discord.js, Gemini AI, Git, Docker, React',
+            'projects': 'Check out the Projects section below!',
+            'contact': 'GitHub: https://github.com/LanLan0427',
+            'clear': 'clear'
+        };
+
+        const printLine = (text) => {
+            const line = document.createElement('div');
+            line.textContent = text;
+            output.appendChild(line);
+            output.scrollTop = output.scrollHeight;
+        };
+
+        input.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                const cmd = this.value.trim().toLowerCase();
+                printLine(`guest@lanlan:~$ ${this.value}`);
+
+                if (commands[cmd]) {
+                    if (cmd === 'clear') {
+                        output.innerHTML = '';
+                    } else {
+                        printLine(commands[cmd]);
+                    }
+                } else if (cmd !== '') {
+                    printLine(`Command not found: ${cmd}. Type 'help' for available commands.`);
+                }
+
+                this.value = '';
             }
         });
-    }, { threshold: 0.1 });
-    
-    document.querySelectorAll('.animate-on-scroll').forEach((el) => {
-        observer.observe(el);
-    });
+
+        // Initial greeting
+        printLine('Welcome to LanLanOS v1.0. Type "help" to start.');
+    }
 });
