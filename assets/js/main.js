@@ -209,28 +209,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.value = '';
             }
         });
-
         // Initial greeting
         printLine('Welcome to LanLanOS v1.0. Type "help" to start.');
     }
 
-    // Discord Copy Logic
+    // Discord Copy Logic (Toast)
     const discordBtn = document.getElementById('discord-btn');
-    if (discordBtn) {
+    const toast = document.getElementById('toast');
+
+    if (discordBtn && toast) {
         discordBtn.addEventListener('click', (e) => {
             e.preventDefault();
             const discordId = 'lanlan0427';
-            navigator.clipboard.writeText(discordId).then(() => {
-                const originalHtml = discordBtn.innerHTML;
-                discordBtn.innerHTML = 'Copied! <i class="fas fa-check"></i>';
-                discordBtn.style.borderColor = '#27c93f';
-                discordBtn.style.color = '#27c93f';
 
+            navigator.clipboard.writeText(discordId).then(() => {
+                // Show Toast
+                toast.classList.add('show');
+
+                // Hide after 3 seconds
                 setTimeout(() => {
-                    discordBtn.innerHTML = originalHtml;
-                    discordBtn.style.borderColor = 'var(--secondary-color)';
-                    discordBtn.style.color = 'var(--secondary-color)';
-                }, 2000);
+                    toast.classList.remove('show');
+                }, 3000);
             }).catch(err => {
                 console.error('Failed to copy text: ', err);
             });
