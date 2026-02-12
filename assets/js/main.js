@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (input && output) {
         const commands = {
             'help': 'Available commands: about, skills, projects, contact, clear',
-            'about': 'I am LanLan0427, a developer who loves building cool things.',
+            'about': 'I am LanLan, a developer who loves building cool things.',
             'skills': 'Python, JavaScript, Discord.js, Gemini AI, Git, Docker, React',
             'projects': 'Check out the Projects section below!',
             'contact': 'GitHub: https://github.com/LanLan0427\nDiscord: lanlan0427',
