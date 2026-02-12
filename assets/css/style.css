@@ -74,6 +74,7 @@ h1 {
     font-size: 4rem;
     background: linear-gradient(135deg, #fff, var(--primary-color));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 1rem;
 }
@@ -112,7 +113,8 @@ section {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 4rem 0;
+    padding: 6rem 0;
+    /* Increased padding */
 }
 
 /* Navigation */
@@ -151,12 +153,15 @@ nav {
 
 /* Hacker Terminal */
 .terminal-window {
-    background: rgba(10, 10, 20, 0.9);
+    background: rgba(10, 10, 20, 0.95);
+    /* More opaque */
     border: 1px solid #333;
     border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 30px rgba(0, 243, 255, 0.1);
+    /* Subtle glow */
     font-family: var(--font-mono);
-    margin-top: 2rem;
+    margin-top: 4rem;
+    /* Increased margin */
     overflow: hidden;
     max-width: 800px;
     margin-left: auto;
@@ -223,12 +228,15 @@ nav {
 
 .input-line {
     border: none;
-    background: transparent;
+    background-color: transparent !important;
+    background: transparent !important;
     color: #0f0;
+    caret-color: #0f0;
     font-family: var(--font-mono);
     font-size: 0.9rem;
     width: 100%;
     outline: none;
+    box-shadow: none;
 }
 
 /* Tech Stack Marquee */
@@ -236,31 +244,37 @@ nav {
     overflow: hidden;
     white-space: nowrap;
     position: relative;
-    padding: 2rem 0;
-    background: rgba(0, 0, 0, 0.2);
-    margin-bottom: 4rem;
+    padding: 3rem 0;
+    background: rgba(0, 0, 0, 0.3);
+    margin-bottom: 6rem;
+    border-top: 1px solid rgba(0, 243, 255, 0.1);
+    border-bottom: 1px solid rgba(0, 243, 255, 0.1);
 }
 
 .marquee-content {
     display: inline-block;
-    animation: scroll 20s linear infinite;
+    animation: scroll 30s linear infinite;
 }
 
 .tech-item {
     display: inline-block;
-    padding: 0.5rem 2rem;
-    font-size: 1.2rem;
-    color: rgba(255, 255, 255, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-    margin: 0 1rem;
+    padding: 0.8rem 2.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+    border: none;
+    margin: 0 2rem;
     transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 .tech-item:hover {
     color: var(--primary-color);
-    border-color: var(--primary-color);
-    box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+    -webkit-text-stroke: 1px var(--primary-color);
+    text-shadow: 0 0 20px var(--primary-color);
+    transform: scale(1.1);
 }
 
 @keyframes scroll {
