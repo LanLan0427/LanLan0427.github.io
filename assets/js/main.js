@@ -149,4 +149,96 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // ---------------------------------------------------------
+    // Typewriter Effect (Hero Section)
+    // ---------------------------------------------------------
+    const typewriterElement = document.getElementById('typewriter-text');
+    if (typewriterElement) {
+        const phrases = [
+            'Welcome to my digital space.',
+            'I build cool things with Python.',
+            'I create Discord Bots.',
+            'I explore AI agents.'
+        ];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typeSpeed = 100;
+
+        function type() {
+            const currentPhrase = phrases[phraseIndex];
+
+            if (isDeleting) {
+                typewriterElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+                typeSpeed = 50; // Deleting speed
+            } else {
+                typewriterElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+                typeSpeed = 100; // Typing speed
+            }
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                isDeleting = true;
+                typeSpeed = 2000; // Pause at end
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typeSpeed = 500; // Pause before new phrase
+            }
+
+            setTimeout(type, typeSpeed);
+        }
+
+        type();
+    }
+
+    // ---------------------------------------------------------
+    // 3D Skill Sphere (TagCloud.js)
+    // ---------------------------------------------------------
+    const tagCloudContainer = document.getElementById('tagcloud-container');
+    if (tagCloudContainer) {
+        const myTags = [
+            'Python', 'JavaScript', 'HTML5', 'CSS3',
+            'Discord.js', 'Google Apps Script', 'Gemini AI',
+            'Git', 'GitHub', 'VS Code', 'Docker',
+            'API Integration', 'Automation', 'React'
+        ];
+
+        // Config for TagCloud
+        // Reference: https://github.com/mcc108/TagCloud
+        try {
+            TagCloud(tagCloudContainer, myTags, {
+                radius: 200, // Size of the sphere
+                maxSpeed: 'normal', // 'slow', 'normal', 'fast'
+                initSpeed: 'normal',
+                direction: 135,
+                keep: true, // Keep rolling after mouse leave
+                useContainerInlineStyles: false,
+                itemClass: 'tagcloud-item' // Add CSS class if needed
+            });
+        } catch (e) {
+            console.error('TagCloud failed to load:', e);
+            tagCloudContainer.innerHTML = 'Skills: ' + myTags.join(', ');
+        }
+
+        // Custom styling for tags via JS (optional, but ensures visibility)
+        const style = document.createElement('style');
+        style.innerHTML = `
+            .tagcloud-item {
+                font-size: 1.2rem;
+                font-family: 'Courier New', monospace;
+                color: #00f3ff;
+                text-shadow: 0 0 5px #00f3ff;
+                cursor: pointer;
+                transition: color 0.3s;
+            }
+            .tagcloud-item:hover {
+                color: #bc00dd;
+                text-shadow: 0 0 10px #bc00dd;
+            }
+        `;
+        document.head.appendChild(style);
+    }
 });
