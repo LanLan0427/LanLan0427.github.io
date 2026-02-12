@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const ctx = canvas.getContext('2d');
 
         let width, height;
-        let particles = [];
 
         function resize() {
             width = canvas.width = window.innerWidth;
@@ -15,51 +14,139 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('resize', resize);
         resize();
 
-        class Particle {
+        // Configuration
+        const STAR_COUNT = 150;
+        const SHOOTING_STAR_FREQ = 0.01; // Easy to adjust frequency
+
+        let stars = [];
+        let shootingStars = [];
+        let mouse = { x: width / 2, y: height / 2 };
+
+        // Mouse Move Event for Parallax
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        class Star {
             constructor() {
                 this.x = Math.random() * width;
                 this.y = Math.random() * height;
-                this.vx = Math.random() * 0.5 - 0.25;
-                this.vy = Math.random() * 0.5 - 0.25;
-                this.size = Math.random() * 150 + 50;
-                this.color = Math.random() > 0.5 ? '#00f3ff' : '#bc00dd';
+                this.size = Math.random() * 2;
+                this.speed = Math.random() * 0.05; // Parallax speed factor
+                this.brightness = Math.random();
             }
 
             update() {
-                this.x += this.vx;
-                this.y += this.vy;
+                // Parallax Effect: Move stars opposite to mouse
+                const dx = (width / 2 - mouse.x) * this.speed;
+                const dy = (height / 2 - mouse.y) * this.speed;
 
-                if (this.x < -this.size) this.x = width + this.size;
-                if (this.x > width + this.size) this.x = -this.size;
-                if (this.y < -this.size) this.y = height + this.size;
-                if (this.y > height + this.size) this.y = -this.size;
+                this.currentX = this.x + dx;
+                this.currentY = this.y + dy;
+
+                // Twinkle effect
+                this.brightness += (Math.random() - 0.5) * 0.1;
+                if (this.brightness > 1) this.brightness = 1;
+                if (this.brightness < 0.2) this.brightness = 0.2;
             }
 
             draw() {
                 ctx.beginPath();
-                const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
-                gradient.addColorStop(0, this.color);
-                gradient.addColorStop(1, 'transparent');
-
-                ctx.fillStyle = gradient;
-                ctx.globalAlpha = 0.1;
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.brightness})`;
+                ctx.arc(this.currentX, this.currentY, this.size, 0, Math.PI * 2);
                 ctx.fill();
             }
         }
 
+        class ShootingStar {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height * 0.5; // Start from top half
+                this.length = Math.random() * 80 + 20;
+                this.speed = Math.random() * 10 + 5;
+                this.angle = Math.PI / 4; // 45 degrees
+                this.opacity = 0;
+                this.active = false;
+                this.color = Math.random() > 0.5 ? '#00f3ff' : '#bc00dd'; // Cyan or Purple
+            }
+
+            ignite() {
+                this.active = true;
+                this.opacity = 1;
+                this.x = Math.random() * width * 1.5 - width * 0.5; // Wider spawn area
+                this.y = -50;
+            }
+
+            update() {
+                if (!this.active) return;
+
+                this.x += this.speed * Math.cos(this.angle);
+                this.y += this.speed * Math.sin(this.angle);
+                this.opacity -= 0.01;
+
+                if (this.opacity <= 0 || this.y > height || this.x > width) {
+                    this.active = false;
+                    this.reset();
+                }
+            }
+
+            draw() {
+                if (!this.active) return;
+
+                ctx.beginPath();
+                const tailX = this.x - this.length * Math.cos(this.angle);
+                const tailY = this.y - this.length * Math.sin(this.angle);
+
+                const gradient = ctx.createLinearGradient(this.x, this.y, tailX, tailY);
+                gradient.addColorStop(0, this.color);
+                gradient.addColorStop(1, 'transparent');
+
+                ctx.strokeStyle = gradient;
+                ctx.lineWidth = 2;
+                ctx.moveTo(this.x, this.y);
+                ctx.lineTo(tailX, tailY);
+                ctx.stroke();
+            }
+        }
+
         function init() {
-            for (let i = 0; i < 15; i++) {
-                particles.push(new Particle());
+            stars = [];
+            for (let i = 0; i < STAR_COUNT; i++) {
+                stars.push(new Star());
+            }
+            // Prepare a pool of shooting stars
+            for (let i = 0; i < 3; i++) {
+                shootingStars.push(new ShootingStar());
             }
         }
 
         function animate() {
-            ctx.clearRect(0, 0, width, height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
+            // Dark trail effect for cinematic feel
+            ctx.fillStyle = 'rgba(10, 10, 20, 0.2)'; // Dark blueish trail
+            ctx.fillRect(0, 0, width, height);
+
+            // Draw Stars
+            stars.forEach(star => {
+                star.update();
+                star.draw();
             });
+
+            // Handle Shooting Stars
+            if (Math.random() < SHOOTING_STAR_FREQ) {
+                const inactiveStar = shootingStars.find(s => !s.active);
+                if (inactiveStar) inactiveStar.ignite();
+            }
+
+            shootingStars.forEach(s => {
+                s.update();
+                s.draw();
+            });
+
             requestAnimationFrame(animate);
         }
 
