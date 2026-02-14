@@ -171,39 +171,75 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Hacker Terminal Logic
-    const output = document.getElementById('terminal-output');
+    const outputDiv = document.getElementById('terminal-output');
     const input = document.getElementById('terminal-input');
 
-    if (input && output) {
+    if (input && outputDiv) {
+        const helpText = {
+            'help': 'Display available commands and their descriptions',
+            'about': 'Learn more about me',
+            'skills': 'View my technical skills',
+            'projects': 'See my notable projects',
+            'contact': 'Get in touch with me',
+            'clear': 'Clear terminal output',
+            'education': 'View academic background'
+        };
+
         const commands = {
-            'help': 'Available commands: about, skills, projects, contact, clear',
-            'about': 'I am LanLan, a developer who loves building cool things.',
-            'skills': 'Python, JavaScript, Discord.js, Gemini AI, Git, Docker, React',
-            'projects': 'Check out the Projects section below!',
-            'contact': 'GitHub: https://github.com/LanLan0427\nDiscord: lanlan0427',
-            'clear': 'clear'
+            'help': () => {
+                let output = 'Available commands:<br>';
+                for (const [cmd, desc] of Object.entries(helpText)) {
+                    output += `<span class="cmd">${cmd}</span> - ${desc}<br>`;
+                }
+                return output;
+            },
+            'about': () => {
+                return 'Hi! I\'m LanLan, an AI Robotics & Simulation Developer.<br>Focusing on Agentic AI, Sim2Real, and Immersive Tech.';
+            },
+            'skills': () => {
+                return 'Languages: Python, JavaScript, C#<br>Core: ROS 2, Isaac Sim, Unity, Gemini AI<br>Tools: Docker, Git, Linux';
+            },
+            'projects': () => {
+                return 'Check out my <a href="#projects" style="color: var(--primary-color)">projects section</a> for details on:<br>- TaiwanWeatherBot<br>- AI Tech News Bot<br>- Voice-Assisted Robotic Arm';
+            },
+            'education': () => {
+                return '<strong>National Yunlin University of Science and Technology</strong><br>- Voice-Assisted Robotic Arm (Sim2Real)<br><br><strong>National Taichung University of Science and Technology</strong><br>- VR Biology Teaching Application';
+            },
+            'contact': () => {
+                return 'GitHub: <a href="https://github.com/LanLan0427" target="_blank" style="color: var(--primary-color)">@LanLan0427</a><br>Discord: lanlan0427';
+            },
+            'clear': () => {
+                outputDiv.innerHTML = '';
+                return '';
+            }
         };
 
         const printLine = (text) => {
             const line = document.createElement('div');
-            line.textContent = text;
-            output.appendChild(line);
-            output.scrollTop = output.scrollHeight;
+            line.innerHTML = text; // Use innerHTML for commands that return HTML
+            outputDiv.appendChild(line);
+            outputDiv.scrollTop = outputDiv.scrollHeight;
         };
+
+        function processCommand(cmd) {
+            const command = cmd.trim().toLowerCase();
+            if (commands[command]) {
+                return commands[command]();
+            } else if (command === '') {
+                return '';
+            } else {
+                return `Command not found: ${command}. Type "help" for a list of commands.`;
+            }
+        }
 
         input.addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
-                const cmd = this.value.trim().toLowerCase();
+                const cmd = this.value.trim();
                 printLine(`guest@lanlan:~$ ${this.value}`);
 
-                if (commands[cmd]) {
-                    if (cmd === 'clear') {
-                        output.innerHTML = '';
-                    } else {
-                        printLine(commands[cmd]);
-                    }
-                } else if (cmd !== '') {
-                    printLine(`Command not found: ${cmd}. Type 'help' for available commands.`);
+                const result = processCommand(cmd);
+                if (result !== '') {
+                    printLine(result);
                 }
 
                 this.value = '';
