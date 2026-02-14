@@ -326,10 +326,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const tagCloudContainer = document.getElementById('tagcloud-container');
     if (tagCloudContainer) {
         const myTags = [
-            'Python', 'JavaScript', 'HTML5', 'CSS3',
-            'Discord.js', 'Google Apps Script', 'Gemini AI',
-            'Git', 'GitHub', 'VS Code', 'Docker',
-            'API Integration', 'Automation', 'React'
+            'Python', 'ROS 2', 'Isaac Sim', 'LeRobot',
+            'Sim2Real', 'Unity 3D', 'C#', 'OpenCV',
+            'YOLOv8', 'NLP', 'Gemini AI', 'Discord.js',
+            'Git', 'Docker', 'Linux', 'VR/AR'
         ];
 
         // Config for TagCloud
