@@ -183,8 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'contact': 'Get in touch with me',
             'clear': 'Clear terminal output',
             'education': 'View academic background',
-            'experience': 'View work internship',
-            'competitions': 'View competition records'
+            'experience': 'View work internship'
         };
 
         const commands = {
@@ -209,9 +208,6 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             'experience': () => {
                 return '<strong>Shenyi Technology (Intern)</strong><br>- VR Field Engineer / Technical Support<br>- Deployed VR environments for multiple universities.<br>- Instructor for Kebbi Air Robot & Rokoko Mocap.';
-            },
-            'competitions': () => {
-                return '<strong>2025 Competitions:</strong><br>- 9th National Medical Engineering Creative Competition<br>- Yunchuang Cup AI x ESG Innovation Competition<br>- 30th National College Information Application Service Innovation Competition';
             },
             'contact': () => {
                 return 'GitHub: <a href="https://github.com/LanLan0427" target="_blank" style="color: var(--primary-color)">@LanLan0427</a><br>Discord: lanlan0427';
