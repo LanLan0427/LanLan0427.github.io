@@ -182,7 +182,9 @@ document.addEventListener('DOMContentLoaded', () => {
             'projects': 'See my notable projects',
             'contact': 'Get in touch with me',
             'clear': 'Clear terminal output',
-            'education': 'View academic background'
+            'education': 'View academic background',
+            'experience': 'View work internship',
+            'competitions': 'View competition records'
         };
 
         const commands = {
@@ -197,13 +199,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 return 'Hi! I\'m LanLan, an AI Robotics & Simulation Developer.<br>Focusing on Agentic AI, Sim2Real, and Immersive Tech.';
             },
             'skills': () => {
-                return 'Languages: Python, JavaScript, C#<br>Core: ROS 2, Isaac Sim, Unity, Gemini AI<br>Tools: Docker, Git, Linux';
+                return 'Languages: Python, JavaScript, C#<br>Core: ROS 2, Isaac Sim, Unity, Gemini AI<br>Models: SenseVoice, YOLOv8, LeRobot ACT';
             },
             'projects': () => {
-                return 'Check out my <a href="#projects" style="color: var(--primary-color)">projects section</a> for details on:<br>- TaiwanWeatherBot<br>- AI Tech News Bot<br>- Voice-Assisted Robotic Arm';
+                return 'Check out my <a href="#projects" style="color: var(--primary-color)">projects section</a> for details on:<br>- TaiwanWeatherBot<br>- Multimodal Robotic Arm<br>- AI Tech News Bot';
             },
             'education': () => {
-                return '<strong>National Yunlin University of Science and Technology</strong><br>- Voice-Assisted Robotic Arm (Sim2Real)<br><br><strong>National Taichung University of Science and Technology</strong><br>- VR Biology Teaching Application';
+                return '<strong>National Yunlin University of Science and Technology</strong><br>- Multimodal Robotic Arm System (Sim2Real)<br>  (5-Thread Pipeline: ASR, NLP, CV, ACT, TTS)<br><br><strong>National Taichung University of Science and Technology</strong><br>- VR Biology Teaching Application';
+            },
+            'experience': () => {
+                return '<strong>Shenyi Technology (Intern)</strong><br>- VR Field Engineer / Technical Support<br>- Deployed VR environments for multiple universities.<br>- Instructor for Kebbi Air Robot & Rokoko Mocap.';
+            },
+            'competitions': () => {
+                return '<strong>2025 Competitions:</strong><br>- 9th National Medical Engineering Creative Competition<br>- Yunchuang Cup AI x ESG Innovation Competition<br>- 30th National College Information Application Service Innovation Competition';
             },
             'contact': () => {
                 return 'GitHub: <a href="https://github.com/LanLan0427" target="_blank" style="color: var(--primary-color)">@LanLan0427</a><br>Discord: lanlan0427';
