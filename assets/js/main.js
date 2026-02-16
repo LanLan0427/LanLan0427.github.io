@@ -403,42 +403,109 @@ document.addEventListener('DOMContentLoaded', () => {
     const input = document.getElementById('terminal-input');
 
     if (input && outputDiv) {
-        const helpText = {
-            'help': 'Display available commands and their descriptions',
-            'about': 'Learn more about me',
-            'skills': 'View my technical skills',
-            'projects': 'See my notable projects',
-            'contact': 'Get in touch with me',
-            'clear': 'Clear terminal output',
-            'education': 'View academic background',
-            'experience': 'View work internship'
-        };
+        // ASCII Art Logo
+        const asciiLogo = [
+            '<span class="ascii-art">',
+            '  _                _                  ',
+            ' | |    __ _ _ __ | |    __ _ _ __     ',
+            ' | |   / _` | \'_ \\| |   / _` | \'_ \\   ',
+            ' | |__| (_| | | | | |__| (_| | | | |  ',
+            ' |_____\\__,_|_| |_|_____\\__,_|_| |_|  ',
+            '</span>',
+        ];
+
+        const welcomeLines = [
+            '',
+            ' <span class="terminal-dim">╔══════════════════════════════════════╗</span>',
+            ' <span class="terminal-dim">║</span>  <span class="terminal-cyan">LanLanOS v2.0</span> — Personal Terminal  <span class="terminal-dim">║</span>',
+            ' <span class="terminal-dim">║</span>  <span class="terminal-purple">AI Robotics & Simulation Developer</span> <span class="terminal-dim">║</span>',
+            ' <span class="terminal-dim">╚══════════════════════════════════════╝</span>',
+            '',
+            ' Type <span class="cmd">help</span> to see available commands.',
+            ''
+        ];
 
         const commands = {
             'help': () => {
-                let output = 'Available commands:<br>';
-                for (const [cmd, desc] of Object.entries(helpText)) {
-                    output += `<span class="cmd">${cmd}</span> - ${desc}<br>`;
-                }
-                return output;
+                return [
+                    '<span class="terminal-dim">╭─────────────────────────────────────────╮</span>',
+                    '<span class="terminal-dim">│</span>  <span class="terminal-cyan">⚡ Available Commands</span>                   <span class="terminal-dim">│</span>',
+                    '<span class="terminal-dim">├─────────────────────────────────────────┤</span>',
+                    '<span class="terminal-dim">│</span>  <span class="cmd">about</span>       →  Who am I?               <span class="terminal-dim">│</span>',
+                    '<span class="terminal-dim">│</span>  <span class="cmd">skills</span>      →  My tech stack           <span class="terminal-dim">│</span>',
+                    '<span class="terminal-dim">│</span>  <span class="cmd">projects</span>    →  What I\'ve built         <span class="terminal-dim">│</span>',
+                    '<span class="terminal-dim">│</span>  <span class="cmd">education</span>   →  Academic background     <span class="terminal-dim">│</span>',
+                    '<span class="terminal-dim">│</span>  <span class="cmd">experience</span>  →  Work internship         <span class="terminal-dim">│</span>',
+                    '<span class="terminal-dim">│</span>  <span class="cmd">contact</span>     →  Get in touch            <span class="terminal-dim">│</span>',
+                    '<span class="terminal-dim">│</span>  <span class="cmd">clear</span>       →  Clear terminal          <span class="terminal-dim">│</span>',
+                    '<span class="terminal-dim">╰─────────────────────────────────────────╯</span>',
+                ].join('<br>');
             },
             'about': () => {
-                return 'Hi! I\'m LanLan, an AI Robotics & Simulation Developer.<br>Focusing on Agentic AI, Sim2Real, and Immersive Tech.';
+                return [
+                    '<span class="terminal-cyan">┌─ About Me ──────────────────────┐</span>',
+                    '  Hi! I\'m <span class="terminal-cyan">LanLan</span> 👋',
+                    '  An <span class="terminal-purple">AI Robotics & Simulation</span> Developer.',
+                    '  Focusing on Agentic AI, Sim2Real,',
+                    '  and Immersive VR Technologies.',
+                    '<span class="terminal-cyan">└─────────────────────────────────┘</span>',
+                ].join('<br>');
             },
             'skills': () => {
-                return 'Languages: Python, JavaScript, C#<br>Core: ROS 2, Isaac Sim, Unity, Gemini AI<br>Models: SenseVoice, YOLOv8, LeRobot ACT';
+                return [
+                    '<span class="terminal-cyan">┌─ Tech Stack ────────────────────┐</span>',
+                    '  <span class="terminal-dim">Languages:</span>  Python, JavaScript, C#',
+                    '  <span class="terminal-dim">Core:</span>       ROS 2, Isaac Sim, Unity',
+                    '  <span class="terminal-dim">AI:</span>         Gemini, SenseVoice, YOLOv8',
+                    '  <span class="terminal-dim">ML:</span>         PyTorch, LeRobot ACT',
+                    '  <span class="terminal-dim">Tools:</span>      Git, Docker, Linux',
+                    '<span class="terminal-cyan">└─────────────────────────────────┘</span>',
+                ].join('<br>');
             },
             'projects': () => {
-                return 'Check out my <a href="#projects" style="color: var(--primary-color)">projects section</a> for details on:<br>- TaiwanWeatherBot<br>- Multimodal Robotic Arm<br>- AI Tech News Bot';
+                return [
+                    '<span class="terminal-cyan">┌─ Projects ──────────────────────┐</span>',
+                    '  <span class="terminal-purple">▸</span> <span class="cmd">AI Tech News Bot</span>',
+                    '    Gmail → Gemini AI → Discord',
+                    '  <span class="terminal-purple">▸</span> <span class="cmd">TaiwanWeatherBot</span>',
+                    '    CWA + NASA APOD → Discord',
+                    '  <span class="terminal-purple">▸</span> <span class="cmd">Multimodal Robotic Arm</span>',
+                    '    ASR + NLP + CV + ACT + TTS',
+                    '<span class="terminal-cyan">└─────────────────────────────────┘</span>',
+                    '',
+                    '  → <a href="#projects" style="color: var(--primary-color)">View full projects section</a>',
+                ].join('<br>');
             },
             'education': () => {
-                return '<strong>National Yunlin University of Science and Technology</strong><br>- Multimodal Robotic Arm System (Sim2Real)<br>  (5-Thread Pipeline: ASR, NLP, CV, ACT, TTS)<br><br><strong>National Taichung University of Science and Technology</strong><br>- VR Biology Teaching Application';
+                return [
+                    '<span class="terminal-cyan">┌─ Education ─────────────────────┐</span>',
+                    '  <span class="terminal-purple">▸</span> <span class="cmd">YunTech</span> — B.S. Info Management',
+                    '    Thesis: Multimodal Robotic Arm',
+                    '    (5-Thread: ASR, NLP, CV, ACT, TTS)',
+                    '',
+                    '  <span class="terminal-purple">▸</span> <span class="cmd">NUTC</span> — Associate, Info Management',
+                    '    Thesis: VR Biology Teaching App',
+                    '    📍 2023 Taipei EdTech Exhibition',
+                    '<span class="terminal-cyan">└─────────────────────────────────┘</span>',
+                ].join('<br>');
             },
             'experience': () => {
-                return '<strong>Shenyi Technology (Intern)</strong><br>- VR Field Engineer / Technical Support<br>- Deployed VR environments for multiple universities.<br>- Instructor for Kebbi Air Robot & Rokoko Mocap.';
+                return [
+                    '<span class="terminal-cyan">┌─ Experience ────────────────────┐</span>',
+                    '  <span class="terminal-purple">▸</span> <span class="cmd">Shenyi Technology</span> (Intern)',
+                    '    VR Field Engineer / Tech Support',
+                    '    • Multi-campus VR deployment',
+                    '    • Kebbi Robot & Rokoko Instructor',
+                    '<span class="terminal-cyan">└─────────────────────────────────┘</span>',
+                ].join('<br>');
             },
             'contact': () => {
-                return 'GitHub: <a href="https://github.com/LanLan0427" target="_blank" style="color: var(--primary-color)">@LanLan0427</a><br>Discord: lanlan0427';
+                return [
+                    '<span class="terminal-cyan">┌─ Contact ───────────────────────┐</span>',
+                    '  <span class="terminal-dim">GitHub:</span>   <a href="https://github.com/LanLan0427" target="_blank" style="color: var(--primary-color)">@LanLan0427</a>',
+                    '  <span class="terminal-dim">Discord:</span>  lanlan0427',
+                    '<span class="terminal-cyan">└─────────────────────────────────┘</span>',
+                ].join('<br>');
             },
             'clear': () => {
                 outputDiv.innerHTML = '';
@@ -448,7 +515,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const printLine = (text) => {
             const line = document.createElement('div');
-            line.innerHTML = text; // Use innerHTML for commands that return HTML
+            line.innerHTML = text;
             outputDiv.appendChild(line);
             outputDiv.scrollTop = outputDiv.scrollHeight;
         };
@@ -460,14 +527,14 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (command === '') {
                 return '';
             } else {
-                return `Command not found: ${command}. Type "help" for a list of commands.`;
+                return `<span class="terminal-dim">Command not found:</span> ${command}. Type <span class="cmd">help</span> for available commands.`;
             }
         }
 
         input.addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 const cmd = this.value.trim();
-                printLine(`guest@lanlan:~$ ${this.value}`);
+                printLine(`<span class="terminal-dim">guest@lanlan:~$</span> ${this.value}`);
 
                 const result = processCommand(cmd);
                 if (result !== '') {
@@ -477,8 +544,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.value = '';
             }
         });
-        // Initial greeting
-        printLine('Welcome to LanLanOS v1.0. Type "help" to start.');
+
+        // Animated ASCII Logo Greeting
+        const allGreetingLines = [...asciiLogo, ...welcomeLines];
+        let lineIdx = 0;
+        function printNextLine() {
+            if (lineIdx < allGreetingLines.length) {
+                printLine(allGreetingLines[lineIdx]);
+                lineIdx++;
+                setTimeout(printNextLine, 60);
+            }
+        }
+        printNextLine();
     }
 
     // Discord Copy Logic (Toast)

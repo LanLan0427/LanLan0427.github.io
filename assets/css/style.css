@@ -360,6 +360,63 @@ nav {
     box-shadow: none;
 }
 
+/* Terminal ASCII Art Colors */
+.ascii-art {
+    color: #00f3ff;
+    text-shadow: 0 0 6px rgba(0, 243, 255, 0.5);
+    white-space: pre;
+    line-height: 1.1;
+}
+
+.terminal-cyan {
+    color: #00f3ff;
+}
+
+.terminal-purple {
+    color: #bc00dd;
+}
+
+.terminal-dim {
+    color: #555;
+}
+
+.cmd {
+    color: #ffbd2e;
+}
+
+/* ======================================
+   Footer
+   ====================================== */
+.site-footer {
+    padding: 2rem 0;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(5, 5, 16, 0.6);
+}
+
+.footer-ascii {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: #555;
+    line-height: 1.4;
+    white-space: pre;
+    margin-bottom: 0.8rem;
+}
+
+.footer-text {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.35);
+    letter-spacing: 1px;
+}
+
+.footer-text .footer-heart {
+    color: #ff5f56;
+}
+
+.footer-text .footer-name {
+    color: var(--primary-color);
+}
+
 /* ======================================
    Tech Stack Marquee
    ====================================== */
