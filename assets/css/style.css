@@ -10,6 +10,10 @@
     --font-mono: 'Courier New', monospace;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -51,12 +55,14 @@ body {
     border: 1px solid var(--glass-border);
     border-radius: 16px;
     padding: 2rem;
-    transition: all 0.3s ease;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.3s ease;
 }
 
 .glass-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 243, 255, 0.1);
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 16px 40px rgba(0, 243, 255, 0.12);
     border-color: rgba(255, 255, 255, 0.2);
 }
 
@@ -86,14 +92,17 @@ h1 {
    Section Title (unified)
    ====================================== */
 .section-title {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    margin-bottom: 2.5rem;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
 }
 
 .section-title--sm {
-    font-size: 2rem;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
     margin-bottom: 2rem;
     text-align: center;
+    letter-spacing: -0.02em;
 }
 
 /* ======================================
@@ -1060,8 +1069,9 @@ nav {
    ====================================== */
 .reveal {
     opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    transform: translateY(60px);
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .reveal.active {
@@ -1075,8 +1085,9 @@ nav {
 .reveal .project-card,
 .reveal .explore-card {
     opacity: 0;
-    transform: translateY(25px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transform: translateY(30px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .reveal.active .glass-card,

@@ -706,6 +706,39 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================
+    // Hero Parallax Effect
+    // =========================================================
+    const heroCenter = document.querySelector('.hero-center');
+    const terminalWindow = document.querySelector('.terminal-window');
+
+    if (heroCenter) {
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    const scrollY = window.scrollY;
+                    const heroBottom = (heroCenter.offsetParent?.offsetTop || 0) + heroCenter.offsetHeight + 200;
+
+                    if (scrollY < heroBottom) {
+                        const parallaxOffset = scrollY * 0.3;
+                        const fadeOut = Math.max(0, 1 - scrollY / (heroBottom * 0.6));
+
+                        heroCenter.style.transform = `translateY(${parallaxOffset}px)`;
+                        heroCenter.style.opacity = fadeOut;
+
+                        if (terminalWindow) {
+                            terminalWindow.style.transform = `translateY(${scrollY * 0.15}px)`;
+                            terminalWindow.style.opacity = fadeOut;
+                        }
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }, { passive: true });
+    }
+
+    // =========================================================
     // Active Section Highlight in Nav
     // =========================================================
     const navLinksForHighlight = document.querySelectorAll('.nav-links a[href^="#"]');
