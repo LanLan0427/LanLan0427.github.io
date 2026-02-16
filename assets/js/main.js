@@ -403,15 +403,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const input = document.getElementById('terminal-input');
 
     if (input && outputDiv) {
-        // ASCII Art Logo
+        // ASCII Art Logo — each line wrapped individually since printLine creates separate <div>s
         const asciiLogo = [
-            '<span class="ascii-art">',
-            '  _                _                  ',
-            ' | |    __ _ _ __ | |    __ _ _ __     ',
-            ' | |   / _` | \'_ \\| |   / _` | \'_ \\   ',
-            ' | |__| (_| | | | | |__| (_| | | | |  ',
-            ' |_____\\__,_|_| |_|_____\\__,_|_| |_|  ',
-            '</span>',
+            `<span class="ascii-art">  _                _                  </span>`,
+            `<span class="ascii-art"> | |    __ _ _ __ | |    __ _ _ __    </span>`,
+            `<span class="ascii-art"> | |   / _\` | '_ \\| |   / _\` | '_ \\  </span>`,
+            `<span class="ascii-art"> | |__| (_| | | | | |__| (_| | | | | </span>`,
+            `<span class="ascii-art"> |_____\\__,_|_| |_|_____\\__,_|_| |_| </span>`,
         ];
 
         const welcomeLines = [
