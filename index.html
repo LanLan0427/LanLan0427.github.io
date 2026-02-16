@@ -6,6 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LanLan | Portfolio</title>
 
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="LanLan 的個人作品集 — AI Robotics & Simulation 開發者，專注於 Agentic AI、Sim2Real 機械臂控制與沉浸式 VR 互動技術。">
+    <meta name="author" content="LanLan">
+    <link rel="canonical" href="https://lanlan0427.github.io/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="LanLan | AI Robotics & Simulation Developer">
+    <meta property="og:description" content="AI Robotics & Simulation 開發者，專注於 Agentic AI、Sim2Real 與沉浸式 VR 互動技術。">
+    <meta property="og:url" content="https://lanlan0427.github.io/">
+    <meta property="og:locale" content="zh_TW">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="LanLan | AI Robotics & Simulation Developer">
+    <meta name="twitter:description" content="AI Robotics & Simulation 開發者，專注於 Agentic AI、Sim2Real 與沉浸式 VR 互動技術。">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,44 +42,56 @@
 
 <body>
     <!-- Background Animation -->
-    <canvas id="bg-canvas"></canvas>
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
     <!-- Navigation -->
-    <nav>
-        <a href="#" class="logo">LanLan</a>
-        <div class="nav-links">
-            <a href="#about">關於我</a>
-            <a href="#stats">專業技能</a>
-            <a href="#projects">專案作品</a>
-            <a href="#contact">聯絡方式</a>
+    <nav aria-label="主要導覽">
+        <a href="#" class="logo" aria-label="回到頁首">LanLan</a>
+        <div class="nav-links" id="nav-links" role="navigation">
+            <a href="#about" data-i18n="navAbout">關於我</a>
+            <a href="#stats" data-i18n="navSkills">專業技能</a>
+            <a href="#projects" data-i18n="navProjects">專案作品</a>
+            <a href="#contact" data-i18n="navContact">聯絡方式</a>
+        </div>
+        <div class="nav-right">
+            <!-- Language Toggle -->
+            <button class="lang-toggle" id="lang-toggle" aria-label="切換語言">
+                <span class="lang-toggle__label" data-i18n="langLabel">EN</span>
+            </button>
+            <button class="hamburger" id="hamburger-btn" aria-label="開啟選單" aria-expanded="false">
+                <span class="hamburger__line"></span>
+                <span class="hamburger__line"></span>
+                <span class="hamburger__line"></span>
+            </button>
         </div>
     </nav>
+    <div class="nav-overlay" id="nav-overlay"></div>
 
     <!-- Hero Section -->
     <section id="home">
         <div class="container">
-            <div style="text-align: center;">
+            <div class="hero-center">
                 <h1>Hi, I'm <span class="neon-text">LanLan</span></h1>
-                <p
-                    style="font-size: 1.5rem; margin-bottom: 2rem; color: #aaa; min-height: 1.5em; display: flex; justify-content: center; align-items: center;">
+                <p class="hero-subtitle">
                     <span id="typewriter-text"></span><span class="cursor-blink">|</span>
                 </p>
-                <a href="#projects" class="btn">View My Work</a>
+                <a href="#projects" class="btn" data-i18n="heroBtn">查看作品</a>
             </div>
 
             <!-- Hacker Terminal -->
-            <div class="terminal-window">
-                <div class="terminal-header">
+            <div class="terminal-window" role="region" aria-label="互動式終端機">
+                <div class="terminal-header" aria-hidden="true">
                     <div class="terminal-btn red"></div>
                     <div class="terminal-btn yellow"></div>
                     <div class="terminal-btn green"></div>
                 </div>
                 <div class="terminal-content">
-                    <div id="terminal-output"></div>
+                    <div id="terminal-output" role="log" aria-live="polite"></div>
                     <div class="command-line">
-                        <span class="prompt">guest@lanlan:~$</span>
-                        <input type="text" id="terminal-input" class="input-line" autofocus autocomplete="off">
-                        <span class="cursor"></span>
+                        <label for="terminal-input" class="prompt">guest@lanlan:~$</label>
+                        <input type="text" id="terminal-input" class="input-line" aria-label="終端機指令輸入"
+                            autocomplete="off">
+                        <span class="cursor" aria-hidden="true"></span>
                     </div>
                 </div>
             </div>
@@ -69,7 +99,7 @@
     </section>
 
     <!-- Tech Stack Marquee -->
-    <div class="marquee-container">
+    <div class="marquee-container" aria-label="技術棧展示">
         <div class="marquee-content">
             <span class="tech-item">Python</span>
             <span class="tech-item">JavaScript</span>
@@ -100,15 +130,15 @@
     <!-- About Section -->
     <section id="about">
         <div class="container">
-            <h2 class="neon-text" style="font-size: 2.5rem; margin-bottom: 2rem;">About Me</h2>
+            <h2 class="neon-text section-title" data-i18n="aboutTitle">關於我</h2>
             <div class="glass-card">
-                <p style="font-size: 1.1rem; line-height: 1.6;">
-                    <strong style="color: var(--primary-color); font-size: 1.3rem;">Hi, I'm LanLan! 👋</strong><br><br>
-                    我是一名熱衷於探索 <strong style="color: #bc00dd;">AI Robotics</strong> 與 <strong
-                        style="color: #bc00dd;">Simulation</strong> 的開發者。<br>
+                <p class="about-text" data-i18n-html="aboutText">
+                    <strong class="about-greeting">Hi, I'm LanLan! 👋</strong><br><br>
+                    我是一名熱衷於探索 <strong class="highlight-purple">AI Robotics</strong> 與 <strong
+                        class="highlight-purple">Simulation</strong> 的開發者。<br>
                     我的目標是將先進的 AI 技術 (Agentic AI) 與實體或虛擬的自動化系統 (Robotics/Sim) 結合，創造出具有感知與決策能力的智慧系統。<br><br>
-                    從 <strong style="color: var(--primary-color);">VR 沉浸式教學</strong> 到 <strong
-                        style="color: var(--primary-color);">Sim2Real 機械手臂控制</strong>，我一直在跨領域的技術邊界上挑戰自我。
+                    從 <strong class="highlight-cyan">VR 沉浸式教學</strong> 到 <strong class="highlight-cyan">Sim2Real
+                        機械手臂控制</strong>，我一直在跨領域的技術邊界上挑戰自我。
                 </p>
             </div>
         </div>
@@ -117,95 +147,77 @@
     <!-- Education & Research Section -->
     <section id="education">
         <div class="container">
-            <h2 class="neon-text" style="font-size: 2.5rem; margin-bottom: 2rem;">Education & Research</h2>
+            <h2 class="neon-text section-title" data-i18n="eduTitle">學歷與研究</h2>
 
-            <div
-                style="position: relative; border-left: 2px solid var(--glass-border); padding-left: 2rem; margin-left: 1rem;">
+            <div class="timeline">
                 <!-- YunTech -->
-                <div style="margin-bottom: 3rem; position: relative;">
-                    <div
-                        style="position: absolute; left: -2.6rem; top: 0; width: 1.2rem; height: 1.2rem; background: var(--secondary-color); border-radius: 50%; box-shadow: 0 0 10px var(--secondary-color);">
-                    </div>
-                    <h3 style="color: #fff; margin-bottom: 0.5rem;">國立雲林科技大學 (YunTech)</h3>
-                    <p style="color: #ccc; margin-bottom: 1rem;">二技部 | 資訊管理系</p>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <h3 class="timeline-school" data-i18n="yuntech">國立雲林科技大學 (YunTech)</h3>
+                    <p class="timeline-dept" data-i18n="yuntechDept">二技部 | 資訊管理系</p>
 
-                    <div class="glass-card" style="border-left: 4px solid var(--secondary-color);">
-                        <h4 style="color: var(--primary-color); margin-bottom: 0.5rem;">畢業專題：結合影像辨識與自然語言控制多模態機械臂系統</h4>
-                        <p style="color: #aaa; margin-bottom: 1rem; font-size: 0.95rem;">
+                    <div class="glass-card edu-card">
+                        <h4 class="edu-card__title" data-i18n="yuntechThesis">畢業專題：結合影像辨識與自然語言控制多模態機械臂系統</h4>
+                        <p class="edu-card__desc" data-i18n-html="yuntechDesc">
                             開發整合 <strong>聽(ASR)、想(NLP)、看(CV)、動(ACT)、說(TTS)</strong> 的五感多模態系統。<br>
                             實現「出一張嘴」即可能直覺控制機械手臂進行精確抓取與放置任務。
                         </p>
-                        <ul style="color: #aaa; padding-left: 1.2rem; font-size: 0.9rem; margin-bottom: 1rem;">
-                            <li><strong>核心架構：</strong>獨創 5-Thread Pipeline 多執行緒並行處理機制。</li>
-                            <li><strong>AI 模型：</strong>SenseVoice (語音識別), YOLOv8 (物件偵測), LeRobot ACT (模仿學習)。</li>
-                            <li><strong>成效：</strong>語音辨識率 >92%，動作執行成功率 >80%，系統響應 &lt;2.8秒。</li>
+                        <ul class="edu-card__details">
+                            <li data-i18n-html="yuntechDetail1"><strong>核心架構：</strong>獨創 5-Thread Pipeline 多執行緒並行處理機制。
+                            </li>
+                            <li data-i18n-html="yuntechDetail2"><strong>AI 模型：</strong>SenseVoice (語音識別), YOLOv8 (物件偵測),
+                                LeRobot ACT (模仿學習)。</li>
+                            <li data-i18n-html="yuntechDetail3"><strong>成效：</strong>語音辨識率 >92%，動作執行成功率 >80%，系統響應
+                                &lt;2.8秒。</li>
                         </ul>
-                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                            <span
-                                style="background: rgba(188, 0, 221, 0.2); padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; color: #fff;">Python
-                                3.10</span>
-                            <span
-                                style="background: rgba(188, 0, 221, 0.2); padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; color: #fff;">PyTorch</span>
-                            <span
-                                style="background: rgba(188, 0, 221, 0.2); padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; color: #fff;">NVIDIA
-                                Isaac Sim</span>
-                            <span
-                                style="background: rgba(188, 0, 221, 0.2); padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; color: #fff;">ROS
-                                2</span>
+                        <div class="tech-tags">
+                            <span class="tech-tag tech-tag--purple">Python 3.10</span>
+                            <span class="tech-tag tech-tag--purple">PyTorch</span>
+                            <span class="tech-tag tech-tag--purple">NVIDIA Isaac Sim</span>
+                            <span class="tech-tag tech-tag--purple">ROS 2</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- NUTC -->
-                <div style="margin-bottom: 3rem; position: relative;">
-                    <div
-                        style="position: absolute; left: -2.6rem; top: 0; width: 1.2rem; height: 1.2rem; background: var(--primary-color); border-radius: 50%; box-shadow: 0 0 10px var(--primary-color);">
-                    </div>
-                    <h3 style="color: #fff; margin-bottom: 0.5rem;">國立臺中科技大學 (NUTC)</h3>
-                    <p style="color: #ccc; margin-bottom: 1rem;">五專部 | 資訊管理系</p>
+                <div class="timeline-item">
+                    <div class="timeline-dot timeline-dot--primary"></div>
+                    <h3 class="timeline-school" data-i18n="nutc">國立臺中科技大學 (NUTC)</h3>
+                    <p class="timeline-dept" data-i18n="nutcDept">五專部 | 資訊管理系</p>
 
-                    <div class="glass-card" style="border-left: 4px solid var(--primary-color);">
-                        <h4 style="color: var(--primary-color); margin-bottom: 0.5rem;">畢業專題：VR 於國中生物課程之教學應用</h4>
-                        <p style="color: #aaa; margin-bottom: 1rem; font-size: 0.95rem;">
+                    <div class="glass-card edu-card edu-card--primary">
+                        <h4 class="edu-card__title" data-i18n="nutcThesis">畢業專題：VR 於國中生物課程之教學應用</h4>
+                        <p class="edu-card__desc" data-i18n="nutcDesc">
                             開發沉浸式 VR 教材，透過虛擬實境將抽象的神經傳導過程具象化，獲選為教育部虛擬實境教學應用計畫成果。
                         </p>
-                        <div style="margin-bottom: 1rem;">
-                            <span
-                                style="display: inline-block; background: #333; color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; margin-right: 5px;">展出</span>
-                            <span style="color: #ccc; font-size: 0.9rem;">2023 臺北世貿教育科技展</span>
+                        <div class="badge-row">
+                            <span class="badge" data-i18n="badgeExhibit">展出</span>
+                            <span class="badge-text" data-i18n="exhibitText">2023 臺北世貿教育科技展</span>
                         </div>
 
                         <!-- Teaching Experience -->
-                        <div style="margin-bottom: 1rem;">
-                            <span
-                                style="display: inline-block; background: #333; color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; margin-right: 5px;">經歷</span>
-                            <span style="color: #ccc; font-size: 0.9rem;">北新國中試教體驗 (2023.11)</span>
-                            <p
-                                style="color: #aaa; font-size: 0.9rem; margin-top: 0.3rem; margin-bottom: 0; padding-left: 0.2rem;">
+                        <div class="badge-row">
+                            <span class="badge" data-i18n="badgeExp">經歷</span>
+                            <span class="badge-text" data-i18n="expText">北新國中試教體驗 (2023.11)</span>
+                            <p class="badge-desc" data-i18n="expDesc">
                                 帶領學生體驗新興科技與 VR 虛擬實境應用，啟發學生對科技學習的興趣。
                             </p>
                         </div>
 
-                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                            <span
-                                style="background: rgba(0, 243, 255, 0.2); padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; color: #fff;">Unity
-                                3D</span>
-                            <span
-                                style="background: rgba(0, 243, 255, 0.2); padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; color: #fff;">C#</span>
-                            <span
-                                style="background: rgba(0, 243, 255, 0.2); padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; color: #fff;">VR/AR</span>
+                        <div class="tech-tags">
+                            <span class="tech-tag tech-tag--cyan">Unity 3D</span>
+                            <span class="tech-tag tech-tag--cyan">C#</span>
+                            <span class="tech-tag tech-tag--cyan">VR/AR</span>
                         </div>
 
-                        <!-- Project Link (Bottom Right) -->
-                        <div style="text-align: right; margin-top: 1rem;">
+                        <!-- Project Link -->
+                        <div class="edu-link">
                             <a href="https://market.cloud.edu.tw/resources/web/1811111" target="_blank"
-                                style="color: var(--primary-color); font-size: 0.9rem; text-decoration: none; border-bottom: 1px dashed var(--primary-color);">
+                                rel="noopener noreferrer" aria-label="前往教育大市集作品頁面" data-i18n="eduLinkText">
                                 教育大市集作品頁面 ->
                             </a>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
@@ -214,40 +226,38 @@
     <!-- Experience & Competitions -->
     <section id="experience">
         <div class="container">
-            <div style="display: flex; justify-content: center;">
-
+            <div class="work-section">
                 <!-- Work Experience -->
-                <div style="width: 100%; max-width: 800px;">
-                    <h2 class="neon-text" style="font-size: 2rem; margin-bottom: 2rem; text-align: center;">Work
-                        Experience</h2>
+                <div class="work-content">
+                    <h2 class="neon-text section-title--sm" data-i18n="workTitle">工作經歷</h2>
                     <div class="glass-card">
-                        <h3 style="color: #fff; margin-bottom: 0.5rem;">
-                            <a href="https://shenyitec.wordpress.com/" target="_blank"
-                                style="color: #fff; text-decoration: none; border-bottom: 1px solid var(--secondary-color);">
+                        <h3 class="work-company">
+                            <a href="https://shenyitec.wordpress.com/" target="_blank" rel="noopener noreferrer"
+                                aria-label="前往神奕科技官網" data-i18n="workCompany">
                                 神奕科技有限公司 (Shenyi Tech)
                             </a>
                         </h3>
-                        <p style="color: var(--secondary-color); margin-bottom: 1rem;">實習工程師</p>
-                        <ul style="color: #aaa; padding-left: 1.2rem; font-size: 0.95rem; line-height: 1.6;">
-                            <li><strong>VR 場域建置：</strong>負責台科大、致理科大等多所院校的 VR 頭盔架設與環境部署 (HTC Vive, Meta Quest 3)。</li>
-                            <li><strong>技術支援：</strong>協助客戶進行軟硬體驅動安裝、中控設置與圖傳設備除錯。</li>
-                            <li><strong>教育訓練：：</strong>擔任凱比機器人與 Rokoko 動捕設備的教育訓練講師。</li>
-                            <li><strong>專案執行：：</strong>參與富春國小飛行模擬器設置與勝利國中 Insta360 環景拍攝專案。</li>
+                        <p class="work-role" data-i18n="workRole">實習工程師</p>
+                        <ul class="work-list">
+                            <li data-i18n-html="workItem1"><strong>VR 場域建置：</strong>負責台科大、致理科大等多所院校的 VR 頭盔架設與環境部署 (HTC
+                                Vive, Meta Quest 3)。</li>
+                            <li data-i18n-html="workItem2"><strong>技術支援：</strong>協助客戶進行軟硬體驅動安裝、中控設置與圖傳設備除錯。</li>
+                            <li data-i18n-html="workItem3"><strong>教育訓練：</strong>擔任凱比機器人與 Rokoko 動捕設備的教育訓練講師。</li>
+                            <li data-i18n-html="workItem4"><strong>專案執行：</strong>參與富春國小飛行模擬器設置與勝利國中 Insta360 環景拍攝專案。
+                            </li>
                         </ul>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <!-- Stats Section (Replaced by Skill Sphere) -->
+    <!-- Stats Section (Skills Sphere) -->
     <section id="stats">
         <div class="container">
-            <h2 class="neon-text" style="font-size: 2.5rem; margin-bottom: 2rem;">Skills Sphere</h2>
-            <div class="glass-card"
-                style="padding: 2rem; display: flex; justify-content: center; align-items: center; min-height: 400px;">
-                <div id="tagcloud-container" style="color: #00f3ff; font-weight: bold; letter-spacing: 1px;"></div>
+            <h2 class="neon-text section-title" data-i18n="skillsTitle">技能圖譜</h2>
+            <div class="glass-card skills-sphere-card">
+                <div id="tagcloud-container" class="skills-sphere-inner"></div>
             </div>
         </div>
     </section>
@@ -255,84 +265,83 @@
     <!-- Projects Section -->
     <section id="projects">
         <div class="container">
-            <h2 class="neon-text" style="font-size: 2.5rem; margin-bottom: 2rem;">Projects</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 2rem;">
+            <h2 class="neon-text section-title" data-i18n="projectsTitle">專案作品</h2>
+            <div class="project-grid">
                 <!-- Auto-TLDR-Newsletter-Bot -->
-                <div class="glass-card" style="height: 100%; display: flex; flex-direction: column;">
-                    <div style="flex: 1;">
-                        <h3 style="margin-bottom: 1rem; color: var(--primary-color);">AI Tech News Bot</h3>
-                        <p style="margin-bottom: 1rem; color: #ccc; font-size: 0.95rem; line-height: 1.6;">
+                <div class="glass-card project-card">
+                    <div class="project-card__body">
+                        <h3 class="project-card__title project-card__title--cyan">AI Tech News Bot</h3>
+                        <p class="project-card__desc" data-i18n="proj1Desc">
                             自動化技術新聞聚合器與 Discord 機器人。
                         </p>
-                        <ul
-                            style="color: #aaa; margin-bottom: 1.5rem; padding-left: 1.2rem; font-size: 0.9rem; line-height: 1.6;">
-                            <li style="margin-bottom: 0.3rem;">監控 Gmail 並自動分類 (AI, Web3, DevOps)</li>
-                            <li style="margin-bottom: 0.3rem;">串接 Google Gemini 2.5 Flash 生成中文摘要</li>
-                            <li style="margin-bottom: 0.3rem;">發送 Markdown 格式 Discord 通知</li>
+                        <ul class="project-card__features">
+                            <li data-i18n="proj1F1">監控 Gmail 並自動分類 (AI, Web3, DevOps)</li>
+                            <li data-i18n="proj1F2">串接 Google Gemini 2.5 Flash 生成中文摘要</li>
+                            <li data-i18n="proj1F3">發送 Markdown 格式 Discord 通知</li>
                         </ul>
                     </div>
-                    <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                    <div class="project-footer">
                         <a href="https://github.com/LanLan0427/Auto-TLDR-Newsletter-Bot" target="_blank"
-                            style="display: inline-flex; align-items: center; color: #fff; text-decoration: none; font-weight: 500; transition: color 0.3s;">
-                            <span style="border-bottom: 1px solid var(--primary-color);">View on GitHub</span>
-                            <span style="margin-left: 5px; color: var(--primary-color);">→</span>
+                            rel="noopener noreferrer" class="project-link" aria-label="前往 AI Tech News Bot GitHub 頁面">
+                            <span class="project-link__text project-link__text--cyan" data-i18n="viewGithub">GitHub
+                                原始碼</span>
+                            <span class="project-link__arrow project-link__arrow--cyan">→</span>
                         </a>
                     </div>
                 </div>
 
                 <!-- TaiwanWeatherBot -->
-                <div class="glass-card" style="height: 100%; display: flex; flex-direction: column;">
-                    <div style="flex: 1;">
-                        <h3 style="margin-bottom: 1rem; color: #ffd700;">TaiwanWeatherBot</h3>
-                        <p style="margin-bottom: 1rem; color: #ccc; font-size: 0.95rem; line-height: 1.6;">
+                <div class="glass-card project-card">
+                    <div class="project-card__body">
+                        <h3 class="project-card__title project-card__title--gold">TaiwanWeatherBot</h3>
+                        <p class="project-card__desc" data-i18n="proj2Desc">
                             結合台灣氣象與天文的 Discord 智慧助理。
                         </p>
-                        <ul
-                            style="color: #aaa; margin-bottom: 1.5rem; padding-left: 1.2rem; font-size: 0.9rem; line-height: 1.6;">
-                            <li style="margin-bottom: 0.3rem;">整合 CWA 氣象署與 NASA APOD API</li>
-                            <li style="margin-bottom: 0.3rem;">Gemini AI 扮演「幽默氣象播報員」</li>
-                            <li style="margin-bottom: 0.3rem;">自動生成每日天氣與天文科普報告</li>
+                        <ul class="project-card__features">
+                            <li data-i18n="proj2F1">整合 CWA 氣象署與 NASA APOD API</li>
+                            <li data-i18n="proj2F2">Gemini AI 扮演「幽默氣象播報員」</li>
+                            <li data-i18n="proj2F3">自動生成每日天氣與天文科普報告</li>
                         </ul>
                     </div>
-                    <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                    <div class="project-footer">
                         <a href="https://github.com/LanLan0427/TaiwanWeatherBot" target="_blank"
-                            style="display: inline-flex; align-items: center; color: #fff; text-decoration: none; font-weight: 500; transition: color 0.3s;">
-                            <span style="border-bottom: 1px solid #ffd700;">View on GitHub</span>
-                            <span style="margin-left: 5px; color: #ffd700;">→</span>
+                            rel="noopener noreferrer" class="project-link" aria-label="前往 TaiwanWeatherBot GitHub 頁面">
+                            <span class="project-link__text project-link__text--gold" data-i18n="viewGithub">GitHub
+                                原始碼</span>
+                            <span class="project-link__arrow project-link__arrow--gold">→</span>
                         </a>
                     </div>
                 </div>
 
                 <!-- Portfolio v2 -->
-                <div class="glass-card" style="height: 100%; display: flex; flex-direction: column;">
-                    <div style="flex: 1;">
-                        <h3 style="margin-bottom: 1rem; color: var(--secondary-color);">Portfolio v2.0</h3>
-                        <p style="margin-bottom: 1rem; color: #ccc; font-size: 0.95rem; line-height: 1.6;">
+                <div class="glass-card project-card">
+                    <div class="project-card__body">
+                        <h3 class="project-card__title project-card__title--purple">Portfolio v2.0</h3>
+                        <p class="project-card__desc" data-i18n="proj3Desc">
                             本網站的原始碼。採用 Neon Glass 風格重構。
                         </p>
-                        <ul
-                            style="color: #aaa; margin-bottom: 1.5rem; padding-left: 1.2rem; font-size: 0.9rem; line-height: 1.6;">
-                            <li style="margin-bottom: 0.3rem;">HTML5 Canvas 粒子互動背景</li>
-                            <li style="margin-bottom: 0.3rem;">玻璃擬態 (Glassmorphism) UI 設計</li>
-                            <li style="margin-bottom: 0.3rem;">完全響應式與無障礙優化</li>
+                        <ul class="project-card__features">
+                            <li data-i18n="proj3F1">HTML5 Canvas 粒子互動背景</li>
+                            <li data-i18n="proj3F2">玻璃擬態 (Glassmorphism) UI 設計</li>
+                            <li data-i18n="proj3F3">完全響應式與無障礙優化</li>
                         </ul>
                     </div>
-                    <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                    <div class="project-footer">
                         <a href="https://github.com/LanLan0427/LanLan0427.github.io" target="_blank"
-                            style="display: inline-flex; align-items: center; color: #fff; text-decoration: none; font-weight: 500; transition: color 0.3s;">
-                            <span style="border-bottom: 1px solid var(--secondary-color);">View on GitHub</span>
-                            <span style="margin-left: 5px; color: var(--secondary-color);">→</span>
+                            rel="noopener noreferrer" class="project-link" aria-label="前往 Portfolio GitHub 頁面">
+                            <span class="project-link__text project-link__text--purple" data-i18n="viewGithub">GitHub
+                                原始碼</span>
+                            <span class="project-link__arrow project-link__arrow--purple">→</span>
                         </a>
                     </div>
                 </div>
 
                 <!-- More on GitHub -->
-                <div class="glass-card"
-                    style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
-                    <h3 style="margin-bottom: 1rem; color: #fff;">Explore More</h3>
-                    <p style="margin-bottom: 1.5rem; color: #ccc;">前往 GitHub 查看更多專案與實驗性代碼。</p>
-                    <a href="https://github.com/LanLan0427" target="_blank" class="btn"
-                        style="font-size: 0.9rem; padding: 0.8rem 2rem;">Visit Profile</a>
+                <div class="glass-card explore-card">
+                    <h3 data-i18n="exploreTitle">探索更多</h3>
+                    <p data-i18n="exploreDesc">前往 GitHub 查看更多專案與實驗性代碼。</p>
+                    <a href="https://github.com/LanLan0427" target="_blank" rel="noopener noreferrer"
+                        class="btn btn--sm" aria-label="前往 LanLan GitHub 個人頁面" data-i18n="exploreBtn">前往 GitHub</a>
                 </div>
             </div>
         </div>
@@ -341,16 +350,15 @@
     <!-- Learning Notes -->
     <section id="notes">
         <div class="container">
-            <h2 class="neon-text" style="font-size: 2.5rem; margin-bottom: 2rem;">Learning Notes</h2>
+            <h2 class="neon-text section-title" data-i18n="notesTitle">學習筆記</h2>
             <div class="glass-card">
-                <h3 style="margin-bottom: 1rem; color: #0f0;">Recent Focus</h3>
-                <ul style="list-style-type: none;">
-                    <li style="margin-bottom: 0.5rem;">[2026/02] <strong>Sim2Real Gap Reduction</strong>：研究 NVIDIA Isaac
-                        Sim 與真實機械臂的同步控制</li>
-                    <li style="margin-bottom: 0.5rem;">[2026/01] <strong>Imitation Learning</strong>：使用 LeRobot ACT
-                        模型進行動作模仿訓練</li>
-                    <li style="margin-bottom: 0.5rem;">[2025/12] <strong>VR Interaction</strong>：Unity 虛擬實境互動設計與場域建置
+                <h3 class="notes-title" data-i18n="notesFocus">近期方向</h3>
+                <ul class="note-list">
+                    <li data-i18n-html="note1">[2026/02] <strong>Sim2Real Gap Reduction</strong>：研究 NVIDIA Isaac Sim
+                        與真實機械臂的同步控制</li>
+                    <li data-i18n-html="note2">[2026/01] <strong>Imitation Learning</strong>：使用 LeRobot ACT 模型進行動作模仿訓練
                     </li>
+                    <li data-i18n-html="note3">[2025/12] <strong>VR Interaction</strong>：Unity 虛擬實境互動設計與場域建置</li>
                 </ul>
             </div>
         </div>
@@ -359,45 +367,41 @@
     <!-- Community & Events -->
     <section id="events">
         <div class="container">
-            <h2 class="neon-text" style="font-size: 2.5rem; margin-bottom: 2rem;">Community & Events</h2>
+            <h2 class="neon-text section-title" data-i18n="eventsTitle">社群與活動</h2>
             <div class="glass-card">
-                <div
-                    style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+                <div class="event-layout">
                     <div>
-                        <h3 style="margin-bottom: 0.5rem; color: #4285F4;">Build with AI: Taichung AI Studio</h3>
-                        <p style="color: #ccc; margin-bottom: 0.5rem;">Google Developer Groups (GDG) Taichung</p>
-                        <p style="color: #aaa; font-size: 0.9rem;">
+                        <h3 class="event-title">Build with AI: Taichung AI Studio</h3>
+                        <p class="event-org">Google Developer Groups (GDG) Taichung</p>
+                        <p class="event-desc" data-i18n-html="eventDesc">
                             參加工作坊，實戰 Google AI Studio 與 Gemini Pro 模型微調 (Fine-tuning)。<br>
                             探索 Agentic AI 與多模態應用的可能性。
                         </p>
                     </div>
-                    <div style="text-align: right;">
-                        <span
-                            style="display: block; color: var(--primary-color); font-family: var(--font-mono); margin-bottom: 0.5rem;">2026/02</span>
+                    <div class="event-meta">
+                        <span class="event-date">2026/02</span>
                         <a href="https://gdg.community.dev/events/details/google-gdg-taichung-presents-build-with-ai-taichung-ai-studio-shi-zhan/"
-                            target="_blank" class="btn"
-                            style="font-size: 0.8rem; padding: 0.5rem 1.5rem; border-color: #4285F4; color: #4285F4;">
-                            Event Page
+                            target="_blank" rel="noopener noreferrer" class="btn btn--event" aria-label="前往 GDG 活動頁面"
+                            data-i18n="eventBtn">
+                            活動頁面
                         </a>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
     <section id="contact">
-        <div class="container" style="text-align: center;">
-            <h2 class="neon-text" style="font-size: 2.5rem; margin-bottom: 2rem;">Get In Touch</h2>
-            <p style="margin-bottom: 2rem; color: #ccc;">有什麼有趣的想法嗎？隨時聯繫我！</p>
-            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                <a href="https://github.com/LanLan0427" target="_blank" class="btn">GitHub</a>
-                <a href="#" id="discord-btn" class="btn"
-                    style="border-color: var(--secondary-color); color: var(--secondary-color);">
+        <div class="container contact-center">
+            <h2 class="neon-text section-title" data-i18n="contactTitle">聯絡方式</h2>
+            <p class="contact-desc" data-i18n="contactDesc">有什麼有趣的想法嗎？隨時聯繫我！</p>
+            <div class="contact-buttons">
+                <a href="https://github.com/LanLan0427" target="_blank" rel="noopener noreferrer" class="btn"
+                    aria-label="前往 GitHub 個人頁面">GitHub</a>
+                <a href="#" id="discord-btn" class="btn btn--discord" aria-label="複製 Discord ID">
                     Discord
-                    <span style="font-size: 0.8em; opacity: 0.8; margin-left: 5px;">(lanlan0427)</span>
+                    <span class="discord-sub">(lanlan0427)</span>
                 </a>
             </div>
         </div>
@@ -407,9 +411,9 @@
     <script src="assets/js/main.js"></script>
 
     <!-- Toast Notification -->
-    <div id="toast" class="toast">
-        <i class="fas fa-check-circle" style="color: #00f3ff; margin-right: 8px;"></i>
-        <span>Copied: <strong>lanlan0427</strong></span>
+    <div id="toast" class="toast" role="alert" aria-live="assertive">
+        <i class="fas fa-check-circle" style="color: #00f3ff; margin-right: 8px;" aria-hidden="true"></i>
+        <span data-i18n-html="toastMsg">Copied: <strong>lanlan0427</strong></span>
     </div>
 </body>
 

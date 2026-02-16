@@ -32,7 +32,6 @@ body {
     width: 100%;
     height: 100%;
     z-index: 0;
-    /* Removed blur to make stars visible */
 }
 
 /* Container */
@@ -83,7 +82,23 @@ h1 {
         0 0 20px rgba(0, 243, 255, 0.3);
 }
 
-/* Buttons */
+/* ======================================
+   Section Title (unified)
+   ====================================== */
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.section-title--sm {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* ======================================
+   Buttons
+   ====================================== */
 .btn {
     display: inline-block;
     padding: 1rem 2.5rem;
@@ -106,28 +121,52 @@ h1 {
     box-shadow: 0 0 20px rgba(0, 243, 255, 0.6);
 }
 
-/* Sections */
+.btn--sm {
+    font-size: 0.9rem;
+    padding: 0.8rem 2rem;
+}
+
+.btn--event {
+    font-size: 0.8rem;
+    padding: 0.5rem 1.5rem;
+    border-color: #4285F4;
+    color: #4285F4;
+}
+
+.btn--event:hover {
+    background: #4285F4;
+    color: #fff;
+    box-shadow: 0 0 20px rgba(66, 133, 244, 0.6);
+}
+
+/* ======================================
+   Sections
+   ====================================== */
 section {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 6rem 0;
-    /* Increased padding */
 }
 
-/* Navigation */
+/* ======================================
+   Navigation
+   ====================================== */
 nav {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 2rem;
+    padding: 1.2rem 2rem;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 1rem;
     z-index: 100;
-    mix-blend-mode: difference;
+    background: rgba(5, 5, 16, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .logo {
@@ -135,6 +174,37 @@ nav {
     font-weight: 700;
     color: #fff;
     text-decoration: none;
+    margin-right: auto;
+}
+
+/* Nav Right Group (lang toggle + hamburger) */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Language Toggle Button */
+.lang-toggle {
+    background: none;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    font-family: var(--font-main);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 0.4rem 0.8rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.lang-toggle:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    box-shadow: 0 0 12px rgba(0, 243, 255, 0.3);
+    text-shadow: 0 0 8px rgba(0, 243, 255, 0.5);
 }
 
 .nav-links a {
@@ -150,17 +220,69 @@ nav {
     text-shadow: 0 0 10px var(--primary-color);
 }
 
-/* Hacker Terminal */
+/* Hamburger Button */
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 101;
+}
+
+.hamburger__line {
+    display: block;
+    width: 28px;
+    height: 2px;
+    background: #fff;
+    margin: 6px 0;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+.hamburger.active .hamburger__line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger.active .hamburger__line:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active .hamburger__line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* ======================================
+   Hero Section
+   ====================================== */
+.hero-center {
+    text-align: center;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    color: #aaa;
+    min-height: 1.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cursor-blink {
+    animation: blink 1s step-end infinite;
+}
+
+/* ======================================
+   Hacker Terminal
+   ====================================== */
 .terminal-window {
     background: rgba(10, 10, 20, 0.95);
-    /* More opaque */
     border: 1px solid #333;
     border-radius: 8px;
     box-shadow: 0 0 30px rgba(0, 243, 255, 0.1);
-    /* Subtle glow */
     font-family: var(--font-mono);
     margin-top: 4rem;
-    /* Increased margin */
     overflow: hidden;
     max-width: 800px;
     margin-left: auto;
@@ -238,7 +360,9 @@ nav {
     box-shadow: none;
 }
 
-/* Tech Stack Marquee */
+/* ======================================
+   Tech Stack Marquee
+   ====================================== */
 .marquee-container {
     overflow: hidden;
     white-space: nowrap;
@@ -286,7 +410,451 @@ nav {
     }
 }
 
-/* Stats Section */
+/* ======================================
+   About Section
+   ====================================== */
+.about-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.about-greeting {
+    color: var(--primary-color);
+    font-size: 1.3rem;
+}
+
+.highlight-purple {
+    color: #bc00dd;
+}
+
+.highlight-cyan {
+    color: var(--primary-color);
+}
+
+/* ======================================
+   Timeline (Education)
+   ====================================== */
+.timeline {
+    position: relative;
+    border-left: 2px solid var(--glass-border);
+    padding-left: 2rem;
+    margin-left: 1rem;
+}
+
+.timeline-item {
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -2.6rem;
+    top: 0;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--secondary-color);
+    background: var(--secondary-color);
+}
+
+.timeline-dot--primary {
+    background: var(--primary-color);
+    box-shadow: 0 0 10px var(--primary-color);
+}
+
+.timeline-school {
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.timeline-dept {
+    color: #ccc;
+    margin-bottom: 1rem;
+}
+
+/* ======================================
+   Education Cards
+   ====================================== */
+.edu-card {
+    border-left: 4px solid var(--secondary-color);
+}
+
+.edu-card--primary {
+    border-left-color: var(--primary-color);
+}
+
+.edu-card__title {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.edu-card__desc {
+    color: #aaa;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+.edu-card__details {
+    color: #aaa;
+    padding-left: 1.2rem;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.edu-card__details li {
+    margin-bottom: 0.3rem;
+}
+
+/* ======================================
+   Tech Tags
+   ====================================== */
+.tech-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.tech-tag {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: #fff;
+}
+
+.tech-tag--purple {
+    background: rgba(188, 0, 221, 0.2);
+}
+
+.tech-tag--cyan {
+    background: rgba(0, 243, 255, 0.2);
+}
+
+/* ======================================
+   Badge (展出/經歷)
+   ====================================== */
+.badge-row {
+    margin-bottom: 1rem;
+}
+
+.badge {
+    display: inline-block;
+    background: #333;
+    color: #fff;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    margin-right: 5px;
+}
+
+.badge-text {
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+.badge-desc {
+    color: #aaa;
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
+    margin-bottom: 0;
+    padding-left: 0.2rem;
+}
+
+/* ======================================
+   External Link (Education card footer)
+   ====================================== */
+.edu-link {
+    text-align: right;
+    margin-top: 1rem;
+}
+
+.edu-link a {
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    text-decoration: none;
+    border-bottom: 1px dashed var(--primary-color);
+}
+
+.edu-link a:hover {
+    text-shadow: 0 0 10px var(--primary-color);
+}
+
+/* ======================================
+   Work Experience
+   ====================================== */
+.work-section {
+    display: flex;
+    justify-content: center;
+}
+
+.work-content {
+    width: 100%;
+    max-width: 800px;
+}
+
+.work-company a {
+    color: #fff;
+    text-decoration: none;
+    border-bottom: 1px solid var(--secondary-color);
+}
+
+.work-company a:hover {
+    text-shadow: 0 0 10px var(--secondary-color);
+}
+
+.work-company {
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.work-role {
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+}
+
+.work-list {
+    color: #aaa;
+    padding-left: 1.2rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* ======================================
+   Skills Sphere
+   ====================================== */
+.skills-sphere-card {
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+}
+
+.skills-sphere-inner {
+    color: #00f3ff;
+    font-weight: bold;
+    letter-spacing: 1px;
+    position: relative;
+    width: 400px;
+    height: 400px;
+    max-width: 100%;
+}
+
+/* ======================================
+   Projects Grid
+   ====================================== */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 2rem;
+}
+
+.project-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card__body {
+    flex: 1;
+}
+
+.project-card__title {
+    margin-bottom: 1rem;
+}
+
+.project-card__title--cyan {
+    color: var(--primary-color);
+}
+
+.project-card__title--gold {
+    color: #ffd700;
+}
+
+.project-card__title--purple {
+    color: var(--secondary-color);
+}
+
+.project-card__desc {
+    margin-bottom: 1rem;
+    color: #ccc;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.project-card__features {
+    color: #aaa;
+    margin-bottom: 1.5rem;
+    padding-left: 1.2rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.project-card__features li {
+    margin-bottom: 0.3rem;
+}
+
+.project-footer {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.project-link {
+    display: inline-flex;
+    align-items: center;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.project-link:hover {
+    text-shadow: 0 0 10px currentColor;
+}
+
+.project-link__text {
+    border-bottom: 1px solid currentColor;
+}
+
+.project-link__text--cyan {
+    border-bottom-color: var(--primary-color);
+}
+
+.project-link__text--gold {
+    border-bottom-color: #ffd700;
+}
+
+.project-link__text--purple {
+    border-bottom-color: var(--secondary-color);
+}
+
+.project-link__arrow {
+    margin-left: 5px;
+}
+
+.project-link__arrow--cyan {
+    color: var(--primary-color);
+}
+
+.project-link__arrow--gold {
+    color: #ffd700;
+}
+
+.project-link__arrow--purple {
+    color: var(--secondary-color);
+}
+
+/* Explore More card */
+.explore-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.explore-card h3 {
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.explore-card p {
+    margin-bottom: 1.5rem;
+    color: #ccc;
+}
+
+/* ======================================
+   Learning Notes
+   ====================================== */
+.notes-title {
+    margin-bottom: 1rem;
+    color: #0f0;
+}
+
+.note-list {
+    list-style-type: none;
+}
+
+.note-list li {
+    margin-bottom: 0.5rem;
+}
+
+/* ======================================
+   Community & Events
+   ====================================== */
+.event-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.event-title {
+    margin-bottom: 0.5rem;
+    color: #4285F4;
+}
+
+.event-org {
+    color: #ccc;
+    margin-bottom: 0.5rem;
+}
+
+.event-desc {
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+.event-meta {
+    text-align: right;
+}
+
+.event-date {
+    display: block;
+    color: var(--primary-color);
+    font-family: var(--font-mono);
+    margin-bottom: 0.5rem;
+}
+
+/* ======================================
+   Contact Section
+   ====================================== */
+.contact-center {
+    text-align: center;
+}
+
+.contact-desc {
+    margin-bottom: 2rem;
+    color: #ccc;
+}
+
+.contact-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn--discord {
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
+}
+
+.btn--discord:hover {
+    background: var(--secondary-color);
+    color: #fff;
+    box-shadow: 0 0 20px rgba(188, 0, 221, 0.6);
+}
+
+.discord-sub {
+    font-size: 0.8em;
+    opacity: 0.8;
+    margin-left: 5px;
+}
+
+/* ======================================
+   Stats Section (legacy grid)
+   ====================================== */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -299,23 +867,9 @@ nav {
     height: auto;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    h1 {
-        font-size: 2.5rem;
-    }
-
-    .nav-links {
-        display: none;
-        /* Simple hiding for now */
-    }
-
-    .terminal-window {
-        margin: 2rem 1rem;
-    }
-}
-
-/* Toast Notification */
+/* ======================================
+   Toast Notification
+   ====================================== */
 .toast {
     visibility: hidden;
     min-width: 250px;
@@ -344,4 +898,102 @@ nav {
     visibility: visible;
     opacity: 1;
     bottom: 50px;
+}
+
+/* ======================================
+   Responsive Design
+   ====================================== */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    /* Hamburger menu visible */
+    .hamburger {
+        display: block;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        max-width: 300px;
+        height: 100vh;
+        background: rgba(5, 5, 16, 0.97);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        border-left: 1px solid var(--glass-border);
+        mix-blend-mode: normal;
+        z-index: 100;
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .nav-links a {
+        margin-left: 0;
+        font-size: 1.3rem;
+    }
+
+    /* Terminal */
+    .terminal-window {
+        margin: 2rem 0;
+    }
+
+    /* Project grid: single column */
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Hero subtitle */
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+
+    /* Event layout stacks */
+    .event-layout {
+        flex-direction: column;
+    }
+
+    .event-meta {
+        text-align: left;
+    }
+
+    /* Timeline adjustments */
+    .timeline {
+        padding-left: 1.5rem;
+        margin-left: 0.5rem;
+    }
+
+    .about-text {
+        font-size: 1rem;
+    }
+}
+
+/* Mobile overlay background */
+.nav-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+}
+
+.nav-overlay.active {
+    display: block;
 }
