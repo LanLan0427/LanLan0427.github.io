@@ -372,9 +372,13 @@ nav {
 /* Terminal ASCII Art Colors */
 .ascii-art {
     color: #00f3ff;
-    text-shadow: 0 0 6px rgba(0, 243, 255, 0.5);
+    text-shadow: 0 0 8px rgba(0, 243, 255, 0.7),
+        0 0 20px rgba(0, 243, 255, 0.4),
+        0 0 40px rgba(0, 243, 255, 0.15);
     white-space: pre;
-    line-height: 1.1;
+    font-size: 1.1rem;
+    line-height: 1.15;
+    font-weight: bold;
 }
 
 .terminal-cyan {

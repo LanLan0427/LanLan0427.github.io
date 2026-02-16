@@ -706,10 +706,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================
-    // Hero Parallax Effect
+    // Hero Parallax Effect (only hero text, NOT terminal)
     // =========================================================
     const heroCenter = document.querySelector('.hero-center');
-    const terminalWindow = document.querySelector('.terminal-window');
 
     if (heroCenter) {
         let ticking = false;
@@ -725,11 +724,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         heroCenter.style.transform = `translateY(${parallaxOffset}px)`;
                         heroCenter.style.opacity = fadeOut;
-
-                        if (terminalWindow) {
-                            terminalWindow.style.transform = `translateY(${scrollY * 0.15}px)`;
-                            terminalWindow.style.opacity = fadeOut;
-                        }
                     }
                     ticking = false;
                 });
