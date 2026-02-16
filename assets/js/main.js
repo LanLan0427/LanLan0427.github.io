@@ -590,4 +590,71 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         document.head.appendChild(style);
     }
+
+    // =========================================================
+    // Scroll Reveal Animations (IntersectionObserver)
+    // =========================================================
+    const revealElements = document.querySelectorAll('.reveal');
+    if (revealElements.length > 0) {
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, {
+            threshold: 0.12,
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+    }
+
+    // =========================================================
+    // Back to Top Button
+    // =========================================================
+    const backToTopBtn = document.getElementById('back-to-top');
+    if (backToTopBtn) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        }, { passive: true });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // =========================================================
+    // Active Section Highlight in Nav
+    // =========================================================
+    const navLinksForHighlight = document.querySelectorAll('.nav-links a[href^="#"]');
+    const allSections = document.querySelectorAll('section[id]');
+
+    if (navLinksForHighlight.length > 0 && allSections.length > 0) {
+        const highlightNav = () => {
+            const scrollPos = window.scrollY + 120;
+
+            allSections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+
+                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                    navLinksForHighlight.forEach(link => {
+                        link.classList.remove('nav-active');
+                        if (link.getAttribute('href') === '#' + sectionId) {
+                            link.classList.add('nav-active');
+                        }
+                    });
+                }
+            });
+        };
+
+        window.addEventListener('scroll', highlightNav, { passive: true });
+        highlightNav(); // Run once on load
+    }
 });
