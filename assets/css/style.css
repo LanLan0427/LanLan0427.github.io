@@ -1186,3 +1186,54 @@ nav {
 .nav-overlay.active {
     display: block;
 }
+
+/* ======================================
+   Mouse Spotlight Effect
+   ====================================== */
+.spotlight {
+    position: relative;
+    /* overflow: hidden; -- Removed to allow border glow */
+    --x: 0px;
+    --y: 0px;
+    z-index: 1;
+}
+
+/* Surface Glow */
+.spotlight::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(800px circle at var(--x) var(--y),
+            rgba(255, 255, 255, 0.06),
+            transparent 40%);
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    border-radius: inherit;
+}
+
+/* Border Glow */
+.spotlight::after {
+    content: '';
+    position: absolute;
+    inset: -1.5px;
+    /* Slightly larger than border */
+    background: radial-gradient(400px circle at var(--x) var(--y),
+            rgba(0, 243, 255, 0.35),
+            transparent 40%);
+    z-index: -1;
+    /* Behind card bg */
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    border-radius: inherit;
+}
+
+.spotlight:hover::before,
+.spotlight:hover::after {
+    opacity: 1;
+}

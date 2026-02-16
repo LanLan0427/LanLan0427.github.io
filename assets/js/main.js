@@ -759,4 +759,22 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('scroll', highlightNav, { passive: true });
         highlightNav(); // Run once on load
     }
+
+    // =========================================================
+    // Mouse Spotlight Effect
+    // =========================================================
+    const spotlightElements = document.querySelectorAll('.glass-card, .project-card, .explore-card');
+
+    spotlightElements.forEach(el => {
+        el.classList.add('spotlight');
+
+        el.addEventListener('mousemove', (e) => {
+            const rect = el.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            el.style.setProperty('--x', `${x}px`);
+            el.style.setProperty('--y', `${y}px`);
+        });
+    });
 });
