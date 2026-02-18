@@ -861,7 +861,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const logs = recentPushes.map(event => {
                     const repoName = event.repo.name.replace(`${username}/`, '');
-                    const originalMsg = event.payload.commits[0]?.message || 'Update code';
+                    const originalMsg = event.payload.commits?.[0]?.message || 'Update code';
                     const commitMsg = originalMsg.split('\n')[0]; // First line only
                     const date = new Date(event.created_at).toISOString().split('T')[0];
 
