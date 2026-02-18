@@ -809,6 +809,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const fetchGitHubActivity = async () => {
+            const cacheKey = 'github_devlog_cache_v3';
             // Check cache
             const cached = localStorage.getItem(cacheKey);
             if (cached) {
@@ -859,11 +860,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Take recent 5
                 const recentPushes = pushEvents.slice(0, 5);
 
-                const logs = recentPushes.map(event => {
+                const logs = await Promise.all(recentPushes.map(async event => {
                     const repoName = event.repo.name.replace(`${username}/`, '');
-                    const originalMsg = event.payload.commits?.[0]?.message || 'Update code';
-                    const commitMsg = originalMsg.split('\n')[0]; // First line only
                     const date = new Date(event.created_at).toISOString().split('T')[0];
+
+                    let commitMsg = '';
+
+                    // Try to get message from payload
+                    if (event.payload.commits && event.payload.commits.length > 0) {
+                        commitMsg = event.payload.commits[0].message;
+                    } else if (event.payload.head) {
+                        // Fetch individual commit details if missing in payload
+                        try {
+                            const commitResp = await fetch(`https://api.github.com/repos/${event.repo.name}/commits/${event.payload.head}`);
+                            if (commitResp.ok) {
+                                const commitData = await commitResp.json();
+                                commitMsg = commitData.commit.message;
+                            }
+                        } catch (e) {
+                            console.warn(`DevLog: Failed to fetch commit details for ${event.repo.name}`, e);
+                        }
+                    }
+
+                    if (!commitMsg) {
+                        commitMsg = `Update code in ${repoName}`;
+                    }
+
+                    // Truncate to first line
+                    commitMsg = commitMsg.split('\n')[0];
 
                     // Determine Status
                     let status = 'PUSH';
@@ -888,7 +912,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     formattedMsg = formattedMsg.replace(/(v\d+\.\d+)/g, '<span class="highlight-purple">$1</span>');
 
                     return { date, status, statusClass, msg: formattedMsg };
-                });
+                }));
 
                 // Cache data
                 localStorage.setItem(cacheKey, JSON.stringify({ timestamp: Date.now(), data: logs }));
