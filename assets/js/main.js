@@ -776,7 +776,114 @@ document.addEventListener('DOMContentLoaded', () => {
             const y = e.clientY - rect.top;
 
             el.style.setProperty('--x', `${x}px`);
-            el.style.setProperty('--y', `${y}px`);
         });
     });
+
+    // =========================================================
+    // GitHub DevLog Integration
+    // =========================================================
+    const devLogContent = document.querySelector('.devlog-content');
+
+    if (devLogContent) {
+        const username = 'LanLan0427';
+        const cacheKey = 'github_devlog_cache';
+        const cacheTime = 60 * 60 * 1000; // 1 hour cache
+
+        const renderDevLog = (logs) => {
+            if (!logs || logs.length === 0) return;
+
+            const cursorHtml = `<div class="log-entry flash-cursor" style="margin-top: 1rem;">
+                                    <span class="cmd">➜</span> <span class="cursor">_</span>
+                                </div>`;
+
+            const logsHtml = logs.map(log => `
+                <div class="log-entry">
+                    <span class="log-date">[${log.date}]</span>
+                    <span class="log-status ${log.statusClass}">${log.status}</span>
+                    <span class="log-msg">${log.msg}</span>
+                </div>
+            `).join('');
+
+            devLogContent.innerHTML = logsHtml + cursorHtml;
+        };
+
+        const fetchGitHubActivity = async () => {
+            // Check cache
+            const cached = localStorage.getItem(cacheKey);
+            if (cached) {
+                try {
+                    const { timestamp, data } = JSON.parse(cached);
+                    if (Date.now() - timestamp < cacheTime) {
+                        renderDevLog(data);
+                        // Optional: fetch background if stale? No, stick to cache.
+                        return;
+                    }
+                } catch (e) {
+                    console.error('Cache parse error', e);
+                    localStorage.removeItem(cacheKey);
+                }
+            }
+
+            try {
+                const response = await fetch(`https://api.github.com/users/${username}/events/public`);
+                if (!response.ok) throw new Error('GitHub API Error');
+
+                const events = await response.json();
+                const pushEvents = events
+                    .filter(event => event.type === 'PushEvent')
+                    .slice(0, 5); // Take recent 5 pushes
+
+                if (pushEvents.length === 0) return; // Keep static if no recent pushes
+
+                const logs = pushEvents.map(event => {
+                    const repoName = event.repo.name.replace(`${username}/`, '');
+                    const originalMsg = event.payload.commits[0]?.message || 'Update code';
+                    const commitMsg = originalMsg.split('\n')[0]; // First line only
+                    const date = new Date(event.created_at).toISOString().split('T')[0];
+
+                    // Determine Status
+                    let status = 'PUSH';
+                    let statusClass = 'status-wip'; // Default yellow/wip
+
+                    const lowerMsg = commitMsg.toLowerCase();
+                    if (lowerMsg.startsWith('feat')) { status = 'FEAT'; statusClass = 'status-feat'; }
+                    else if (lowerMsg.startsWith('fix')) { status = 'FIX'; statusClass = 'status-fix'; }
+                    else if (lowerMsg.startsWith('docs')) { status = 'DOCS'; statusClass = 'status-done'; }
+                    else if (lowerMsg.startsWith('style') || lowerMsg.startsWith('refactor')) { status = 'CODE'; statusClass = 'status-feat'; }
+                    else if (lowerMsg.startsWith('perf')) { status = 'PERF'; statusClass = 'status-done'; }
+                    else if (lowerMsg.startsWith('test')) { status = 'TEST'; statusClass = 'status-done'; }
+                    else if (lowerMsg.startsWith('chore')) { status = 'CHORE'; statusClass = 'status-wip'; }
+
+                    // Format Message with Highlight
+                    // Highlight repo name if present, or append it
+                    let formattedMsg = commitMsg.replace(new RegExp(repoName, 'gi'), `<span class="highlight-cyan">${repoName}</span>`);
+                    if (!formattedMsg.toLowerCase().includes(repoName.toLowerCase())) {
+                        formattedMsg += ` in <span class="highlight-cyan">${repoName}</span>`;
+                    }
+
+                    // Highlight generic terms if cool
+                    formattedMsg = formattedMsg.replace(/(v\d+\.\d+)/g, '<span class="highlight-purple">$1</span>');
+
+                    return { date, status, statusClass, msg: formattedMsg };
+                });
+
+                // Cache data
+                localStorage.setItem(cacheKey, JSON.stringify({ timestamp: Date.now(), data: logs }));
+                renderDevLog(logs);
+
+            } catch (error) {
+                console.warn('DevLog fetch failed:', error);
+                // Fallback: keep static HTML from initial load
+                // Or try to load stale cache
+                if (cached) {
+                    try {
+                        const { data } = JSON.parse(cached);
+                        renderDevLog(data);
+                    } catch (e) { }
+                }
+            }
+        };
+
+        fetchGitHubActivity();
+    }
 });
