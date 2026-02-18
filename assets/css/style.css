@@ -1237,3 +1237,99 @@ nav {
 .spotlight:hover::after {
     opacity: 1;
 }
+
+/* ======================================
+   DevLog Section
+   ====================================== */
+.devlog-content {
+    background: rgba(10, 10, 20, 0.6);
+    /* Slightly transparent */
+    color: #eee;
+    font-family: var(--font-mono);
+    padding: 1.5rem;
+    overflow-y: auto;
+    max-height: 400px;
+}
+
+
+
+.log-entry {
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
+    flex-wrap: wrap;
+}
+
+.log-date {
+    color: #666;
+    font-size: 0.85rem;
+    min-width: 90px;
+    font-family: 'Consolas', monospace;
+}
+
+.log-status {
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    min-width: 50px;
+    text-align: center;
+}
+
+.status-wip {
+    color: #1a1a1a;
+    background: #ffbd2e;
+}
+
+.status-done {
+    color: #fff;
+    background: #27c93f;
+    text-shadow: 0 0 5px rgba(39, 201, 63, 0.5);
+}
+
+.status-feat {
+    color: #fff;
+    background: #4285F4;
+}
+
+.status-fix {
+    color: #fff;
+    background: #ff5f56;
+}
+
+.log-msg {
+    flex: 1;
+    color: #ddd;
+}
+
+.highlight-cyan {
+    color: #00f3ff;
+}
+
+.highlight-purple {
+    color: #bc00dd;
+}
+
+/* DevLog RWD */
+@media (max-width: 600px) {
+    .log-entry {
+        gap: 0.5rem;
+    }
+
+    .log-date {
+        width: 100%;
+        color: #555;
+        margin-bottom: 0.2rem;
+    }
+
+    .log-msg {
+        width: 100%;
+        margin-top: 0.2rem;
+        padding-left: 0.5rem;
+        border-left: 2px solid #333;
+    }
+}

@@ -51,6 +51,7 @@
             <a href="#about" data-i18n="navAbout">關於我</a>
             <a href="#stats" data-i18n="navSkills">專業技能</a>
             <a href="#projects" data-i18n="navProjects">專案作品</a>
+            <a href="#devlog" data-i18n="navDevLog">開發日誌</a>
             <a href="#contact" data-i18n="navContact">聯絡方式</a>
         </div>
         <div class="nav-right">
@@ -347,19 +348,47 @@
         </div>
     </section>
 
-    <!-- Learning Notes -->
-    <section id="notes" class="reveal">
+    <!-- DevLog Section -->
+    <section id="devlog" class="reveal">
         <div class="container">
-            <h2 class="neon-text section-title" data-i18n="notesTitle">學習筆記</h2>
-            <div class="glass-card">
-                <h3 class="notes-title" data-i18n="notesFocus">近期方向</h3>
-                <ul class="note-list">
-                    <li data-i18n-html="note1">[2026/02] <strong>Sim2Real Gap Reduction</strong>：研究 NVIDIA Isaac Sim
-                        與真實機械臂的同步控制</li>
-                    <li data-i18n-html="note2">[2026/01] <strong>Imitation Learning</strong>：使用 LeRobot ACT 模型進行動作模仿訓練
-                    </li>
-                    <li data-i18n-html="note3">[2025/12] <strong>VR Interaction</strong>：Unity 虛擬實境互動設計與場域建置</li>
-                </ul>
+            <h2 class="neon-text section-title" data-i18n="devlogTitle">DevLog</h2>
+            <div class="terminal-window"
+                style="max-width: 800px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                <div class="terminal-header">
+                    <div class="terminal-btn red"></div>
+                    <div class="terminal-btn yellow"></div>
+                    <div class="terminal-btn green"></div>
+                    <div class="terminal-title">~/dev/journal.log - tail -f</div>
+                </div>
+                <div class="terminal-content devlog-content">
+                    <div class="log-entry">
+                        <span class="log-date">[2026-02-15]</span>
+                        <span class="log-status status-wip">WIP</span>
+                        <span class="log-msg" data-i18n-html="log1">Sim2Real gap reduction analysis in <span
+                                class="highlight-cyan">Isaac Sim 4.0</span></span>
+                    </div>
+                    <div class="log-entry">
+                        <span class="log-date">[2026-01-20]</span>
+                        <span class="log-status status-done">DONE</span>
+                        <span class="log-msg" data-i18n-html="log2">LeRobot ACT model training finished (Success Rate:
+                            82%)</span>
+                    </div>
+                    <div class="log-entry">
+                        <span class="log-date">[2025-12-10]</span>
+                        <span class="log-status status-feat">FEAT</span>
+                        <span class="log-msg" data-i18n-html="log3">Integrated <span
+                                class="highlight-purple">SenseVoice</span> for multilingual ASR support</span>
+                    </div>
+                    <div class="log-entry">
+                        <span class="log-date">[2025-11-05]</span>
+                        <span class="log-status status-fix">FIX</span>
+                        <span class="log-msg" data-i18n-html="log4">Resolved inverse kinematics singularity issue on
+                            6-DOF arm</span>
+                    </div>
+                    <div class="log-entry flash-cursor" style="margin-top: 1rem;">
+                        <span class="cmd">➜</span> <span class="cursor">_</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
