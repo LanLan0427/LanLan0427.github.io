@@ -776,6 +776,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const y = e.clientY - rect.top;
 
             el.style.setProperty('--x', `${x}px`);
+            el.style.setProperty('--y', `${y}px`);
         });
     });
 
