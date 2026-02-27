@@ -475,13 +475,14 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             'web3': () => {
                 return [
-                    '<span class="terminal-cyan">      /\\</span>',
-                    '<span class="terminal-cyan">     /  \\</span>',
-                    '<span class="terminal-cyan">    /____\\</span>',
-                    '<span class="terminal-cyan">   \\      /</span>',
-                    '<span class="terminal-cyan">    \\    /</span>',
-                    '<span class="terminal-cyan">     \\  /</span>',
-                    '<span class="terminal-cyan">      \\/</span>',
+                    '<span class="terminal-cyan">       /\\       </span>',
+                    '<span class="terminal-cyan">      /  \\      </span>',
+                    '<span class="terminal-cyan">     /____\\     </span>',
+                    '<span class="terminal-cyan">    /      \\    </span>',
+                    '<span class="terminal-cyan">    \\      /    </span>',
+                    '<span class="terminal-cyan">     \\    /     </span>',
+                    '<span class="terminal-cyan">      \\  /      </span>',
+                    '<span class="terminal-cyan">       \\/       </span>',
                     '<span class="terminal-dim" style="color:gold;">We\'re all gonna make it. (WAGMI)</span>',
                 ].join('<br>');
             },
