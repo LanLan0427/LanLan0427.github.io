@@ -438,8 +438,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const welcomeLines = [
             '',
             ' <span class="terminal-dim">╔══════════════════════════════════════╗</span>',
-            ' <span class="terminal-dim">║</span>  <span class="terminal-cyan">LanLanOS v2.0</span> — Personal Terminal  <span class="terminal-dim">║</span>',
-            ' <span class="terminal-dim">║</span>  <span class="terminal-purple">AI Agent & Blockchain Developer   </span> <span class="terminal-dim">║</span>',
+            ' <span class="terminal-dim">║</span>  <span class="terminal-cyan">LanLanOS v2.0</span> — Personal Terminal   <span class="terminal-dim">║</span>',
+            ' <span class="terminal-dim">║</span>  <span class="terminal-purple">AI Agent & Blockchain Developer</span>     <span class="terminal-dim">║</span>',
             ' <span class="terminal-dim">╚══════════════════════════════════════╝</span>',
             '',
             ' Type <span class="cmd">help</span> to see available commands.',
