@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
             navContact: '聯絡方式',
             heroBtn: '查看作品',
             aboutTitle: '關於我',
-            aboutText: '<strong class="about-greeting">Hi, I\'m LanLan! 👋</strong><br><br>我是一名熱衷於探索 <strong class="highlight-purple">AI Robotics</strong> 與 <strong class="highlight-purple">Simulation</strong> 的開發者。<br>我的目標是將先進的 AI 技術 (Agentic AI) 與實體或虛擬的自動化系統 (Robotics/Sim) 結合，創造出具有感知與決策能力的智慧系統。<br><br>從 <strong class="highlight-cyan">VR 沉浸式教學</strong> 到 <strong class="highlight-cyan">Sim2Real 機械手臂控制</strong>，我一直在跨領域的技術邊界上挑戰自我。',
+            aboutText: '<strong class="about-greeting">Hi, I\'m LanLan! 👋</strong><br><br>我是一名熱衷於探索 <strong class="highlight-purple">AI Agent</strong> 與 <strong class="highlight-purple">Blockchain / Web3</strong> 領域的開發者。<br>我的目標是將先進的 AI 技術與去中心化智能合約結合，創造出具有自主決策能力的鏈上智慧應用與交易系統。<br><br>從 <strong class="highlight-cyan">AI 智能代幣分析 (Tw_Stock_Degen)</strong> 到 <strong class="highlight-cyan">DeFi 模擬交易機器人 (Paper_Degen)</strong>，我一直在跨領域的技術邊界上挑戰自我。',
             eduTitle: '學歷與研究',
             yuntech: '國立雲林科技大學 (YunTech)',
             yuntechDept: '二技部 | 資訊管理系',
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
             navContact: 'Contact',
             heroBtn: 'View My Work',
             aboutTitle: 'About Me',
-            aboutText: '<strong class="about-greeting">Hi, I\'m LanLan! 👋</strong><br><br>I\'m a developer passionate about <strong class="highlight-purple">AI Robotics</strong> and <strong class="highlight-purple">Simulation</strong>.<br>My goal is to combine advanced AI (Agentic AI) with physical or virtual automation systems (Robotics/Sim) to create intelligent systems with perception and decision-making capabilities.<br><br>From <strong class="highlight-cyan">Immersive VR Teaching</strong> to <strong class="highlight-cyan">Sim2Real Robotic Arm Control</strong>, I\'m constantly pushing the boundaries across disciplines.',
+            aboutText: '<strong class="about-greeting">Hi, I\'m LanLan! 👋</strong><br><br>I\'m a developer passionate about <strong class="highlight-purple">AI Agents</strong> and <strong class="highlight-purple">Blockchain / Web3</strong>.<br>My goal is to combine advanced AI technologies with decentralized smart contracts to create intelligent on-chain applications and autonomous trading systems.<br><br>From <strong class="highlight-cyan">AI Token Analysis (Tw_Stock_Degen)</strong> to <strong class="highlight-cyan">DeFi Paper Trading Bots (Paper_Degen)</strong>, I\'m constantly pushing the boundaries across disciplines.',
             eduTitle: 'Education & Research',
             yuntech: 'National Yunlin University of Sci. & Tech. (YunTech)',
             yuntechDept: 'B.S. | Information Management',
@@ -193,15 +193,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const typewriterPhrases = {
         zh: [
             '歡迎來到我的數位空間。',
-            '我用 Python 打造酷東西。',
-            '我開發 Discord 機器人。',
-            '我探索 AI 智能代理。'
+            '我用 Python 打造 AI 應用。',
+            '我開發智能合約與 DApp。',
+            '我探索 Agentic AI 與 Web3。'
         ],
         en: [
             'Welcome to my digital space.',
-            'I build cool things with Python.',
-            'I create Discord Bots.',
-            'I explore AI agents.'
+            'I build AI apps with Python.',
+            'I create Smart Contracts & DApps.',
+            'I explore Agentic AI & Web3.'
         ]
     };
 
@@ -434,7 +434,7 @@ document.addEventListener('DOMContentLoaded', () => {
             '',
             ' <span class="terminal-dim">╔══════════════════════════════════════╗</span>',
             ' <span class="terminal-dim">║</span>  <span class="terminal-cyan">LanLanOS v2.0</span> — Personal Terminal  <span class="terminal-dim">║</span>',
-            ' <span class="terminal-dim">║</span>  <span class="terminal-purple">AI Robotics & Simulation Developer</span> <span class="terminal-dim">║</span>',
+            ' <span class="terminal-dim">║</span>  <span class="terminal-purple">AI Agent & Blockchain Developer   </span> <span class="terminal-dim">║</span>',
             ' <span class="terminal-dim">╚══════════════════════════════════════╝</span>',
             '',
             ' Type <span class="cmd">help</span> to see available commands.',
@@ -461,20 +461,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 return [
                     '<span class="terminal-cyan">┌─ About Me ──────────────────────┐</span>',
                     '  Hi! I\'m <span class="terminal-cyan">LanLan</span> 👋',
-                    '  An <span class="terminal-purple">AI Robotics & Simulation</span> Developer.',
-                    '  Focusing on Agentic AI, Sim2Real,',
-                    '  and Immersive VR Technologies.',
+                    '  An <span class="terminal-purple">AI Agent & Web3</span> Developer.',
+                    '  Focusing on Smart Contracts, DApps,',
+                    '  and Autonomous AI Trading Bots.',
                     '<span class="terminal-cyan">└─────────────────────────────────┘</span>',
                 ].join('<br>');
             },
             'skills': () => {
                 return [
                     '<span class="terminal-cyan">┌─ Tech Stack ────────────────────┐</span>',
-                    '  <span class="terminal-dim">Languages:</span>  Python, JavaScript, C#',
-                    '  <span class="terminal-dim">Core:</span>       ROS 2, Isaac Sim, Unity',
-                    '  <span class="terminal-dim">AI:</span>         Gemini, SenseVoice, YOLOv8',
-                    '  <span class="terminal-dim">ML:</span>         PyTorch, LeRobot ACT',
-                    '  <span class="terminal-dim">Tools:</span>      Git, Docker, Linux',
+                    '  <span class="terminal-dim">Languages:</span>  Python, JavaScript, Solidity',
+                    '  <span class="terminal-dim">Web3/DeFi:</span>  Smart Contracts, Web3.js',
+                    '  <span class="terminal-dim">AI/Agents:</span>  Gemini API, LangChain',
+                    '  <span class="terminal-dim">Backend:  </span>  FastAPI, Node.js',
+                    '  <span class="terminal-dim">Tools:    </span>  Git, Docker, Linux',
                     '<span class="terminal-cyan">└─────────────────────────────────┘</span>',
                 ].join('<br>');
             },
@@ -646,10 +646,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const tagCloudContainer = document.getElementById('tagcloud-container');
     if (tagCloudContainer) {
         const myTags = [
-            'Python', 'ROS 2', 'Isaac Sim', 'LeRobot',
-            'Sim2Real', 'Unity 3D', 'C#', 'OpenCV',
-            'YOLOv8', 'NLP', 'Gemini AI', 'Discord.js',
-            'Git', 'Docker', 'Linux', 'VR/AR'
+            'Python', 'Solidity', 'Web3.js', 'Smart Contract',
+            'DeFi', 'Agentic AI', 'Gemini API', 'LangChain',
+            'Discord.js', 'LineBot API', 'Git', 'Docker',
+            'Linux', 'React', 'FastAPI', 'Node.js'
         ];
 
         // Config for TagCloud
