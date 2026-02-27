@@ -372,6 +372,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function animate() {
+            if (window.isMatrixMode) {
+                // Return early, let the Matrix loop take over canvas
+                return;
+            }
+
             // Dark trail effect for cinematic feel
             ctx.fillStyle = 'rgba(10, 10, 20, 0.2)'; // Dark blueish trail
             ctx.fillRect(0, 0, width, height);
@@ -457,6 +462,30 @@ document.addEventListener('DOMContentLoaded', () => {
                     '<span class="terminal-dim">╰─────────────────────────────────────────╯</span>',
                 ].join('<br>');
             },
+            'sudo': () => {
+                return '<span class="terminal-dim" style="color:var(--error-color, #ff4c4c)">Nice try, but you don\'t have root privileges here.</span>';
+            },
+            'rm -rf /': () => {
+                const terminalWindow = document.querySelector('.terminal-window');
+                if (terminalWindow) {
+                    terminalWindow.classList.add('shake-animation');
+                    setTimeout(() => terminalWindow.classList.remove('shake-animation'), 500);
+                }
+                return '<span style="color:var(--error-color, #ff4c4c); font-weight:bold;">Initiating Self-Destruct... Just kidding.</span>';
+            },
+            'web3': () => {
+                return [
+                    '<span class="terminal-cyan">      /\\</span>',
+                    '<span class="terminal-cyan">     /  \\</span>',
+                    '<span class="terminal-cyan">    /____\\</span>',
+                    '<span class="terminal-cyan">   \\      /</span>',
+                    '<span class="terminal-cyan">    \\    /</span>',
+                    '<span class="terminal-cyan">     \\  /</span>',
+                    '<span class="terminal-cyan">      \\/</span>',
+                    '<span class="terminal-dim" style="color:gold;">We\'re all gonna make it. (WAGMI)</span>',
+                ].join('<br>');
+            },
+            'crypto': () => commands['web3'](),
             'about': () => {
                 return [
                     '<span class="terminal-cyan">┌─ About Me ──────────────────────┐</span>',
@@ -954,5 +983,96 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         fetchGitHubActivity();
+    }
+
+    // =========================================================
+    // Easter Egg: Matrix Mode (Konami Code)
+    // =========================================================
+    const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+    let konamiIndex = 0;
+
+    // Make it global so the canvas loop can read it
+    window.isMatrixMode = false;
+    let matrixInterval = null;
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === konamiCode[konamiIndex] || e.key.toLowerCase() === konamiCode[konamiIndex].toLowerCase()) {
+            konamiIndex++;
+            if (konamiIndex === konamiCode.length) {
+                activateMatrixMode();
+                konamiIndex = 0;
+            }
+        } else {
+            konamiIndex = 0;
+            // Retry for partial match start
+            if (e.key === konamiCode[0] || e.key.toLowerCase() === konamiCode[0].toLowerCase()) {
+                konamiIndex = 1;
+            }
+        }
+    });
+
+    function activateMatrixMode() {
+        if (window.isMatrixMode) return;
+        window.isMatrixMode = true;
+
+        // Apply CSS overrides
+        document.body.classList.add('matrix-mode');
+
+        // Show Toast
+        if (toast) {
+            toast.innerHTML = 'Wake up, Neo... <br><strong style="color:#00FF41">Matrix Mode Activated</strong>';
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+                // Reset toast content roughly after it hides
+                setTimeout(() => toast.innerHTML = translations[currentLang].toastMsg, 500);
+            }, 4000);
+        }
+
+        // Setup Digital Rain Canvas
+        const bgCanvas = document.getElementById('bg-canvas');
+        if (!bgCanvas) return;
+        const ctx = bgCanvas.getContext('2d');
+
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$+-*/=%""\'#&_(),.;:?!\\|{}<>[]^~'.split('');
+        const fontSize = 16;
+        let columns = Math.floor(bgCanvas.width / fontSize);
+        let drops = [];
+        for (let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+
+        ctx.font = fontSize + 'px var(--font-mono)';
+
+        function drawMatrix() {
+            // Check canvas resize
+            const currentCols = Math.floor(bgCanvas.width / fontSize);
+            if (columns !== currentCols) {
+                columns = currentCols;
+                drops = [];
+                for (let x = 0; x < columns; x++) {
+                    drops[x] = 1;
+                }
+            }
+
+            // Translucent black to create trail effect
+            ctx.fillStyle = 'rgba(0, 20, 0, 0.1)';
+            ctx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
+
+            ctx.fillStyle = '#00FF41';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > bgCanvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        if (matrixInterval) clearInterval(matrixInterval);
+        matrixInterval = setInterval(drawMatrix, 35);
     }
 });
