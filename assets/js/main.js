@@ -437,10 +437,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const welcomeLines = [
             '',
-            ' <span class="terminal-dim">╔══════════════════════════════════════╗</span>',
-            ' <span class="terminal-dim">║</span>  <span class="terminal-cyan">LanLanOS v2.0</span> — Personal Terminal      <span class="terminal-dim">║</span>',
-            ' <span class="terminal-dim">║</span>  <span class="terminal-purple">AI Agent & Blockchain Developer     </span>     <span class="terminal-dim">║</span>',
-            ' <span class="terminal-dim">╚══════════════════════════════════════╝</span>',
+            ' <span class="terminal-dim" style="white-space: pre;">╔══════════════════════════════════════╗</span>',
+            ' <span class="terminal-dim" style="white-space: pre;">║</span>  <span class="terminal-cyan" style="white-space: pre;">LanLanOS v2.0</span> — Personal Terminal      <span class="terminal-dim" style="white-space: pre;">║</span>',
+            ' <span class="terminal-dim" style="white-space: pre;">║</span>  <span class="terminal-purple" style="white-space: pre;">AI Agent & Blockchain Developer     </span> <span class="terminal-dim" style="white-space: pre;">║</span>',
+            ' <span class="terminal-dim" style="white-space: pre;">╚══════════════════════════════════════╝</span>',
             '',
             ' Type <span class="cmd">help</span> to see available commands.',
             ''
