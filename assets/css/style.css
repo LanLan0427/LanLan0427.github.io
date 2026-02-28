@@ -1390,79 +1390,167 @@ nav {
 }
 
 /* ======================================
-   Pixel Mode Overrides
+   Pixel Mode Overrides (Sprout Lands Style)
    ====================================== */
 body.pixel-mode {
     --font-main: 'DotGothic16', monospace;
     --font-mono: 'DotGothic16', monospace;
-    --primary-color: #ff00ff;
-    --secondary-color: #00ffff;
-    background-color: #111;
+    --primary-color: #5c4033;
+    /* Dark earthy brown */
+    --secondary-color: #8f974a;
+    /* Earthy grass shadow */
+    --accent-color: #d4a373;
+    /* Warm wood / tan */
+    background-color: #cce0b4;
+    /* Soft Sprout Lands grass green */
     background-image:
-        linear-gradient(rgba(255, 0, 255, 0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 0, 255, 0.1) 1px, transparent 1px);
-    background-size: 40px 40px;
+        linear-gradient(rgba(92, 64, 51, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(92, 64, 51, 0.05) 1px, transparent 1px);
+    background-size: 32px 32px;
+    color: var(--primary-color);
 }
 
 body.pixel-mode .glass-card {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
-    background: #000;
-    border: 2px solid var(--primary-color);
-    border-radius: 0;
-    box-shadow: 6px 6px 0px var(--secondary-color);
+    background: #fffdf2;
+    /* Cream paper/dialog box bg */
+    border: 4px solid var(--primary-color);
+    border-radius: 8px;
+    /* Slightly rounded cute pixel corners */
+    box-shadow: 4px 4px 0px var(--secondary-color);
     transition: transform 0.1s, box-shadow 0.1s;
+    color: var(--primary-color);
 }
 
 body.pixel-mode .glass-card:hover {
     transform: translate(-2px, -2px);
-    box-shadow: 8px 8px 0px var(--primary-color);
-    border-color: var(--secondary-color);
+    box-shadow: 6px 6px 0px rgba(92, 64, 51, 0.5);
+    border-color: var(--primary-color);
 }
 
 body.pixel-mode .btn {
-    border-radius: 0;
+    border-radius: 4px;
     font-weight: bold;
-    border: 2px solid var(--primary-color);
-    box-shadow: 4px 4px 0px var(--secondary-color);
-    background: #000;
+    border: 3px solid var(--primary-color);
+    box-shadow: 2px 2px 0px #fff, 4px 4px 0px var(--primary-color);
+    background: var(--accent-color);
+    color: #fff;
     text-transform: uppercase;
 }
 
 body.pixel-mode .btn:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0px var(--primary-color);
-    background: var(--primary-color);
-    color: #000;
+    transform: translate(-1px, -1px);
+    box-shadow: 2px 2px 0px #fff, 5px 5px 0px var(--primary-color);
+    background: #e2b78b;
+    color: var(--primary-color);
 }
 
 body.pixel-mode .terminal-window {
-    border-radius: 0;
-    border: 2px solid var(--primary-color);
-    box-shadow: 8px 8px 0px var(--secondary-color);
-    background: #000;
+    border-radius: 8px;
+    border: 4px solid var(--primary-color);
+    box-shadow: 4px 4px 0px rgba(92, 64, 51, 0.3);
+    background: #fffdf2;
+    color: var(--primary-color);
+}
+
+body.pixel-mode .terminal-header {
+    background: var(--primary-color);
+    color: #fffdf2;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+body.pixel-mode .terminal-body {
+    background: #fffdf2;
 }
 
 body.pixel-mode h1,
 body.pixel-mode h2,
 body.pixel-mode h3 {
-    text-shadow: 2px 2px 0px var(--secondary-color);
+    text-shadow: 1px 1px 0px #fff;
     background: none;
     -webkit-text-fill-color: var(--primary-color);
     color: var(--primary-color);
 }
 
+body.pixel-mode .section-title::after {
+    background: var(--primary-color);
+}
+
 body.pixel-mode .neon-text {
-    text-shadow: 3px 3px 0px var(--secondary-color);
+    text-shadow: none;
+    color: var(--primary-color);
 }
 
 body.pixel-mode .tech-item {
     -webkit-text-stroke: 0;
-    color: #fff;
-    text-shadow: 2px 2px 0px var(--primary-color);
+    color: var(--primary-color);
+    background: #e9e3ce;
+    border: 2px solid var(--primary-color);
+    text-shadow: none;
+    border-radius: 4px;
 }
 
 body.pixel-mode .tech-item:hover {
+    color: #fff;
+    background: var(--primary-color);
+    text-shadow: none;
+    transform: scale(1.05);
+}
+
+/* Terminal Text Overrides for RPG Dialog Feel */
+body.pixel-mode .terminal-cyan {
+    color: #437c69 !important;
+}
+
+/* Forest green */
+body.pixel-mode .terminal-purple {
+    color: #a45a52 !important;
+}
+
+/* Soft brick red */
+body.pixel-mode .terminal-dim {
+    color: #a89f92 !important;
+}
+
+/* Brown-grey */
+body.pixel-mode .cmd {
+    color: #d4a373 !important;
+    font-weight: bold;
+    background: #5c4033;
+    padding: 0 4px;
+    border-radius: 2px;
+}
+
+/* Navbar text overrides */
+body.pixel-mode .nav-links a {
     color: var(--primary-color);
-    text-shadow: 3px 3px 0px var(--secondary-color);
+    font-weight: bold;
+}
+
+body.pixel-mode .nav-links a:hover {
+    color: #fff;
+    background: var(--primary-color);
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-shadow: none;
+}
+
+body.pixel-mode .logo {
+    color: var(--primary-color);
+    text-shadow: 2px 2px 0px #fff;
+}
+
+body.pixel-mode .lang-toggle,
+body.pixel-mode .pixel-toggle {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+body.pixel-mode .lang-toggle:hover,
+body.pixel-mode .pixel-toggle:hover {
+    background: var(--primary-color);
+    color: #fff;
+    box-shadow: 2px 2px 0px #fff;
+    text-shadow: none;
 }
