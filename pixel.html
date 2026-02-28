@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="LanLan's Pixelverse Portfolio - Cute 8-bit Developer">
+    <meta name="theme-color" content="#87CEEB">
+    <title>LanLan 像素小宇宙 (Pixelverse)</title>
+
+    <!-- Google Fonts for Pixel Art Aesthetic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=DotGothic16&display=swap"
+        rel="stylesheet">
+
+    <!-- Pixelverse CSS -->
+    <link rel="stylesheet" href="assets/css/pixel.css">
+
+    <!-- FontAwesome for fallback icons, maybe try to use pixel-art icons instead but good to have -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="pixel-body">
+    <!-- Scene wrapper -->
+    <div id="pixel-scene">
+        <!-- Parallax Background Clouds -->
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+
+        <!-- Main Display Container -->
+        <main class="pixel-container">
+            <!-- Hero / Character Dialog -->
+            <section class="dialog-box">
+                <div class="dialog-avatar">
+                    <!-- Simple CSS Pixel Avatar -->
+                    <div class="pixel-character"></div>
+                </div>
+                <div class="dialog-content">
+                    <h1 class="dialog-name">LanLan <span class="badge-lv">Lv.99</span></h1>
+                    <p id="typewriter-text" class="dialog-text"></p>
+                    <span class="dialog-continue">▼</span>
+                </div>
+            </section>
+
+            <!-- Quest Log (Projects) -->
+            <section class="quest-log box-panel">
+                <div class="panel-header">
+                    <h2><i class="fas fa-scroll"></i> Quest Log (Projects)</h2>
+                </div>
+                <div class="quest-list">
+                    <!-- Quest 1 -->
+                    <div class="quest-item">
+                        <div class="quest-icon">💰</div>
+                        <div class="quest-info">
+                            <h3>Paper_Degen</h3>
+                            <p>BNB Hackathon AI Trading Bot</p>
+                        </div>
+                        <a href="https://github.com/LanLan0427/Paper_Degen" target="_blank" class="pixel-btn">START</a>
+                    </div>
+                    <!-- Quest 2 -->
+                    <div class="quest-item">
+                        <div class="quest-icon">🤖</div>
+                        <div class="quest-info">
+                            <h3>AI Arm</h3>
+                            <p>Multimodal Robotic System</p>
+                        </div>
+                        <a href="https://github.com/LanLan0427" target="_blank" class="pixel-btn">START</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Inventory (Skills) -->
+            <section class="inventory box-panel">
+                <div class="panel-header">
+                    <h2><i class="fas fa-backpack"></i> Inventory (Skills)</h2>
+                </div>
+                <div class="item-grid">
+                    <div class="item-slot" title="Solidity"><i class="fa-brands fa-ethereum"></i></div>
+                    <div class="item-slot" title="Python"><i class="fa-brands fa-python"></i></div>
+                    <div class="item-slot" title="JavaScript"><i class="fa-brands fa-js"></i></div>
+                    <div class="item-slot" title="Docker"><i class="fa-brands fa-docker"></i></div>
+                    <div class="item-slot" title="Git"><i class="fa-brands fa-git-alt"></i></div>
+                    <div class="item-slot" title="AI Agent" style="font-size: 1.2rem;">🧠</div>
+                </div>
+            </section>
+        </main>
+
+        <!-- UI Controls -->
+        <div class="retro-controls">
+            <a href="index.html" class="pixel-btn btn-danger" id="return-btn">
+                <i class="fas fa-door-open"></i> Back to Reality
+            </a>
+        </div>
+    </div>
+
+    <!-- Pixelverse JS -->
+    <script src="assets/js/pixel.js"></script>
+</body>
+
+</html>
