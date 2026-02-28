@@ -1098,13 +1098,26 @@ nav {
 
 @keyframes suck-in {
     0% {
-        transform: scale(1) rotate(0deg);
+        transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1) skewX(0deg) skewY(0deg);
         filter: blur(0);
+        opacity: 1;
+    }
+
+    30% {
+        transform: perspective(1000px) rotateX(30deg) rotateY(-20deg) scale(0.8) skewX(10deg) skewY(-15deg);
+        filter: blur(2px);
+        opacity: 0.9;
+    }
+
+    60% {
+        transform: perspective(1000px) rotateX(-45deg) rotateY(40deg) scale(0.4) skewX(-20deg) skewY(25deg);
+        filter: blur(8px) contrast(150%);
+        opacity: 0.7;
     }
 
     100% {
-        transform: scale(0) rotate(720deg);
-        filter: blur(20px);
+        transform: perspective(1000px) rotateX(90deg) rotateY(-90deg) scale(0) skewX(40deg) skewY(-40deg);
+        filter: blur(20px) contrast(200%);
         opacity: 0;
     }
 }
