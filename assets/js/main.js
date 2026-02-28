@@ -1208,7 +1208,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 collapse = false;
                 expanse = true;
                 centerHover.classList.add('open');
+
+                // Set transform-origin to the exact portal center so the body sucks into it
+                const rect = el.getBoundingClientRect();
+                const originX = rect.left + rect.width / 2 + window.scrollX;
+                const originY = rect.top + rect.height / 2 + window.scrollY;
+                document.body.style.transformOrigin = `${originX}px ${originY}px`;
+
                 document.body.classList.add('sucked-into-portal');
+
                 setTimeout(function () {
                     window.location.href = 'pixel.html';
                 }, 2000);

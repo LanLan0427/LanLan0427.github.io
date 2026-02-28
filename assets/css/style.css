@@ -1102,13 +1102,8 @@ nav {
         filter: blur(0);
     }
 
-    50% {
-        transform: scale(0.5) rotate(45deg);
-        filter: blur(5px);
-    }
-
     100% {
-        transform: scale(0) rotate(180deg) translate(-50vw, 50vh);
+        transform: scale(0) rotate(720deg);
         filter: blur(20px);
         opacity: 0;
     }
