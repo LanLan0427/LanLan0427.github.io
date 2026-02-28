@@ -1078,19 +1078,178 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================
-    // Easter Egg: Black Hole Portal to Pixelverse
+    // Easter Egg: Black Hole Portal to Pixelverse (CodePen Version)
     // =========================================================
-    const portal = document.getElementById('black-hole-portal');
-    if (portal) {
-        portal.addEventListener('click', (e) => {
-            e.preventDefault();
-            // Add transition class to body
-            document.body.classList.add('sucked-into-portal');
+    function initBlackHole(elementSelector) {
+        const el = document.querySelector(elementSelector);
+        if (!el) return;
 
-            // Wait for animation to finish before navigating
-            setTimeout(() => {
-                window.location.href = 'pixel.html';
-            }, 2000); // 2 seconds matches the suck-in animation duration
-        });
+        let h = el.offsetHeight,
+            w = el.offsetWidth,
+            cw = w,
+            ch = h,
+            maxorbit = cw / 2, // distance from center
+            centery = ch / 2,
+            centerx = cw / 2;
+
+        let startTime = new Date().getTime();
+        let currentTime = 0;
+
+        let stars = [],
+            collapse = false, // if hovered
+            expanse = false; // if clicked
+
+        const canvas = document.createElement('canvas');
+        canvas.width = cw;
+        canvas.height = ch;
+        el.appendChild(canvas);
+        const context = canvas.getContext("2d");
+
+        context.globalCompositeOperation = "screen";
+
+        function setDPI(canvas, dpi) {
+            if (!canvas.style.width) canvas.style.width = canvas.width + 'px';
+            if (!canvas.style.height) canvas.style.height = canvas.height + 'px';
+
+            let scaleFactor = dpi / 96;
+            canvas.width = Math.ceil(canvas.width * scaleFactor);
+            canvas.height = Math.ceil(canvas.height * scaleFactor);
+            let ctx = canvas.getContext('2d');
+            ctx.scale(scaleFactor, scaleFactor);
+        }
+
+        function rotate(cx, cy, x, y, angle) {
+            let radians = angle,
+                cos = Math.cos(radians),
+                sin = Math.sin(radians),
+                nx = (cos * (x - cx)) + (sin * (y - cy)) + cx,
+                ny = (cos * (y - cy)) - (sin * (x - cx)) + cy;
+            return [nx, ny];
+        }
+
+        setDPI(canvas, 192);
+
+        var Star = function () {
+            let rands = [];
+            rands.push(Math.random() * (maxorbit / 2) + 1);
+            rands.push(Math.random() * (maxorbit / 2) + maxorbit);
+
+            this.orbital = (rands.reduce((p, c) => p + c, 0) / rands.length);
+            this.x = centerx;
+            this.y = centery + this.orbital;
+            this.yOrigin = centery + this.orbital;
+            this.speed = (Math.floor(Math.random() * 2.5) + 1.5) * Math.PI / 180;
+            this.rotation = 0;
+            this.startRotation = (Math.floor(Math.random() * 360) + 1) * Math.PI / 180;
+            this.id = stars.length;
+            this.collapseBonus = this.orbital - (maxorbit * 0.7);
+            if (this.collapseBonus < 0) this.collapseBonus = 0;
+
+            stars.push(this);
+            // Mix between Cyan and Purple neon particle colors
+            const colorR = Math.random() > 0.5 ? 0 : 188;
+            const colorG = colorR === 0 ? 243 : 0;
+            const colorB = colorR === 0 ? 255 : 221;
+            this.color = 'rgba(' + colorR + ',' + colorG + ',' + colorB + ',' + (1 - ((this.orbital) / maxorbit)) + ')';
+
+            this.hoverPos = centery + (maxorbit / 2) + this.collapseBonus;
+            this.expansePos = centery + (this.id % 100) * -10 + (Math.floor(Math.random() * 20) + 1);
+
+            this.prevR = this.startRotation;
+            this.prevX = this.x;
+            this.prevY = this.y;
+        }
+
+        Star.prototype.draw = function () {
+            if (!expanse) {
+                this.rotation = this.startRotation + (currentTime * this.speed);
+                if (!collapse) {
+                    if (this.y > this.yOrigin) {
+                        this.y -= 2.5;
+                    }
+                    if (this.y < this.yOrigin - 4) {
+                        this.y += (this.yOrigin - this.y) / 10;
+                    }
+                } else {
+                    this.trail = 1;
+                    if (this.y > this.hoverPos) {
+                        this.y -= (this.hoverPos - this.y) / -5;
+                    }
+                    if (this.y < this.hoverPos - 4) {
+                        this.y += 2.5;
+                    }
+                }
+            } else {
+                this.rotation = this.startRotation + (currentTime * (this.speed / 2));
+                if (this.y > this.expansePos) {
+                    this.y -= Math.floor(this.expansePos - this.y) / -140;
+                }
+            }
+
+            context.save();
+            context.fillStyle = this.color;
+            context.strokeStyle = this.color;
+            context.beginPath();
+            let oldPos = rotate(centerx, centery, this.prevX, this.prevY, -this.prevR);
+            context.moveTo(oldPos[0], oldPos[1]);
+            context.translate(centerx, centery);
+            context.rotate(this.rotation);
+            context.translate(-centerx, -centery);
+            context.lineTo(this.x, this.y);
+            context.stroke();
+            context.restore();
+
+            this.prevR = this.rotation;
+            this.prevX = this.x;
+            this.prevY = this.y;
+        }
+
+        const centerHover = el.querySelector('.centerHover');
+        if (centerHover) {
+            centerHover.addEventListener('click', function (e) {
+                e.preventDefault();
+                collapse = false;
+                expanse = true;
+                centerHover.classList.add('open');
+                document.body.classList.add('sucked-into-portal');
+                setTimeout(function () {
+                    window.location.href = 'pixel.html';
+                }, 2000);
+            });
+            centerHover.addEventListener('mouseover', function () {
+                if (expanse == false) collapse = true;
+            });
+            centerHover.addEventListener('mouseout', function () {
+                if (expanse == false) collapse = false;
+            });
+        }
+
+        window.requestFrame = (function () {
+            return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function (callback) { window.setTimeout(callback, 1000 / 60); };
+        })();
+
+        function loop() {
+            let now = new Date().getTime();
+            currentTime = (now - startTime) / 50;
+            context.globalCompositeOperation = "source-over"; // reset composite for drawing background trail
+            context.fillStyle = 'rgba(10,10,10,0.3)'; // Dark bg for trail
+            context.fillRect(0, 0, cw, ch);
+
+            context.globalCompositeOperation = "screen"; // Additive blending for stars
+            for (let i = 0; i < stars.length; i++) {
+                if (stars[i] != stars) stars[i].draw();
+            }
+            requestFrame(loop);
+        }
+
+        function init() {
+            context.fillStyle = 'rgba(10,10,10,1)';
+            context.fillRect(0, 0, cw, ch);
+            for (let i = 0; i < 1500; i++) new Star(); // 1500 particles
+            loop();
+        }
+        init();
     }
+
+    initBlackHole('#blackhole-portal-container');
 });
