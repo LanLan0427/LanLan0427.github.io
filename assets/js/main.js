@@ -1223,27 +1223,48 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Advanced Anime.js Crumple and Suck Effect
                 if (typeof anime !== 'undefined') {
                     // Wrap main content in a container if needed, or animate the body directly
-                    anime({
-                        targets: 'body',
-                        scale: [1, 0], // Shrink perfectly into the origin point
-                        rotateX: { value: '1turn', duration: 1500, easing: 'easeInOutSine' }, // Fold horizontally like paper
-                        rotateY: { value: '0.5turn', duration: 1500, easing: 'easeInCubic' }, // Crunch inward
-                        skewX: { value: 30, duration: 1000, easing: 'easeInQuad' }, // Distort
-                        skewY: { value: -30, duration: 1000, easing: 'easeInQuad' },
-                        opacity: [1, 0.2],
-                        filter: ['blur(0px)', 'blur(5px)'],
-                        duration: 1800,
-                        easing: 'easeInElastic(1, .6)', // This gives it that snappy "crumple" bouncy feel at the end
-                        begin: function () {
-                            // Start fade to black halfway through
-                            setTimeout(() => {
+                    anime.timeline({
+                        easing: 'easeInOutSine'
+                    })
+                        // Stage 1: The Crumple (Fast, violent distortion)
+                        .add({
+                            targets: 'body',
+                            scale: 0.8,
+                            rotateX: '45deg',
+                            rotateY: '-45deg',
+                            skewX: 15,
+                            skewY: -15,
+                            filter: 'blur(2px)',
+                            duration: 600,
+                            easing: 'easeOutElastic(1, .8)'
+                        })
+                        // Stage 2: The Squeeze (Wrinkling tighter)
+                        .add({
+                            targets: 'body',
+                            scale: 0.4,
+                            rotateX: '80deg',
+                            rotateY: '10deg',
+                            rotateZ: '20deg',
+                            skewX: -20,
+                            duration: 400,
+                            easing: 'easeInOutQuad'
+                        })
+                        // Stage 3: The Suck-in (Quick snap into origin)
+                        .add({
+                            targets: 'body',
+                            scale: 0,
+                            rotateZ: '180deg',
+                            opacity: 0,
+                            filter: 'blur(10px)',
+                            duration: 600,
+                            easing: 'easeInCubic',
+                            begin: function () {
                                 document.body.classList.add('fade-out');
-                            }, 500);
-                        },
-                        complete: function () {
-                            window.location.href = 'pixel.html';
-                        }
-                    });
+                            },
+                            complete: function () {
+                                window.location.href = 'pixel.html';
+                            }
+                        });
                 } else {
                     // Fallback if anime.js fails to load
                     setTimeout(function () {
