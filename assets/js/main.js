@@ -1205,21 +1205,51 @@ document.addEventListener('DOMContentLoaded', () => {
         if (centerHover) {
             centerHover.addEventListener('click', function (e) {
                 e.preventDefault();
+                if (expanse) return; // Prevent double clicks
+
                 collapse = false;
                 expanse = true;
                 centerHover.classList.add('open');
 
-                // Set transform-origin to the exact portal center so the body sucks into it
+                // Get portal center coordinates for animation origin
                 const rect = el.getBoundingClientRect();
-                const originX = rect.left + rect.width / 2 + window.scrollX;
-                const originY = rect.top + rect.height / 2 + window.scrollY;
-                document.body.style.transformOrigin = `${originX}px ${originY}px`;
+                const originX = rect.left + rect.width / 2;
+                const originY = rect.top + rect.height / 2;
 
+                // Set origin on body for scaling
+                document.body.style.transformOrigin = `${originX}px ${originY}px`;
                 document.body.classList.add('sucked-into-portal');
 
-                setTimeout(function () {
-                    window.location.href = 'pixel.html';
-                }, 2000);
+                // Advanced Anime.js Crumple and Suck Effect
+                if (typeof anime !== 'undefined') {
+                    // Wrap main content in a container if needed, or animate the body directly
+                    anime({
+                        targets: 'body',
+                        scale: [1, 0], // Shrink perfectly into the origin point
+                        rotateX: { value: '1turn', duration: 1500, easing: 'easeInOutSine' }, // Fold horizontally like paper
+                        rotateY: { value: '0.5turn', duration: 1500, easing: 'easeInCubic' }, // Crunch inward
+                        skewX: { value: 30, duration: 1000, easing: 'easeInQuad' }, // Distort
+                        skewY: { value: -30, duration: 1000, easing: 'easeInQuad' },
+                        opacity: [1, 0.2],
+                        filter: ['blur(0px)', 'blur(5px)'],
+                        duration: 1800,
+                        easing: 'easeInElastic(1, .6)', // This gives it that snappy "crumple" bouncy feel at the end
+                        begin: function () {
+                            // Start fade to black halfway through
+                            setTimeout(() => {
+                                document.body.classList.add('fade-out');
+                            }, 500);
+                        },
+                        complete: function () {
+                            window.location.href = 'pixel.html';
+                        }
+                    });
+                } else {
+                    // Fallback if anime.js fails to load
+                    setTimeout(function () {
+                        window.location.href = 'pixel.html';
+                    }, 1000);
+                }
             });
             centerHover.addEventListener('mouseover', function () {
                 if (expanse == false) collapse = true;
