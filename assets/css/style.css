@@ -995,13 +995,11 @@ nav {
 
 .centerHover:hover span {
     color: var(--primary-color);
-    text-shadow: 0 0 8px var(--primary-color);
 }
 
 .centerHover:hover span:before,
 .centerHover:hover span:after {
     background-color: var(--primary-color);
-    box-shadow: 0 0 8px var(--primary-color);
 }
 
 .centerHover span {
