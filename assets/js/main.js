@@ -487,6 +487,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 ].join('<br>');
             },
             'crypto': () => commands['web3'](),
+            'pixel': () => {
+                togglePixelMode();
+                return window.isPixelMode ?
+                    '<span style="color:#ff00ff;font-weight:bold;">[!] PIXEL MODE ENGAGED [!]</span>' :
+                    '<span style="color:#00ffff;font-weight:bold;">[-] PIXEL MODE DISABLED [-]</span>';
+            },
             'about': () => {
                 return [
                     '<span class="terminal-cyan">┌─ About Me ──────────────────────┐</span>',
@@ -1075,5 +1081,56 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (matrixInterval) clearInterval(matrixInterval);
         matrixInterval = setInterval(drawMatrix, 35);
+    }
+
+    // =========================================================
+    // Easter Egg: Pixel Mode (Retro Style)
+    // =========================================================
+    window.isPixelMode = false;
+    const pixelBtn = document.getElementById('pixel-toggle');
+
+    window.togglePixelMode = function () {
+        window.isPixelMode = !window.isPixelMode;
+
+        if (window.isPixelMode) {
+            document.body.classList.add('pixel-mode');
+            // If Matrix mode is active, disable it to show clean pixel background
+            if (window.isMatrixMode) {
+                window.isMatrixMode = false;
+                document.body.classList.remove('matrix-mode');
+                if (matrixInterval) clearInterval(matrixInterval);
+            }
+            // Stop regular canvas animation to save performance for static pixel bg
+            const bgCanvas = document.getElementById('bg-canvas');
+            if (bgCanvas) bgCanvas.style.display = 'none';
+
+            if (toast) {
+                toast.innerHTML = '<span style="font-family: \'DotGothic16\', monospace; color: #ff00ff; text-shadow: 2px 2px #00ffff;">PIXEL MODE ON</span>';
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => toast.innerHTML = translations[currentLang].toastMsg, 500);
+                }, 3000);
+            }
+        } else {
+            document.body.classList.remove('pixel-mode');
+            const bgCanvas = document.getElementById('bg-canvas');
+            if (bgCanvas) bgCanvas.style.display = 'block';
+
+            if (toast) {
+                toast.innerHTML = 'Pixel Mode Off';
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => toast.innerHTML = translations[currentLang].toastMsg, 500);
+                }, 2000);
+            }
+        }
+    };
+
+    if (pixelBtn) {
+        pixelBtn.addEventListener('click', () => {
+            window.togglePixelMode();
+        });
     }
 });

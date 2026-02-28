@@ -225,6 +225,23 @@ nav {
     text-shadow: 0 0 8px rgba(0, 243, 255, 0.5);
 }
 
+/* Pixel Toggle Button */
+.pixel-toggle {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0.5;
+}
+
+.pixel-toggle:hover {
+    color: var(--secondary-color);
+    opacity: 1;
+    transform: scale(1.1);
+}
+
 .nav-links a {
     color: #fff;
     text-decoration: none;
@@ -1370,4 +1387,82 @@ nav {
         padding-left: 0.5rem;
         border-left: 2px solid #333;
     }
+}
+
+/* ======================================
+   Pixel Mode Overrides
+   ====================================== */
+body.pixel-mode {
+    --font-main: 'DotGothic16', monospace;
+    --font-mono: 'DotGothic16', monospace;
+    --primary-color: #ff00ff;
+    --secondary-color: #00ffff;
+    background-color: #111;
+    background-image:
+        linear-gradient(rgba(255, 0, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 0, 255, 0.1) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+body.pixel-mode .glass-card {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: #000;
+    border: 2px solid var(--primary-color);
+    border-radius: 0;
+    box-shadow: 6px 6px 0px var(--secondary-color);
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+body.pixel-mode .glass-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 8px 8px 0px var(--primary-color);
+    border-color: var(--secondary-color);
+}
+
+body.pixel-mode .btn {
+    border-radius: 0;
+    font-weight: bold;
+    border: 2px solid var(--primary-color);
+    box-shadow: 4px 4px 0px var(--secondary-color);
+    background: #000;
+    text-transform: uppercase;
+}
+
+body.pixel-mode .btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px var(--primary-color);
+    background: var(--primary-color);
+    color: #000;
+}
+
+body.pixel-mode .terminal-window {
+    border-radius: 0;
+    border: 2px solid var(--primary-color);
+    box-shadow: 8px 8px 0px var(--secondary-color);
+    background: #000;
+}
+
+body.pixel-mode h1,
+body.pixel-mode h2,
+body.pixel-mode h3 {
+    text-shadow: 2px 2px 0px var(--secondary-color);
+    background: none;
+    -webkit-text-fill-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+body.pixel-mode .neon-text {
+    text-shadow: 3px 3px 0px var(--secondary-color);
+}
+
+body.pixel-mode .tech-item {
+    -webkit-text-stroke: 0;
+    color: #fff;
+    text-shadow: 2px 2px 0px var(--primary-color);
+}
+
+body.pixel-mode .tech-item:hover {
+    color: var(--primary-color);
+    text-shadow: 3px 3px 0px var(--secondary-color);
 }
