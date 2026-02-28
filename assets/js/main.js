@@ -1218,56 +1218,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Set origin on body for scaling
                 document.body.style.transformOrigin = `${originX}px ${originY}px`;
-                // Apply the SVG crumple filter to the body
-                document.body.style.filter = 'url(#crumple-filter)';
                 document.body.classList.add('sucked-into-portal');
 
-                const displacementMap = document.querySelector('#displacement');
-
-                // Advanced Anime.js Crumple and Suck Effect
-                if (typeof anime !== 'undefined' && displacementMap) {
-
-                    // First timeline: Distort the SVG filter heavily to look like crumpled paper
-                    anime({
-                        targets: displacementMap,
-                        scale: [0, 400], // Intensity of the crumple/distortion
-                        duration: 1500,
-                        easing: 'easeInSine'
-                    });
-
-                    // Second timeline: Suck the crumpled mess into the hole
-                    anime.timeline({
-                        easing: 'easeInCubic'
-                    })
-                        // Stage 1: The Crumple & Squeeze (Wait for filter to distort, then start pulling)
-                        .add({
-                            targets: 'body',
-                            scale: 0.5,
-                            rotate: '15deg',
-                            duration: 1200,
-                            easing: 'easeInOutQuad'
-                        })
-                        // Stage 2: The Suck-in (Quick snap into origin)
-                        .add({
-                            targets: 'body',
-                            scale: 0,
-                            rotate: '180deg',
-                            opacity: 0,
-                            duration: 600,
-                            easing: 'easeInExpo',
-                            begin: function () {
-                                document.body.classList.add('fade-out');
-                            },
-                            complete: function () {
-                                window.location.href = 'pixel.html';
-                            }
-                        }, '-=200'); // Overlap with previous stage slightly
-                } else {
-                    // Fallback if anime.js fails to load
-                    setTimeout(function () {
-                        window.location.href = 'pixel.html';
-                    }, 1000);
-                }
+                setTimeout(function () {
+                    window.location.href = 'pixel.html';
+                }, 2000); // Wait for CSS animation to complete
             });
             centerHover.addEventListener('mouseover', function () {
                 if (expanse == false) collapse = true;

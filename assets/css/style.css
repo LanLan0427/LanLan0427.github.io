@@ -1076,8 +1076,9 @@ nav {
     }
 }
 
-/* Page Transition Suck Effect (Handled by Anime.js) */
+/* Page Transition Suck Effect */
 .sucked-into-portal {
+    animation: suck-in 2s forwards cubic-bezier(0.55, 0.085, 0.68, 0.53);
     pointer-events: none;
     overflow: hidden;
 }
@@ -1092,11 +1093,20 @@ nav {
     background: #000;
     z-index: 9999;
     opacity: 0;
-    transition: opacity 1.5s ease-in-out;
+    animation: fade-to-black 2s forwards;
 }
 
-.sucked-into-portal.fade-out::after {
-    opacity: 1;
+@keyframes suck-in {
+    0% {
+        transform: scale(1) rotate(0deg);
+        filter: blur(0);
+    }
+
+    100% {
+        transform: scale(0) rotate(720deg);
+        filter: blur(20px);
+        opacity: 0;
+    }
 }
 
 @keyframes fade-to-black {
