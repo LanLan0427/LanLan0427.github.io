@@ -950,8 +950,196 @@ nav {
 
 .btn--discord:hover {
     background: var(--secondary-color);
-    color: #fff;
-    box-shadow: 0 0 20px rgba(188, 0, 221, 0.6);
+    clip-path: polygon(100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 0);
+}
+
+/* ======================================
+   The Black Hole Portal (Easter Egg)
+   ====================================== */
+.black-hole-portal {
+    position: fixed;
+    bottom: 2rem;
+    left: 2rem;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    z-index: 1000;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 30px rgba(188, 0, 221, 0.4);
+    transition: transform 0.5s ease;
+}
+
+.portal-core {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle, #000 40%, rgba(188, 0, 221, 0.8) 80%, rgba(0, 243, 255, 0.5) 100%);
+    border-radius: 50%;
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 1);
+    z-index: 2;
+}
+
+.portal-ring {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border: 2px dashed var(--secondary-color);
+    border-radius: 50%;
+    animation: spin 8s linear infinite;
+    z-index: 1;
+}
+
+.portal-ring-2 {
+    width: 75px;
+    height: 75px;
+    border: 1px dotted var(--primary-color);
+    animation: spin-reverse 12s linear infinite;
+}
+
+.portal-particles span {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #fff;
+    border-radius: 50%;
+    opacity: 0;
+}
+
+.black-hole-portal:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 50px rgba(0, 243, 255, 0.7);
+}
+
+.black-hole-portal:hover .portal-core {
+    box-shadow: inset 0 0 20px #000, 0 0 30px var(--secondary-color);
+    animation: pulse 1s infinite alternate;
+}
+
+.black-hole-portal:hover .portal-ring {
+    animation-duration: 2s;
+    border-color: var(--primary-color);
+}
+
+.black-hole-portal:hover .portal-ring-2 {
+    animation-duration: 3s;
+    border-color: #fff;
+    border-width: 2px;
+}
+
+.portal-tooltip {
+    position: absolute;
+    top: -40px;
+    background: rgba(0, 0, 0, 0.8);
+    color: var(--primary-color);
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+    border: 1px solid var(--primary-color);
+}
+
+.black-hole-portal:hover .portal-tooltip {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+
+    50% {
+        transform: rotate(180deg) scale(1.05);
+    }
+
+    100% {
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+@keyframes spin-reverse {
+    0% {
+        transform: rotate(360deg) scale(1);
+    }
+
+    50% {
+        transform: rotate(180deg) scale(1.05);
+    }
+
+    100% {
+        transform: rotate(0deg) scale(1);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.9);
+    }
+
+    100% {
+        transform: scale(1.1);
+    }
+}
+
+/* Page Transition Suck Effect */
+.sucked-into-portal {
+    animation: suck-in 2s forwards cubic-bezier(0.55, 0.085, 0.68, 0.53);
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.sucked-into-portal::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    z-index: 9999;
+    opacity: 0;
+    animation: fade-to-black 2s forwards;
+}
+
+@keyframes suck-in {
+    0% {
+        transform: scale(1) rotate(0deg);
+        filter: blur(0);
+    }
+
+    50% {
+        transform: scale(0.5) rotate(45deg);
+        filter: blur(5px);
+    }
+
+    100% {
+        transform: scale(0) rotate(180deg) translate(-50vw, 50vh);
+        filter: blur(20px);
+        opacity: 0;
+    }
+}
+
+@keyframes fade-to-black {
+    0% {
+        opacity: 0;
+    }
+
+    80% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 .discord-sub {

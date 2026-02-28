@@ -1076,4 +1076,21 @@ document.addEventListener('DOMContentLoaded', () => {
         if (matrixInterval) clearInterval(matrixInterval);
         matrixInterval = setInterval(drawMatrix, 35);
     }
+
+    // =========================================================
+    // Easter Egg: Black Hole Portal to Pixelverse
+    // =========================================================
+    const portal = document.getElementById('black-hole-portal');
+    if (portal) {
+        portal.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Add transition class to body
+            document.body.classList.add('sucked-into-portal');
+
+            // Wait for animation to finish before navigating
+            setTimeout(() => {
+                window.location.href = 'pixel.html';
+            }, 2000); // 2 seconds matches the suck-in animation duration
+        });
+    }
 });
