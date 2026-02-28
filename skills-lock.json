@@ -1,10 +1,10 @@
 {
   "version": 1,
   "skills": {
-    "DennisLiuCk-frontend-design": {
+    "anthropics-frontend-design": {
       "source": "smithery.ai",
       "sourceType": "well-known",
-      "computedHash": "bc4c251e6890be734f89076618a16aaaafd8cedf1f6324dbe964f57a7e176b9b"
+      "computedHash": "20272c29770acae46e2fe1531911fb06cc5521802bac0605a97146109e56cd4a"
     }
   }
 }
