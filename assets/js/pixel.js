@@ -78,18 +78,53 @@ document.addEventListener('DOMContentLoaded', () => {
                 const targetX = (landmarkRect.left - mapRect.left) + (landmarkRect.width / 2) - 15; // 15 is half hero width
                 const targetY = (landmarkRect.top - mapRect.top) + (landmarkRect.height / 2) - 15;
 
-                // 2. Move hero
-                hero.style.left = `${targetX}px`;
-                hero.style.top = `${targetY}px`;
+                // 2. Play Audio if we had it, and animate hero
+                const currentX = parseFloat(hero.style.left) || 135; // Default starts
+                const currentY = parseFloat(hero.style.top) || 235;
 
-                // 3. Wait for walking animation (css transition is 0.5s) then open modal
-                setTimeout(() => {
-                    const targetModalId = this.getAttribute('data-target');
-                    const targetModal = document.getElementById(targetModalId);
-                    if (targetModal) {
-                        targetModal.classList.remove('hidden');
-                    }
-                }, 500);
+                if (typeof anime !== 'undefined') {
+                    // Anime.js Arc Jump
+                    anime({
+                        targets: hero,
+                        left: targetX,
+                        top: targetY,
+                        duration: 800,
+                        easing: 'easeInOutQuad',
+                        // Create a jumping arc by manipulating translateY during the move
+                        update: function (anim) {
+                            // Calculate a parabola for the jump height based on progress (0 to 1)
+                            const progress = anim.progress / 100;
+                            const jumpHeight = 50; // How high it jumps
+                            // Parabola equation: max at progress 0.5
+                            const yOffset = -jumpHeight * 4 * progress * (1 - progress);
+
+                            // Apply the arc translation on top of the absolute positioning
+                            hero.style.transform = `translateY(${yOffset}px)`;
+                        },
+                        complete: function () {
+                            // Reset transform just in case
+                            hero.style.transform = 'translateY(0)';
+
+                            // 3. Open Modal
+                            const targetModalId = landmark.getAttribute('data-target');
+                            const targetModal = document.getElementById(targetModalId);
+                            if (targetModal) {
+                                targetModal.classList.remove('hidden');
+                            }
+                        }
+                    });
+                } else {
+                    // Fallback to CSS jumping generic if anime fails
+                    hero.style.left = `${targetX}px`;
+                    hero.style.top = `${targetY}px`;
+                    setTimeout(() => {
+                        const targetModalId = landmark.getAttribute('data-target');
+                        const targetModal = document.getElementById(targetModalId);
+                        if (targetModal) {
+                            targetModal.classList.remove('hidden');
+                        }
+                    }, 500);
+                }
             });
         });
     }
