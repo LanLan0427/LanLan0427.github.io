@@ -969,8 +969,6 @@ nav {
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    /* Subtle pulse around the container */
-    box-shadow: 0 0 20px rgba(188, 0, 221, 0.4);
     transition: transform 0.5s ease;
 }
 

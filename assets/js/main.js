@@ -1146,11 +1146,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (this.collapseBonus < 0) this.collapseBonus = 0;
 
             stars.push(this);
-            // Mix between Cyan and Purple neon particle colors
-            const colorR = Math.random() > 0.5 ? 0 : 188;
-            const colorG = colorR === 0 ? 243 : 0;
-            const colorB = colorR === 0 ? 255 : 221;
-            this.color = 'rgba(' + colorR + ',' + colorG + ',' + colorB + ',' + (1 - ((this.orbital) / maxorbit)) + ')';
+            // White particles to blend perfectly into the background
+            this.color = 'rgba(255, 255, 255,' + (1 - ((this.orbital) / maxorbit)) + ')';
 
             this.hoverPos = centery + (maxorbit / 2) + this.collapseBonus;
             this.expansePos = centery + (this.id % 100) * -10 + (Math.floor(Math.random() * 20) + 1);
