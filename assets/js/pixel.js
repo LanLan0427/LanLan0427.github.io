@@ -1,79 +1,122 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // RPG Dialog Typewriter Effect
-    const dialogText = document.getElementById('typewriter-text');
-    const continueIcon = document.querySelector('.dialog-continue');
 
-    const messages = [
-        "Welcome to the Pixelverse! (＊°▽°＊)",
-        "I'm LanLan, building cute AI & Web3 stuff.",
-        "Take a look at my inventory and quests!",
-        "It's dangerous to go alone! Take this code."
+    // Typewriter Effect Variables
+    const textArray = [
+        "Hello! I am LanLan.",
+        "Welcome to my Pixelverse.",
+        "I'm an AI Agent & Web3 Dev.",
+        "Feel free to explore the map!"
     ];
-
-    let msgIndex = 0;
+    let textIndex = 0;
     let charIndex = 0;
-    let isTyping = false;
-    let typeTimer;
+    const typeSpeed = 100;
+    const eraseSpeed = 50;
+    const delayBetweenTexts = 2000;
+    let isDeleting = false;
 
     function typeWriter() {
-        if (charIndex < messages[msgIndex].length) {
-            isTyping = true;
-            continueIcon.style.display = 'none';
-            dialogText.textContent += messages[msgIndex].charAt(charIndex);
+        const targetElement = document.getElementById("typewriter-text");
+        if (!targetElement) return;
+
+        let currentText = textArray[textIndex];
+
+        if (isDeleting) {
+            targetElement.textContent = currentText.substring(0, charIndex - 1);
+            charIndex--;
+        } else {
+            targetElement.textContent = currentText.substring(0, charIndex + 1);
             charIndex++;
-            typeTimer = setTimeout(typeWriter, 50); // Speed of typing
-        } else {
-            isTyping = false;
-            continueIcon.style.display = 'inline-block';
         }
-    }
 
-    function nextMessage() {
-        if (isTyping) {
-            // Force finish current line if clicked early
-            clearTimeout(typeTimer);
-            dialogText.textContent = messages[msgIndex];
-            charIndex = messages[msgIndex].length;
-            isTyping = false;
-            continueIcon.style.display = 'inline-block';
-        } else {
-            msgIndex++;
-            if (msgIndex >= messages.length) {
-                msgIndex = 0; // Loop back
-            }
-            charIndex = 0;
-            dialogText.textContent = '';
-            typeWriter();
+        let typeTimer = typeSpeed;
+
+        if (!isDeleting && charIndex === currentText.length) {
+            typeTimer = delayBetweenTexts;
+            isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            textIndex = (textIndex + 1) % textArray.length;
+            typeTimer = 500;
         }
+
+        setTimeout(typeWriter, typeTimer);
     }
 
-    // Start first message
-    setTimeout(typeWriter, 500);
+    // RPG World Map Logic
+    function initWorldMap() {
+        const hero = document.getElementById('hero-character');
+        const landmarks = document.querySelectorAll('.landmark');
+        const modals = document.querySelectorAll('.pixel-modal');
+        const closeBtns = document.querySelectorAll('.close-modal');
 
-    // Click dialog box to advance text
-    const dialogBox = document.querySelector('.dialog-box');
-    if (dialogBox) {
-        dialogBox.addEventListener('click', nextMessage);
-        dialogBox.style.cursor = 'pointer';
-    }
+        // Close Modals
+        const closeAllModals = () => {
+            modals.forEach(modal => modal.classList.add('hidden'));
+        };
 
-    // Return to Reality (Escape Pixelverse)
-    const returnBtn = document.getElementById('return-btn');
-    if (returnBtn) {
-        returnBtn.addEventListener('click', (e) => {
-            e.preventDefault();
+        closeBtns.forEach(btn => {
+            btn.addEventListener('click', closeAllModals);
+        });
 
-            // Glitch/Fade transition
-            document.body.style.transition = 'all 1s ease';
-            document.body.style.transform = 'scale(5) rotate(10deg)';
-            document.body.style.opacity = '0';
-            document.body.style.filter = 'blur(20px)';
+        // Close modal if clicked outside content
+        modals.forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeAllModals();
+                }
+            });
+        });
 
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 1000);
+        // Landmark Click -> Move Hero -> Open Modal
+        landmarks.forEach(landmark => {
+            landmark.addEventListener('click', function () {
+                // 1. Calculate positions relative to map container
+                const mapRect = document.querySelector('.rpg-world-map').getBoundingClientRect();
+                const landmarkRect = this.getBoundingClientRect();
+
+                // Calculate center of landmark relative to map
+                const targetX = (landmarkRect.left - mapRect.left) + (landmarkRect.width / 2) - 15; // 15 is half hero width
+                const targetY = (landmarkRect.top - mapRect.top) + (landmarkRect.height / 2) - 15;
+
+                // 2. Move hero
+                hero.style.left = `${targetX}px`;
+                hero.style.top = `${targetY}px`;
+
+                // 3. Wait for walking animation (css transition is 0.5s) then open modal
+                setTimeout(() => {
+                    const targetModalId = this.getAttribute('data-target');
+                    const targetModal = document.getElementById(targetModalId);
+                    if (targetModal) {
+                        targetModal.classList.remove('hidden');
+                    }
+                }, 500);
+            });
         });
     }
+
+    // Page Transition Logic
+    function initTransitions() {
+        const returnBtn = document.getElementById('return-btn');
+        if (returnBtn) {
+            returnBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                const href = this.getAttribute('href');
+
+                // Add a glitch out effect before leaving
+                document.body.style.animation = 'glitch-out 1s forwards';
+
+                setTimeout(() => {
+                    window.location.href = href;
+                }, 800);
+            });
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        typeWriter();
+        initWorldMap();
+        initTransitions();
+    });
 
     // Add audio hover effect (simulated with random background colors if needed, keeping it simple for now)
     const buttons = document.querySelectorAll('.pixel-btn, .quest-item');

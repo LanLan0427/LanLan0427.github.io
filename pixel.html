@@ -30,12 +30,11 @@
         <div class="cloud cloud-3"></div>
 
         <!-- Main Display Container -->
-        <main class="pixel-container">
-            <!-- Hero / Character Dialog -->
+        <main class="pixel-container map-mode">
+            <!-- Hero / Character Dialog (Top bar) -->
             <section class="dialog-box">
                 <div class="dialog-avatar">
-                    <!-- Simple CSS Pixel Avatar -->
-                    <div class="pixel-character"></div>
+                    <div class="pixel-character-portrait"></div>
                 </div>
                 <div class="dialog-content">
                     <h1 class="dialog-name">LanLan <span class="badge-lv">Lv.99</span></h1>
@@ -44,13 +43,50 @@
                 </div>
             </section>
 
-            <!-- Quest Log (Projects) -->
-            <section class="quest-log box-panel">
+            <!-- 2D RPG World Map -->
+            <section class="rpg-world-map box-panel">
+                <!-- Our Hero Character -->
+                <div id="hero-character" class="hero-character" title="You"></div>
+
+                <!-- Map Landmarks -->
+                <div class="landmark landmark-castle" id="loc-projects" data-target="modal-projects"
+                    title="Project Castle">
+                    <div class="landmark-icon">🏰</div>
+                    <span class="landmark-name">Project Castle</span>
+                </div>
+
+                <div class="landmark landmark-forest" id="loc-skills" data-target="modal-skills" title="Skills Forest">
+                    <div class="landmark-icon">🌲</div>
+                    <span class="landmark-name">Skills Forest</span>
+                </div>
+
+                <div class="landmark landmark-village" id="loc-social" data-target="modal-social"
+                    title="Social Village">
+                    <div class="landmark-icon">🏘️</div>
+                    <span class="landmark-name">Social Village</span>
+                </div>
+
+                <!-- Simple CSS paths connecting them -->
+                <svg class="map-paths" width="100%" height="100%">
+                    <!-- Paths will be drawn via CSS dashed lines or SVG -->
+                    <path d="M 150 250 L 300 150 L 500 250" stroke="#000" stroke-width="4" stroke-dasharray="8 8"
+                        fill="none" class="pixel-path" />
+                </svg>
+            </section>
+        </main>
+
+        <!-- ======================= -->
+        <!-- Modals (Hidden by Default) -->
+        <!-- ======================= -->
+
+        <!-- Projects Modal -->
+        <div id="modal-projects" class="pixel-modal hidden">
+            <div class="modal-content box-panel">
+                <button class="close-modal btn-danger">X</button>
                 <div class="panel-header">
-                    <h2><i class="fas fa-scroll"></i> Quest Log (Projects)</h2>
+                    <h2><i class="fas fa-scroll"></i> Project Castle</h2>
                 </div>
                 <div class="quest-list">
-                    <!-- Quest 1 -->
                     <div class="quest-item">
                         <div class="quest-icon">💰</div>
                         <div class="quest-info">
@@ -59,7 +95,6 @@
                         </div>
                         <a href="https://github.com/LanLan0427/Paper_Degen" target="_blank" class="pixel-btn">START</a>
                     </div>
-                    <!-- Quest 2 -->
                     <div class="quest-item">
                         <div class="quest-icon">🤖</div>
                         <div class="quest-info">
@@ -69,12 +104,15 @@
                         <a href="https://github.com/LanLan0427" target="_blank" class="pixel-btn">START</a>
                     </div>
                 </div>
-            </section>
+            </div>
+        </div>
 
-            <!-- Inventory (Skills) -->
-            <section class="inventory box-panel">
+        <!-- Skills Modal -->
+        <div id="modal-skills" class="pixel-modal hidden">
+            <div class="modal-content box-panel">
+                <button class="close-modal btn-danger">X</button>
                 <div class="panel-header">
-                    <h2><i class="fas fa-backpack"></i> Inventory (Skills)</h2>
+                    <h2><i class="fas fa-backpack"></i> Skills Forest</h2>
                 </div>
                 <div class="item-grid">
                     <div class="item-slot" title="Solidity"><i class="fa-brands fa-ethereum"></i></div>
@@ -84,8 +122,26 @@
                     <div class="item-slot" title="Git"><i class="fa-brands fa-git-alt"></i></div>
                     <div class="item-slot" title="AI Agent" style="font-size: 1.2rem;">🧠</div>
                 </div>
-            </section>
-        </main>
+            </div>
+        </div>
+
+        <!-- Social Modal -->
+        <div id="modal-social" class="pixel-modal hidden">
+            <div class="modal-content box-panel">
+                <button class="close-modal btn-danger">X</button>
+                <div class="panel-header">
+                    <h2><i class="fas fa-users"></i> Social Village</h2>
+                </div>
+                <div class="quest-list">
+                    <p style="text-align:center; padding: 20px;">Connect with LanLan on the network!</p>
+                    <div style="display: flex; justify-content: center; gap: 10px;">
+                        <a href="https://github.com/LanLan0427" target="_blank" class="pixel-btn"><i
+                                class="fa-brands fa-github"></i> GitHub</a>
+                        <a href="#" class="pixel-btn btn-danger"><i class="fa-brands fa-discord"></i> Discord</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- UI Controls -->
         <div class="retro-controls">

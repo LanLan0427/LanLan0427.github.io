@@ -239,79 +239,199 @@ body.pixel-body {
     }
 }
 
-/* Quest Log (Projects) */
-.panel-header h2 {
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
+/* ===============================
+   RPG World Map Styles
+   =============================== */
+.rpg-world-map {
+    width: 100%;
+    height: 400px;
+    background-color: var(--grass-green);
+    /* Map Background */
+    /* Checkered pattern to make it look grid-like */
+    background-image:
+        linear-gradient(rgba(255, 255, 255, .1) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(255, 255, 255, .1) 2px, transparent 2px),
+        linear-gradient(rgba(255, 255, 255, .05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .05) 1px, transparent 1px);
+    background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+    overflow: hidden;
+}
+
+.map-paths {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.pixel-path {
+    stroke: rgba(0, 0, 0, 0.2);
+    stroke-dasharray: 8 8;
+    animation: dash-scroll 2s linear infinite;
+}
+
+@keyframes dash-scroll {
+    to {
+        stroke-dashoffset: -16;
+    }
+}
+
+/* Landmarks */
+.landmark {
+    position: absolute;
+    z-index: 2;
     text-align: center;
-    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.2s, filter 0.2s;
 }
 
-.quest-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+.landmark:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(2px 2px 0 var(--box-border));
 }
 
-.quest-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem;
+.landmark-icon {
+    font-size: 3rem;
+    line-height: 1;
+    margin-bottom: 5px;
+    /* Basic animation for map nodes */
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+.landmark-name {
+    background: var(--box-bg);
     border: 2px solid var(--box-border);
-    background: #f0f0f0;
-    transition: transform 0.1s, box-shadow 0.1s;
-}
-
-.quest-item:hover {
-    background: #e0e0e0;
-    transform: translateX(2px) translateY(-2px);
-    box-shadow: -2px 2px 0 var(--box-border);
-}
-
-.quest-icon {
-    font-size: 2rem;
-    width: 50px;
-    text-align: center;
-}
-
-.quest-info {
-    flex-grow: 1;
-}
-
-.quest-info h3 {
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-}
-
-.quest-info p {
+    padding: 2px 5px;
     font-size: 0.6rem;
-    color: #555;
+    display: inline-block;
 }
 
-/* Inventory (Skills) */
-.item-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-    gap: 10px;
-    margin-top: 1rem;
+/* Character on Map */
+.hero-character {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: var(--secondary);
+    border: 2px solid var(--box-border);
+    z-index: 3;
+    pointer-events: none;
+    /* Let clicks pass through to map */
+    transition: left 0.5s linear, top 0.5s linear;
+    /* Draw a little face */
+    box-shadow: inset -5px -5px 0 rgba(0, 0, 0, 0.2);
 }
 
-.item-slot {
-    aspect-ratio: 1;
-    border: 3px solid var(--box-border);
-    background: #ccc;
-    box-shadow: inset 2px 2px 0 rgba(255, 255, 255, 0.8), inset -2px -2px 0 rgba(0, 0, 0, 0.3);
+.hero-character::before,
+.hero-character::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #000;
+    top: 8px;
+}
+
+.hero-character::before {
+    left: 6px;
+}
+
+.hero-character::after {
+    right: 6px;
+}
+
+/* Hardcoded Initial Positions for the map (can be adjusted) */
+#hero-character {
+    top: 235px;
+    left: 135px;
+}
+
+/* Start near Castle */
+#loc-projects {
+    top: 200px;
+    left: 120px;
+}
+
+#loc-skills {
+    top: 100px;
+    left: 270px;
+}
+
+#loc-social {
+    top: 200px;
+    left: 470px;
+}
+
+/* ===============================
+   Modal Styles
+   =============================== */
+.pixel-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.5rem;
-    cursor: crosshair;
+    z-index: 10000;
+    /* Above everything */
+    padding: 20px;
 }
 
-.item-slot:hover {
-    background: var(--primary);
+.pixel-modal.hidden {
+    display: none;
 }
+
+.modal-content {
+    width: 100%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    animation: pop-in 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes pop-in {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.close-modal {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    width: 35px;
+    height: 35px;
+    font-family: var(--pixel-font);
+    font-size: 1rem;
+    font-weight: bold;
+    border: 3px solid var(--box-border);
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* Modal Internal Reused Styles (Quest Log & Inventory) */
 
 /* Retro Buttons */
 .pixel-btn {
