@@ -1218,53 +1218,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Set origin on body for scaling
                 document.body.style.transformOrigin = `${originX}px ${originY}px`;
+                // Apply the SVG crumple filter to the body
+                document.body.style.filter = 'url(#crumple-filter)';
                 document.body.classList.add('sucked-into-portal');
 
+                const displacementMap = document.querySelector('#displacement');
+
                 // Advanced Anime.js Crumple and Suck Effect
-                if (typeof anime !== 'undefined') {
-                    // Wrap main content in a container if needed, or animate the body directly
+                if (typeof anime !== 'undefined' && displacementMap) {
+
+                    // First timeline: Distort the SVG filter heavily to look like crumpled paper
+                    anime({
+                        targets: displacementMap,
+                        scale: [0, 400], // Intensity of the crumple/distortion
+                        duration: 1500,
+                        easing: 'easeInSine'
+                    });
+
+                    // Second timeline: Suck the crumpled mess into the hole
                     anime.timeline({
-                        easing: 'easeInOutSine'
+                        easing: 'easeInCubic'
                     })
-                        // Stage 1: The Crumple (Fast, violent distortion)
+                        // Stage 1: The Crumple & Squeeze (Wait for filter to distort, then start pulling)
                         .add({
                             targets: 'body',
-                            scale: 0.8,
-                            rotateX: '45deg',
-                            rotateY: '-45deg',
-                            skewX: 15,
-                            skewY: -15,
-                            filter: 'blur(2px)',
-                            duration: 600,
-                            easing: 'easeOutElastic(1, .8)'
-                        })
-                        // Stage 2: The Squeeze (Wrinkling tighter)
-                        .add({
-                            targets: 'body',
-                            scale: 0.4,
-                            rotateX: '80deg',
-                            rotateY: '10deg',
-                            rotateZ: '20deg',
-                            skewX: -20,
-                            duration: 400,
+                            scale: 0.5,
+                            rotate: '15deg',
+                            duration: 1200,
                             easing: 'easeInOutQuad'
                         })
-                        // Stage 3: The Suck-in (Quick snap into origin)
+                        // Stage 2: The Suck-in (Quick snap into origin)
                         .add({
                             targets: 'body',
                             scale: 0,
-                            rotateZ: '180deg',
+                            rotate: '180deg',
                             opacity: 0,
-                            filter: 'blur(10px)',
                             duration: 600,
-                            easing: 'easeInCubic',
+                            easing: 'easeInExpo',
                             begin: function () {
                                 document.body.classList.add('fade-out');
                             },
                             complete: function () {
                                 window.location.href = 'pixel.html';
                             }
-                        });
+                        }, '-=200'); // Overlap with previous stage slightly
                 } else {
                     // Fallback if anime.js fails to load
                     setTimeout(function () {

@@ -511,6 +511,18 @@
     <div id="blackhole-portal-container" class="black-hole-portal-container" aria-label="Enter Pixelverse">
         <div class="centerHover"></div>
     </div>
+
+    <!-- SVG Filter for Paper Crumple Effect -->
+    <svg style="display: none;">
+        <defs>
+            <filter id="crumple-filter" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.0001" numOctaves="5" result="noise"
+                    id="turbulence" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G"
+                    id="displacement" />
+            </filter>
+        </defs>
+    </svg>
 </body>
 
 </html>
