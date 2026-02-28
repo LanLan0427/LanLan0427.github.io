@@ -112,11 +112,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    document.addEventListener("DOMContentLoaded", function () {
-        typeWriter();
-        initWorldMap();
-        initTransitions();
-    });
+    // Initialize all logic
+    typeWriter();
+    initWorldMap();
+    initTransitions();
 
     // Add audio hover effect (simulated with random background colors if needed, keeping it simple for now)
     const buttons = document.querySelectorAll('.pixel-btn, .quest-item');
