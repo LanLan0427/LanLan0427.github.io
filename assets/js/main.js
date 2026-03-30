@@ -1259,5 +1259,5 @@ document.addEventListener('DOMContentLoaded', () => {
         init();
     }
 
-    initBlackHole('#blackhole-portal-container');
+    // initBlackHole('#blackhole-portal-container');
 });
